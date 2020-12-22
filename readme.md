@@ -6,7 +6,14 @@ Some benchmarks of community-made libraries for converting units.
 
 <!-- beginblock(results) -->
 
-TODO: have the CI fill this in
+| Library         | Average execution time (lower is better) |
+| --------------- | ---------------------------------------- |
+| convert         | 2µs 445ns (`0.0024459999999999755`ms)    |
+| uom             | 3µs 947ns (`0.00394760199999998`ms)      |
+| units-converter | 5µs 695ns (`0.005695004000000008`ms)     |
+| safe-units      | 6µs 104ns (`0.006104104000000074`ms)     |
+| convert-units   | 6µs 948ns (`0.006948204999999973`ms)     |
+| js-quantities   | 25µs 825ns (`0.025825322000000123`ms)    |
 
 <!-- endblock(results) -->
 
