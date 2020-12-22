@@ -218,6 +218,11 @@ safe-units@1.1.0:
   resolved "https://registry.yarnpkg.com/safe-units/-/safe-units-1.1.0.tgz#becd3bc7e641c375977806badfd1fec3b8b6e1ce"
   integrity sha512-WdngV7XDJn7sl+FOestQ79K/YBA7F+jGS8xY4k3v7m6MvLIKMugwFCJC/C+JyZBxnQmt6c0cXRJrYoRTC92i8A==
 
+tinu@1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/tinu/-/tinu-1.0.8.tgz#7af684186da3460c5cd1b522999e69730e6f43fd"
+  integrity sha1-evaEGG2jRgxc0bUimZ5pcw5vQ/0=
+
 tslib@2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.0.3.tgz#8e0741ac45fc0c226e58a17bfc3e64b9bc6ca61c"

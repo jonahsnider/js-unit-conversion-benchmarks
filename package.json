@@ -13,6 +13,7 @@
 		"prettier": "2.2.1",
 		"pretty-ms": "7.0.1",
 		"safe-units": "1.1.0",
+		"tinu": "1.0.8",
 		"units-converter": "1.0.3",
 		"uom": "6.0.0",
 		"uom-units": "2.0.0"
