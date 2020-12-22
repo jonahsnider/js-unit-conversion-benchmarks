@@ -34,8 +34,8 @@ export function replaceHtmlBlock(
   replaceValue: string
 ): string {
   const regExp = new RegExp(
-    `<!--\\s*beginblock\\(${blockId}\\)\\s*-->\\s*(.*)\\s*<!--\\s*endblock\\(${blockId}\\)\\s*-->`,
-    "mi"
+    `<!--\\s*beginblock\\(${blockId}\\)((.|\\n)*)endblock\\(${blockId}\\)\\s*-->`,
+    "im"
   );
 
   return string.replace(
