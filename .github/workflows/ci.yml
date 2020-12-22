@@ -25,11 +25,8 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Build package
         run: yarn run build
-      - name: Upload compiled package
-        uses: actions/upload-artifact@v2
-        with:
-          name: dist
-          path: dist
+      - name: Run benchmarks
+        run: yarn start
       - name: Update benchmark results in readme
         run: |
           git config --global user.email "js.unit.conversion.benchmarks@jonah.pw"
@@ -39,7 +36,7 @@ jobs:
           git add readme.md
           # Exit succesfully if no changes
           git commit -m "docs: update benchmark results" || exit 0
-          git push -u github gh-pages
+          git push -u github main
         env:
           UPDATE_GITHUB_TOKEN: ${{secrets.UPDATE_GITHUB_TOKEN}}
 
