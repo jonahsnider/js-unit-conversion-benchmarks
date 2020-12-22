@@ -1,41 +1,41 @@
 {
-  "author": {
-    "email": "jonah@jonah.pw",
-    "name": "Jonah Snider",
-    "url": "https://jonah.pw"
-  },
-  "dependencies": {
-    "@pizzafox/benchmark": "1.1.0",
-    "@pizzafox/util": "1.2.0",
-    "convert": "1.1.2",
-    "convert-units": "2.3.4",
-    "js-quantities": "1.7.6",
-    "prettier": "2.2.1",
-    "pretty-ms": "7.0.1",
-    "safe-units": "1.1.0",
-    "units-converter": "1.0.3",
-    "uom": "6.0.0",
-    "uom-units": "2.0.0"
-  },
-  "devDependencies": {
-    "@types/convert-units": "2.3.3",
-    "@types/js-quantities": "1.6.2",
-    "@types/node": "14.14.14",
-    "@types/prettier": "2.1.5",
-    "prettier-config-xo": "1.0.3",
-    "tslib": "2.0.3",
-    "typescript": "4.1.3"
-  },
-  "description": "Some benchmarks of community-made libraries for converting units.",
-  "license": "MIT",
-  "main": "index.js",
-  "name": "@pizzafox/js-unit-conversion-benchmarks",
-  "private": true,
-  "scripts": {
-    "build": "tsc",
-    "start": "node dist",
-    "style": "prettier --ignore-path .gitignore --check ."
-  },
-  "type": "module",
-  "version": "1.0.0"
+	"author": {
+		"email": "jonah@jonah.pw",
+		"name": "Jonah Snider",
+		"url": "https://jonah.pw"
+	},
+	"dependencies": {
+		"@pizzafox/benchmark": "^1.1.0",
+		"@pizzafox/util": "^1.2.0",
+		"convert": "^1.1.2",
+		"convert-units": "^2.3.4",
+		"js-quantities": "^1.7.6",
+		"prettier": "^2.2.1",
+		"pretty-ms": "^7.0.1",
+		"safe-units": "^1.1.0",
+		"units-converter": "^1.0.3",
+		"uom": "^6.0.0",
+		"uom-units": "^2.0.0"
+	},
+	"devDependencies": {
+		"@types/convert-units": "^2.3.3",
+		"@types/js-quantities": "^1.6.2",
+		"@types/node": "^14.14.14",
+		"@types/prettier": "^2.1.5",
+		"prettier-config-xo": "^1.0.3",
+		"tslib": "^2.0.3",
+		"typescript": "^4.1.3"
+	},
+	"description": "Some benchmarks of community-made libraries for converting units.",
+	"license": "MIT",
+	"main": "index.js",
+	"name": "@pizzafox/js-unit-conversion-benchmarks",
+	"private": true,
+	"scripts": {
+		"build": "tsc",
+		"start": "node dist",
+		"style": "prettier --ignore-path .gitignore --check ."
+	},
+	"type": "module",
+	"version": "1.0.0"
 }

@@ -1,5 +1,5 @@
-export const name = "raw math (builtin)";
+export const name = 'raw math (builtin)';
 
 export default function test() {
-  return 1024 / 12;
+	return 1024 / 12;
 }

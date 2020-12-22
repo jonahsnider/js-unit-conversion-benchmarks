@@ -1,2 +1,2 @@
-declare module "units-converter";
-declare module "units-converter/dist/es/index.js";
+declare module 'units-converter';
+declare module 'units-converter/dist/es/index.js';
