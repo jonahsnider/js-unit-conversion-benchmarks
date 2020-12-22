@@ -33,11 +33,11 @@ Each of these trials are repeated several times for each library.
 An example of one benchmark for [convert](https://github.com/pizzafox/convert) is shown below:
 
 ```js
-import { convert } from "convert";
+import {convert} from 'convert';
 
-export const name = "convert";
+export const name = 'convert';
 
 export default function test() {
-  return convert(1024).from("inch").to("foot");
+	return convert(1024).from('inch').to('foot');
 }
 ```
