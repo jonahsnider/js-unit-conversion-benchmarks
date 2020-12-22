@@ -31,14 +31,12 @@ jobs:
         run: |
           git config --global user.email "js.unit.conversion.benchmarks@jonah.pw"
           git config --global user.name "js-unit-conversion-benchmarks"
-          git remote add github "https://$GITHUB_ACTOR:$UPDATE_GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git"
+          git remote add github "https://$GITHUB_ACTOR@github.com/$GITHUB_REPOSITORY.git"
           git fetch github
           git add readme.md
           # Exit succesfully if no changes
           git commit -m "docs: update benchmark results" || exit 0
           git push -u github main
-        env:
-          UPDATE_GITHUB_TOKEN: ${{secrets.UPDATE_GITHUB_TOKEN}}
 
   build:
     name: Build
