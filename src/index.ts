@@ -18,7 +18,17 @@ console.log("average execution time (lower is better):");
 const results = await runBenchmark();
 
 if (process.env.CI) {
-  const markdown = resultsToMarkdown(results);
+  const resultsWithLinks = { ...results };
+
+  for (const key of Object.keys(resultsWithLinks)) {
+    resultsWithLinks[
+      `[${key}](https://npmjs.com/package/${encodeURIComponent(key)})`
+    ] = resultsWithLinks[key];
+
+    delete resultsWithLinks[key];
+  }
+
+  const markdown = resultsToMarkdown(resultsWithLinks);
 
   const readMePath = path.join(baseDir, "..", "readme.md");
   const readMe = await readFile(readMePath, "utf-8");
