@@ -8,6 +8,8 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    if: ${{ github.ref == 'refs/heads/main' }}
+
     steps:
       - name: Checkout git repository
         uses: actions/checkout@v2
