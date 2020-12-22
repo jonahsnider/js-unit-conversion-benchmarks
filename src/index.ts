@@ -21,6 +21,10 @@ if (process.env.CI) {
   const resultsWithLinks = { ...results };
 
   for (const key of Object.keys(resultsWithLinks)) {
+    if (key.endsWith('(builtin)')) {
+      continue;
+    }
+
     resultsWithLinks[
       `[${key}](https://npmjs.com/package/${encodeURIComponent(key)})`
     ] = resultsWithLinks[key];
