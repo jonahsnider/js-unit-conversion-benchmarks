@@ -8,17 +8,20 @@ Some benchmarks of community-made libraries for converting units.
 
 | Library                                                                | Average execution time (lower is better) |
 | ---------------------------------------------------------------------- | ---------------------------------------- |
-| raw math (builtin)                                                     | 229ns (`0.00022942358999971564`ms)       |
-| [convert](https://npmjs.com/package/convert)                           | 480ns (`0.00048026548000000725`ms)       |
-| [uom](https://npmjs.com/package/uom)                                   | 623ns (`0.0006236762000006423`ms)        |
-| [tinu](https://npmjs.com/package/tinu)                                 | 962ns (`0.0009626441799997951`ms)        |
-| [units-converter](https://npmjs.com/package/units-converter)           | 1µs 441ns (`0.0014414479799990238`ms)    |
-| [safe-units](https://npmjs.com/package/safe-units)                     | 1µs 451ns (`0.0014514879599992435`ms)    |
-| [convert-units](https://npmjs.com/package/convert-units)               | 1µs 519ns (`0.0015198243699984758`ms)    |
-| [js-quantities](https://npmjs.com/package/js-quantities)               | 4µs 909ns (`0.0049096694999950065`ms)    |
-| [@favware/converter](https://npmjs.com/package/%40favware%2Fconverter) | 40µs 919ns (`0.04091982315000571`ms)     |
+| raw math (builtin)                                                     | 259ns (`0.00025944908999964644`ms)       |
+| [convert](https://npmjs.com/package/convert)                           | 526ns (`0.0005265105799999041`ms)        |
+| [uom](https://npmjs.com/package/uom)                                   | 799ns (`0.0007991889200003672`ms)        |
+| [tinu](https://npmjs.com/package/tinu)                                 | 1µs 106ns (`0.0011065581800011781`ms)    |
+| [safe-units](https://npmjs.com/package/safe-units)                     | 1µs 353ns (`0.0013538322399985012`ms)    |
+| [units-converter](https://npmjs.com/package/units-converter)           | 1µs 449ns (`0.0014497522399989327`ms)    |
+| [convert-units](https://npmjs.com/package/convert-units)               | 1µs 610ns (`0.0016105117599971765`ms)    |
+| [js-quantities](https://npmjs.com/package/js-quantities)               | 5µs 219ns (`0.0052192814399989245`ms)    |
+| [@favware/converter](https://npmjs.com/package/%40favware%2Fconverter) | 46µs 939ns (`0.04693950337999802`ms)     |
 
-Generated automatically at Tue, 22 Dec 2020 20:49:31 GMT with Node.js v14.15.1 (V8 v8.4.371.19-node.17) on fv-az184-39 (Linux-x64 Intel(R) Xeon(R) Platinum 8272CL CPU @ 2.60GHz)
+Generated automatically at Tue, 22 Dec 2020 21:08:26 GMT with Node.js v14.15.1 (V8 v8.4.371.19-node.17) on fv-az151-212 (Linux-x64 Intel(R) Xeon(R) Platinum 8171M CPU @ 2.60GHz)
+
+Each library was called 500 times to allow the runtime to warmup.
+Afterward 100000 trials were performed for each library.
 
 <!-- endblock(results) -->
 
