@@ -12,5 +12,5 @@
 		"target": "ESNext"
 	},
 	"exclude": ["node_modules", "dist"],
-	"include": ["src", "types"]
+	"include": ["src", "types", "prettier.config.cjs.d.ts"]
 }

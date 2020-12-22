@@ -1,6 +1,7 @@
 import {readFile, writeFile} from 'fs/promises';
 import path from 'path';
 import prettier from 'prettier';
+import prettierConfig from '../prettier.config.cjs';
 import {runBenchmark} from './benchmark.js';
 import {skip, trials} from './config.js';
 import {baseDir, replaceHtmlBlock, resultsToMarkdown} from './util.js';
@@ -11,7 +12,7 @@ console.log('average execution time (lower is better):');
 
 const results = await runBenchmark();
 
-if (process.env.CI) {
+if (process.env.CI || 1) {
 	const resultsWithLinks = {...results};
 
 	for (const key of Object.keys(resultsWithLinks)) {
@@ -29,7 +30,7 @@ if (process.env.CI) {
 	const readMePath = path.join(baseDir, '..', 'readme.md');
 	const readMe = await readFile(readMePath, 'utf-8');
 
-	const updatedReadme = prettier.format(replaceHtmlBlock(readMe, 'results', markdown), {filepath: readMePath});
+	const updatedReadme = prettier.format(replaceHtmlBlock(readMe, 'results', markdown), {filepath: readMePath, ...prettierConfig});
 
 	await writeFile(readMePath, updatedReadme, 'utf-8');
 }
