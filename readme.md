@@ -22,7 +22,13 @@ Generated automatically at Tue, 22 Dec 2020 20:49:31 GMT with Node.js v14.15.1 (
 
 <!-- endblock(results) -->
 
+The mean of the execution times are displayed in the table above.
+
+---
+
 If you want a different library to be added to the benchmark, make an issue or create a pull request if you're comfortable.
+
+---
 
 ## Benchmark strategy
 

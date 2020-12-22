@@ -1,6 +1,7 @@
 import {dirname} from 'path';
 import {fileURLToPath} from 'url';
 import os from 'os';
+import {skip, trials} from './config';
 
 export const baseDir = dirname(fileURLToPath(import.meta.url));
 
@@ -15,7 +16,13 @@ export function resultsToMarkdown(results: Record<string, {average: number; pret
 		output.push(`| ${library} | ${result.pretty} (\`${result.average}\`ms) |`);
 	}
 
-	output.push('', `Generated automatically at ${new Date().toUTCString()} with ${runtimeStats}`);
+	output.push(
+		'',
+		`Generated automatically at ${new Date().toUTCString()} with ${runtimeStats}`,
+		'',
+		`Each library was called ${skip} times to allow the runtime to warmup.`,
+		`Afterward ${trials} trials were performed for each library.`
+	);
 
 	return output.join('\n');
 }
