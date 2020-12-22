@@ -1,7 +1,7 @@
 import {dirname} from 'path';
 import {fileURLToPath} from 'url';
 import os from 'os';
-import {skip, trials} from './config';
+import {skip, trials} from './config.js';
 
 export const baseDir = dirname(fileURLToPath(import.meta.url));
 
