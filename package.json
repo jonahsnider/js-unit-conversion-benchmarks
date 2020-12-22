@@ -5,6 +5,7 @@
 		"url": "https://jonah.pw"
 	},
 	"dependencies": {
+		"@favware/converter": "3.1.0",
 		"@pizzafox/benchmark": "1.1.0",
 		"@pizzafox/util": "1.2.0",
 		"convert": "1.1.2",

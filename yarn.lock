@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@favware/converter@3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@favware/converter/-/converter-3.1.0.tgz#0970cf4023151dcc986961a0b6a6874b6f996085"
+  integrity sha512-5pImJa4W1uqt+JT/2+0Ej8/lVXMY97gV3W7h8ApzE3/gwQUOpKamjoc1BFM96HRHoZCBWmFj9b5WaPNGaPIRkA==
+
 "@pizzafox/benchmark@1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@pizzafox/benchmark/-/benchmark-1.1.0.tgz#7bd9975facfd93cf12266514b1552d69af50d485"

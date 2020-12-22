@@ -1,3 +1,4 @@
+export * as favwareConverter from './@favware-converter.js';
 export * as convertUnits from './convert-units.js';
 export * as convert from './convert.js';
 export * as jsQuantities from './js-quantities.js';
