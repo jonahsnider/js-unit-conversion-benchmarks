@@ -8,12 +8,12 @@ Some benchmarks of community-made libraries for converting units.
 
 | Library                                                      | Average execution time (lower is better) |
 | ------------------------------------------------------------ | ---------------------------------------- |
-| [convert](https://npmjs.com/package/convert)                 | 526ns (`0.0005265969300001388`ms)        |
-| [uom](https://npmjs.com/package/uom)                         | 729ns (`0.0007296775300002663`ms)        |
-| [safe-units](https://npmjs.com/package/safe-units)           | 1µs 327ns (`0.001327405749998127`ms)     |
-| [units-converter](https://npmjs.com/package/units-converter) | 1µs 538ns (`0.0015389632399984438`ms)    |
-| [convert-units](https://npmjs.com/package/convert-units)     | 1µs 660ns (`0.0016603621399974872`ms)    |
-| [js-quantities](https://npmjs.com/package/js-quantities)     | 5µs 206ns (`0.005206188289999924`ms)     |
+| [convert](https://npmjs.com/package/convert)                 | 519ns (`0.0005194584699996905`ms)        |
+| [uom](https://npmjs.com/package/uom)                         | 834ns (`0.0008347184100003582`ms)        |
+| [safe-units](https://npmjs.com/package/safe-units)           | 1µs 309ns (`0.0013099642399982611`ms)    |
+| [units-converter](https://npmjs.com/package/units-converter) | 1µs 537ns (`0.001537086709999245`ms)     |
+| [convert-units](https://npmjs.com/package/convert-units)     | 1µs 770ns (`0.001770312629997572`ms)     |
+| [js-quantities](https://npmjs.com/package/js-quantities)     | 5µs 158ns (`0.005158420859999831`ms)     |
 
 <!-- endblock(results) -->
 
