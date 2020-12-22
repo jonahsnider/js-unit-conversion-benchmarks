@@ -8,17 +8,17 @@ Some benchmarks of community-made libraries for converting units.
 
 | Library                                                                | Average execution time (lower is better) |
 | ---------------------------------------------------------------------- | ---------------------------------------- |
-| raw math (builtin)                                                     | 230ns (`0.00023087892999971223`ms)       |
-| [convert](https://npmjs.com/package/convert)                           | 430ns (`0.00043049598999984206`ms)       |
-| [uom](https://npmjs.com/package/uom)                                   | 631ns (`0.0006319622100007875`ms)        |
-| [tinu](https://npmjs.com/package/tinu)                                 | 981ns (`0.0009811507500003167`ms)        |
-| [units-converter](https://npmjs.com/package/units-converter)           | 1µs 280ns (`0.0012804027499977524`ms)    |
-| [safe-units](https://npmjs.com/package/safe-units)                     | 1µs 284ns (`0.0012844073100002106`ms)    |
-| [convert-units](https://npmjs.com/package/convert-units)               | 1µs 451ns (`0.0014510506299994022`ms)    |
-| [js-quantities](https://npmjs.com/package/js-quantities)               | 4µs 702ns (`0.004702985390006633`ms)     |
-| [@favware/converter](https://npmjs.com/package/%40favware%2Fconverter) | 40µs 517ns (`0.040517597249999295`ms)    |
+| raw math (builtin)                                                     | 229ns (`0.00022942358999971564`ms)       |
+| [convert](https://npmjs.com/package/convert)                           | 480ns (`0.00048026548000000725`ms)       |
+| [uom](https://npmjs.com/package/uom)                                   | 623ns (`0.0006236762000006423`ms)        |
+| [tinu](https://npmjs.com/package/tinu)                                 | 962ns (`0.0009626441799997951`ms)        |
+| [units-converter](https://npmjs.com/package/units-converter)           | 1µs 441ns (`0.0014414479799990238`ms)    |
+| [safe-units](https://npmjs.com/package/safe-units)                     | 1µs 451ns (`0.0014514879599992435`ms)    |
+| [convert-units](https://npmjs.com/package/convert-units)               | 1µs 519ns (`0.0015198243699984758`ms)    |
+| [js-quantities](https://npmjs.com/package/js-quantities)               | 4µs 909ns (`0.0049096694999950065`ms)    |
+| [@favware/converter](https://npmjs.com/package/%40favware%2Fconverter) | 40µs 919ns (`0.04091982315000571`ms)     |
 
-Generated automatically at Tue, 22 Dec 2020 20:47:20 GMT with Node.js v14.15.1 (V8 v8.4.371.19-node.17) on fv-az59-708 (Linux-x64 Intel(R) Xeon(R) Platinum 8272CL CPU @ 2.60GHz)
+Generated automatically at Tue, 22 Dec 2020 20:49:31 GMT with Node.js v14.15.1 (V8 v8.4.371.19-node.17) on fv-az184-39 (Linux-x64 Intel(R) Xeon(R) Platinum 8272CL CPU @ 2.60GHz)
 
 <!-- endblock(results) -->
 
@@ -33,11 +33,11 @@ Each of these trials are repeated several times for each library.
 An example of one benchmark for [convert](https://github.com/pizzafox/convert) is shown below:
 
 ```js
-import {convert} from 'convert';
+import { convert } from "convert";
 
-export const name = 'convert';
+export const name = "convert";
 
 export default function test() {
-	return convert(1024).from('inch').to('foot');
+  return convert(1024).from("inch").to("foot");
 }
 ```
