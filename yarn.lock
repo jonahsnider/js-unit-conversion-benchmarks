@@ -12,10 +12,10 @@
   resolved "https://registry.yarnpkg.com/@pizzafox/benchmark/-/benchmark-1.1.0.tgz#7bd9975facfd93cf12266514b1552d69af50d485"
   integrity sha512-3m2w/bVq0O8ioYfp0hkul8/eTbgxenOoxrjIgsSXo7ERFuQM7zCxQD3RrS51rLoDhM5Av5pZbHoZyE6TOEddqA==
 
-"@pizzafox/util@1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@pizzafox/util/-/util-1.2.0.tgz#d739bdac041e3cb7303ece5a36d3ec357a80ca54"
-  integrity sha512-s0cRisWFASANA/VAnA2VmNCNB9c85hLUY/V3hbOGUdefYIDzFD75SBt8Y5r/2amdTLq+lpVkXhWF2Gn6uwqRmg==
+"@pizzafox/util@2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@pizzafox/util/-/util-2.0.1.tgz#c7f2adc2765a92111c906f2cc7df671e9aa28790"
+  integrity sha512-UetDuKMZGdWaHXtgwJPiN7pqa/+/3Saui8xecYDsZIDkQZ6MT9PW1alOufOSiEsV3JTeA1L6DlmAb71IpY2omw==
 
 "@types/convert-units@2.3.3":
   version "2.3.3"
