@@ -1,0 +1,94 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  run-benchmarks:
+    name: Run benchmarks
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout git repository
+        uses: actions/checkout@v2
+      - name: Get yarn cache
+        id: yarn-cache
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: Install dependencies with Yarn
+        run: yarn install --frozen-lockfile
+      - name: Build package
+        run: yarn run build
+      - name: Upload compiled package
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: dist
+      - name: Update benchmark results in readme
+        run: |
+          git config --global user.email "js.unit.conversion.benchmarks@jonah.pw"
+          git config --global user.name "js-unit-conversion-benchmarks"
+          git remote add github "https://$GITHUB_ACTOR:$UPDATE_GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git"
+          git fetch github
+          git add readme.md
+          # Exit succesfully if no changes
+          git commit -m "docs: update benchmark results" || exit 0
+          git push -u github gh-pages
+        env:
+          UPDATE_GITHUB_TOKEN: ${{secrets.UPDATE_GITHUB_TOKEN}}
+
+  build:
+    name: Build
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout git repository
+        uses: actions/checkout@v2
+      - name: Get yarn cache
+        id: yarn-cache
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: Install dependencies with Yarn
+        run: yarn install --frozen-lockfile
+      - name: Build package
+        run: yarn run build
+      - name: Upload compiled package
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: dist
+  style:
+    name: Check style
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout git repository
+        uses: actions/checkout@v2
+      - name: Get yarn cache
+        id: yarn-cache
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: Install dependencies with Yarn
+        run: yarn install --frozen-lockfile
+      - name: Check style with Prettier
+        run: yarn run style
