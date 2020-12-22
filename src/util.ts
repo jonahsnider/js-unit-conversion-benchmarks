@@ -1,5 +1,6 @@
 import {dirname} from 'path';
 import {fileURLToPath} from 'url';
+import os from 'os';
 
 export const baseDir = dirname(fileURLToPath(import.meta.url));
 
@@ -13,6 +14,8 @@ export function resultsToMarkdown(results: Record<string, {average: number; pret
 	for (const [library, result] of Object.entries(results)) {
 		output.push(`| ${library} | ${result.pretty} (\`${result.average}\`ms) |`);
 	}
+
+	output.push('', `Generated automatically at ${new Date().toUTCString()} with ${runtimeStats}`);
 
 	return output.join('\n');
 }
@@ -31,3 +34,15 @@ export function replaceHtmlBlock(string: string, blockId: string, replaceValue: 
 
 	return string.replace(regExp, [`<!-- beginblock(${blockId}) -->`, replaceValue, `<!-- endblock(${blockId}) -->`].join('\n'));
 }
+
+/**
+ * Node.js and system information.
+ * @example 'Node.js v15.4.0 (V8 v8.6.395.17-node.22) on Jonah-PC (Linux-x64 AMD Ryzen 7 3700X 8-Core Processor)'
+ */
+export const runtimeStats = [
+	`Node.js v${process.versions.node}`,
+	`(V8 v${process.versions.v8})`,
+	`on ${os.hostname()}`,
+	`(${os.type()}-${process.arch}`,
+	`${os.cpus()[0].model})`
+].join(' ');
