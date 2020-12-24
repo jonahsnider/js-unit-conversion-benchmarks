@@ -48,8 +48,6 @@ Afterward 100000 trials were performed for each library.
 
 <!-- endblock(results) -->
 
-The mean of the execution times are displayed in the table above.
-
 ---
 
 If you want a different library to be added to the benchmark, make an issue or create a pull request if you're comfortable.

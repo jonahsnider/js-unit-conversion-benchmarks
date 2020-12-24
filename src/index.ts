@@ -19,7 +19,8 @@ const markdownLines = [
 	`Generated automatically at ${new Date().toUTCString()} with ${runtimeStats}`,
 	'',
 	`Each library was called ${skip} times to allow the runtime to warmup.`,
-	`Afterward ${trials} trials were performed for each library.`
+	`Afterward ${trials} trials were performed for each library.`,
+	'The mean of the execution times are displayed in the tables below.'
 ];
 
 for (const [title, benchmark] of Object.entries(results)) {
