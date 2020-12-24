@@ -36,7 +36,7 @@
 	"scripts": {
 		"build": "tsc",
 		"start": "node dist",
-		"style": "prettier --ignore-path .gitignore --check .",
+		"style": "prettier --check .",
 		"test": "node dist/test"
 	},
 	"type": "module",

@@ -24,7 +24,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: Install dependencies with Yarn
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable --immutable-cache
       - name: Build package
         run: yarn run build
       - name: Run benchmarks
@@ -59,7 +59,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: Install dependencies with Yarn
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable --immutable-cache
       - name: Build package
         run: yarn run build
       - name: Run tests
@@ -84,7 +84,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: Install dependencies with Yarn
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable --immutable-cache
       - name: Build package
         run: yarn run build
       - name: Upload compiled package
@@ -111,6 +111,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: Install dependencies with Yarn
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable --immutable-cache
       - name: Check style with Prettier
         run: yarn run style
