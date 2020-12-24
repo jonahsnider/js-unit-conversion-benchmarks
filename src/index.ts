@@ -15,7 +15,13 @@ const results = await runBenchmark(trials, skip);
 console.log();
 console.log('average execution time (lower is better):');
 
-const markdownLines = [];
+const markdownLines = [
+	`Generated automatically at ${new Date().toUTCString()} with ${runtimeStats}`,
+	'',
+	`Each library was called ${skip} times to allow the runtime to warmup.`,
+	`Afterward ${trials} trials were performed for each library.`
+];
+
 for (const [title, benchmark] of Object.entries(results)) {
 	console.log(`${title}:`);
 	markdownLines.push(`### ${title}`, '', '| Library | Average execution time (lower is better) |', '| --- | --- |');
@@ -35,13 +41,6 @@ for (const [title, benchmark] of Object.entries(results)) {
 
 	markdownLines.push('');
 }
-
-markdownLines.push(
-	`Generated automatically at ${new Date().toUTCString()} with ${runtimeStats}`,
-	'',
-	`Each library was called ${skip} times to allow the runtime to warmup.`,
-	`Afterward ${trials} trials were performed for each library.`
-);
 
 if (process.env.CI) {
 	const markdown = markdownLines.join('\n');

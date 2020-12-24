@@ -58,11 +58,12 @@ If you want a different library to be added to the benchmark, make an issue or c
 
 ## Benchmark strategy
 
-Each library is tested in converting `1024` inches to feet.
-This is done by writing a function that calculates the value using the library.
-Each of these trials are repeated several times for each library.
+Each library is tested with a few different common use cases.
+These are written as functions that return the value calculated by that use case (ex. converting inches to feet).
+Each of these functions are benchmarked several times and the execution time is recorded.
+The mean execution time for each use case is displayed in the above tables.
 
-An example of one benchmark for [convert](https://github.com/pizzafox/convert) is shown below:
+A simplified example of a benchmark for raw math (as a baseline) is shown below:
 
 ```js
 import {BenchmarkTitles} from '../config.js';
