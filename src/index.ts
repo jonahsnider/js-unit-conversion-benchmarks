@@ -9,10 +9,11 @@ import {skip, trials} from './config.js';
 import {baseDir, npmLink, replaceHtmlBlock, runtimeStats} from './util.js';
 
 console.log('performing', trials + skip, 'trials and skipping the first', skip, 'trials');
-console.log();
-console.log('average execution time (lower is better):');
 
 const results = await runBenchmark(trials, skip);
+
+console.log();
+console.log('average execution time (lower is better):');
 
 const markdownLines = [];
 for (const [title, benchmark] of Object.entries(results)) {
