@@ -7,8 +7,8 @@
 	"dependencies": {
 		"@favware/converter": "3.1.0",
 		"@pizzafox/benchmark": "1.1.0",
-		"@pizzafox/util": "2.0.1",
-		"convert": "1.1.2",
+		"@pizzafox/util": "2.1.0",
+		"convert": "1.1.4",
 		"convert-units": "2.3.4",
 		"js-quantities": "1.7.6",
 		"prettier": "2.2.1",
@@ -36,7 +36,8 @@
 	"scripts": {
 		"build": "tsc",
 		"start": "node dist",
-		"style": "prettier --ignore-path .gitignore --check ."
+		"style": "prettier --ignore-path .gitignore --check .",
+		"test": "node dist/test"
 	},
 	"type": "module",
 	"version": "1.0.0"

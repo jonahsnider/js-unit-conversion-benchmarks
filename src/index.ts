@@ -1,31 +1,49 @@
+import {ascending, sortObject} from '@pizzafox/util';
 import {readFile, writeFile} from 'fs/promises';
 import path from 'path';
 import prettier from 'prettier';
+import prettyMilliseconds from 'pretty-ms';
 import prettierConfig from '../prettier.config.cjs';
 import {runBenchmark} from './benchmark.js';
 import {skip, trials} from './config.js';
-import {baseDir, replaceHtmlBlock, resultsToMarkdown} from './util.js';
+import {baseDir, npmLink, replaceHtmlBlock, runtimeStats} from './util.js';
 
 console.log('performing', trials + skip, 'trials and skipping the first', skip, 'trials');
 console.log();
 console.log('average execution time (lower is better):');
 
-const results = await runBenchmark();
+const results = await runBenchmark(trials, skip);
 
-if (process.env.CI || 1) {
-	const resultsWithLinks = {...results};
+const markdownLines = [];
+for (const [title, benchmark] of Object.entries(results)) {
+	console.log(`${title}:`);
+	markdownLines.push(`### ${title}`, '', '| Library | Average execution time (lower is better) |', '| --- | --- |');
 
-	for (const key of Object.keys(resultsWithLinks)) {
-		if (key.endsWith('(builtin)')) {
-			continue;
-		}
+	/** Used to display data in the console. */
+	const table: Record<string, string> = {};
 
-		resultsWithLinks[`[${key}](https://npmjs.com/package/${encodeURIComponent(key)})`] = resultsWithLinks[key];
+	const sortedBenchmark = sortObject(benchmark, ascending);
+	for (const [library, averageExecutionTime] of Object.entries(sortedBenchmark)) {
+		const prettyExecutionTime = prettyMilliseconds(averageExecutionTime, {formatSubMilliseconds: true});
 
-		delete resultsWithLinks[key];
+		table[library] = prettyExecutionTime;
+		markdownLines.push(`| ${npmLink(library)} | ${prettyExecutionTime} (\`${averageExecutionTime.toFixed(3)}\`ms) |`);
 	}
 
-	const markdown = resultsToMarkdown(resultsWithLinks);
+	console.table(table);
+
+	markdownLines.push('');
+}
+
+markdownLines.push(
+	`Generated automatically at ${new Date().toUTCString()} with ${runtimeStats}`,
+	'',
+	`Each library was called ${skip} times to allow the runtime to warmup.`,
+	`Afterward ${trials} trials were performed for each library.`
+);
+
+if (process.env.CI) {
+	const markdown = markdownLines.join('\n');
 
 	const readMePath = path.join(baseDir, '..', 'readme.md');
 	const readMe = await readFile(readMePath, 'utf-8');
@@ -34,5 +52,3 @@ if (process.env.CI || 1) {
 
 	await writeFile(readMePath, updatedReadme, 'utf-8');
 }
-
-console.table(results);

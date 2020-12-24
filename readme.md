@@ -42,11 +42,15 @@ Each of these trials are repeated several times for each library.
 An example of one benchmark for [convert](https://github.com/pizzafox/convert) is shown below:
 
 ```js
-import {convert} from 'convert';
+import {BenchmarkTitles} from '../config.js';
 
-export const name = 'convert';
+export const name = 'raw math (builtin)';
 
-export default function test() {
-	return convert(1024).from('inch').to('foot');
-}
+const tests = {
+	[BenchmarkTitles.InchesToFeet]() {
+		return 1024 / 12;
+	}
+};
+
+export default tests;
 ```

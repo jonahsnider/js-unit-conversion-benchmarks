@@ -1,34 +1,29 @@
 import {Benchmark} from '@pizzafox/benchmark';
 import {ascending, mean} from '@pizzafox/util';
 import prettyMilliseconds from 'pretty-ms';
-import {skip, trials} from './config.js';
 import * as libraries from './libraries/index.js';
 
-const benchmark = new Benchmark();
+export async function runBenchmark(trials: number, skip: number) {
+	const results: Record<string, Record<string, number>> = {};
 
-const benchmarkLibraries = Object.values(libraries);
-for (const library of benchmarkLibraries) {
-	benchmark.add(library.name, library.default);
-}
+	for (const library of Object.values(libraries)) {
+		for (const [name, test] of Object.entries(library.default)) {
+			const benchmark = new Benchmark();
 
-export async function runBenchmark() {
-	const results = await benchmark.exec(trials + skip);
+			benchmark.add(name, test);
 
-	const stats: Array<[name: string, average: {average: number; pretty: string}]> = [];
+			const benchmarkResults = await benchmark.exec(trials + skip);
 
-	for (const [name, times] of results) {
-		const average = times.slice(skip).reduce(mean);
+			const benchmarkResult = benchmarkResults.get(name);
 
-		stats.push([
-			name,
-			{
-				pretty: prettyMilliseconds(average, {formatSubMilliseconds: true}),
-				average
+			if (!benchmarkResult) {
+				throw new TypeError(`Expected ${name} to be in the benchmark results`);
 			}
-		]);
+
+			results[name] ??= {};
+			results[name][library.name] = benchmarkResult.slice(skip).reduce(mean);
+		}
 	}
 
-	stats.sort(([, {average: a}], [, {average: b}]) => ascending(a, b));
-
-	return Object.fromEntries(stats);
+	return results;
 }

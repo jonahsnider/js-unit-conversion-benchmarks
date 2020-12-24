@@ -40,6 +40,31 @@ jobs:
           git commit -m "docs: update benchmark results" || exit 0
           git push -u github main
 
+  test:
+    name: Run library tests
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout git repository
+        uses: actions/checkout@v2
+      - name: Get yarn cache
+        id: yarn-cache
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: Install dependencies with Yarn
+        run: yarn install --frozen-lockfile
+      - name: Build package
+        run: yarn run build
+      - name: Run tests
+        run: yarn test
+
   build:
     name: Build
 
