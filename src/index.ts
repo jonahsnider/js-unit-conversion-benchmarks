@@ -1,4 +1,5 @@
 import {ascending, sortObject} from '@pizzafox/util';
+import {convert} from 'convert';
 import {readFile, writeFile} from 'fs/promises';
 import path from 'path';
 import prettier from 'prettier';
@@ -30,12 +31,22 @@ for (const [title, benchmark] of Object.entries(results)) {
 	/** Used to display data in the console. */
 	const table: Record<string, string> = {};
 
+	/** Benchmarks sorted by average execution time ascending. */
 	const sortedBenchmark = sortObject(benchmark, ascending);
-	for (const [library, averageExecutionTime] of Object.entries(sortedBenchmark)) {
-		const prettyExecutionTime = prettyMilliseconds(averageExecutionTime, {formatSubMilliseconds: true});
 
-		table[library] = prettyExecutionTime;
-		markdownLines.push(`| ${npmLink(library)} | ${prettyExecutionTime} (\`${averageExecutionTime.toFixed(3)}\`ms) |`);
+	/** The fastest speed of any library. */
+	let fastest: number;
+
+	for (const [library, averageExecutionTime] of Object.entries(sortedBenchmark)) {
+		// Times are sorted ascending, so the first iteration is always the fastest library
+		// This will only assign once
+		fastest ??= averageExecutionTime;
+
+		const executionTimeNs = Math.round(convert(averageExecutionTime).from('ms').to('ns')).toLocaleString();
+		const percent = Math.round((averageExecutionTime / fastest) * 100);
+
+		table[library] = `${executionTimeNs}ns`;
+		markdownLines.push(`| ${npmLink(library)} | \`${executionTimeNs}\`ns (${percent}%) |`);
 	}
 
 	console.table(table);
