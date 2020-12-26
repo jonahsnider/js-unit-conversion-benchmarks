@@ -30,7 +30,7 @@ __metadata:
     "@types/js-quantities": 1.6.2
     "@types/node": 14.14.16
     "@types/prettier": 2.1.6
-    convert: 1.1.4
+    convert: 1.2.0
     convert-units: 2.3.4
     js-quantities: 1.7.6
     prettier: 2.2.1
@@ -91,10 +91,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"convert@npm:1.1.4":
-  version: 1.1.4
-  resolution: "convert@npm:1.1.4"
-  checksum: 29ac0188d0b3bfc2c64d4c939ea117ec7b3991456477c42212c3d48405a68dc28d05416303cb4dbddbf1482aefc05b63320bfd9e9ae4ea726e8327e1f197629d
+"convert@npm:1.2.0":
+  version: 1.2.0
+  resolution: "convert@npm:1.2.0"
+  checksum: 0730cf2863c139ec8a0dd9a3dfe1b59849ee69c85430255052c06ae94c0b14f88f38425ee9d0dc4b71860bb5fe707782ff60ba6be6a294096330244c6277dc13
   languageName: node
   linkType: hard
 
