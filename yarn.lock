@@ -25,7 +25,7 @@ __metadata:
   dependencies:
     "@favware/converter": 3.1.0
     "@pizzafox/benchmark": 1.1.0
-    "@pizzafox/util": 2.1.0
+    "@pizzafox/util": 2.2.0
     "@types/convert-units": 2.3.3
     "@types/js-quantities": 1.6.2
     "@types/node": 14.14.16
@@ -46,10 +46,10 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@pizzafox/util@npm:2.1.0":
-  version: 2.1.0
-  resolution: "@pizzafox/util@npm:2.1.0"
-  checksum: 4b70c4afdff96b590e8e02c5d285ac25d8e60a05b6b68e9379f77c33aa2a1c883a250f4d9cdf8a9e5347d107b312d5f8a1898c5f82366a9a7fb26266eb0f09fc
+"@pizzafox/util@npm:2.2.0":
+  version: 2.2.0
+  resolution: "@pizzafox/util@npm:2.2.0"
+  checksum: 1e43d1a7a3ffb778d2f60c31758bc1885fa11959f36637fbfabf6cb3e2b5e0a0524b897860e647dfbb6a2cbcc15f902df6e0f0e218596849356b0f5ab52ca6a9
   languageName: node
   linkType: hard
 
