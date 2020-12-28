@@ -3,7 +3,6 @@ import {convert} from 'convert';
 import {readFile, writeFile} from 'fs/promises';
 import path from 'path';
 import prettier from 'prettier';
-import prettyMilliseconds from 'pretty-ms';
 import prettierConfig from '../prettier.config.cjs';
 import {runBenchmark} from './benchmark.js';
 import {skip, trials} from './config.js';
