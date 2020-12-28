@@ -28,11 +28,14 @@ __metadata:
     "@pizzafox/util": 2.2.0
     "@types/convert-units": 2.3.3
     "@types/js-quantities": 1.6.2
+    "@types/luxon": 1.25.0
     "@types/node": 14.14.16
     "@types/prettier": 2.1.6
     convert: 1.2.0
     convert-units: 2.3.4
     js-quantities: 1.7.6
+    luxon: 1.25.0
+    moment: 2.29.1
     prettier: 2.2.1
     prettier-config-xo: 1.0.3
     pretty-ms: 7.0.1
@@ -64,6 +67,13 @@ __metadata:
   version: 1.6.2
   resolution: "@types/js-quantities@npm:1.6.2"
   checksum: 659134d135ab10c2e8c32f6cb64f0ec27f8942584c714bbf0435641d1b0ee4ee11428b50259481838fe8fc535f82a67d75b548b753639574e64c19035d4a7ca9
+  languageName: node
+  linkType: hard
+
+"@types/luxon@npm:1.25.0":
+  version: 1.25.0
+  resolution: "@types/luxon@npm:1.25.0"
+  checksum: f2a1b84878cef1df59bc1debf98a79a1342931fe059aad28fe71e7cc457c73020786cc6cce9b4587a1ec2f6d530bf6e32ac913799bb8775dce671792eb2b854c
   languageName: node
   linkType: hard
 
@@ -281,6 +291,20 @@ __metadata:
   dependencies:
     lodash._renative: ~2.3.0
   checksum: 3c67f6fba9a37c2138abb2363729b72f68d5bbdd33fa3f429995bf74ae4d1ba291494dddc2594020ee3c3c7ddb0224b5537f5147cd134a8e766d23cc6da1cdc3
+  languageName: node
+  linkType: hard
+
+"luxon@npm:1.25.0":
+  version: 1.25.0
+  resolution: "luxon@npm:1.25.0"
+  checksum: 3f0d64355beab707f5e8eb4e2d7e1cad90569c2a4c4dce440e0b4be4eb6833ec1a83513a4210361cd4dc5a266c0221718a9afd15f7cde3002d8fa1d0976b9e50
+  languageName: node
+  linkType: hard
+
+"moment@npm:2.29.1":
+  version: 2.29.1
+  resolution: "moment@npm:2.29.1"
+  checksum: 86729013febf7160de5b93da69273dd304d674b0224f9544b3abd09a87671ddd2cdd57598261ce57588910d63747ffd5590965e83c790d8bf327083c0e0a06e0
   languageName: node
   linkType: hard
 

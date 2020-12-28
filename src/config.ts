@@ -11,5 +11,6 @@ export enum BenchmarkTitles {
 	/** Converting inches to feet. */
 	InchesToFeet = 'Inches to feet',
 	FractionLitersToCubicInches = 'Fractional liters to cubic inches',
+	HoursToMinutes = 'Converting hours to minutes',
 	BigIntConversion = 'Converting hours to minutes, but with `BigInt`s'
 }

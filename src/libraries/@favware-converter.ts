@@ -10,5 +10,8 @@ export default {
 	},
 	[BenchmarkTitles.FractionLitersToCubicInches]() {
 		return convert(4.2, 'l', 'in3');
+	},
+	[BenchmarkTitles.HoursToMinutes]() {
+		return convert(24, 'h', 'min');
 	}
 };

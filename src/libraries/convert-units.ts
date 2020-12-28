@@ -9,5 +9,8 @@ export default {
 	},
 	[BenchmarkTitles.FractionLitersToCubicInches]() {
 		return convert(4.2).from('l').to('in3');
+	},
+	[BenchmarkTitles.HoursToMinutes]() {
+		return convert(24).from('h').to('min');
 	}
 };

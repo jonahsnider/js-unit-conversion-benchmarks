@@ -10,5 +10,8 @@ export default {
 	},
 	[BenchmarkTitles.FractionLitersToCubicInches]() {
 		return Unit.convert(4.2, Units.Liter, Units.CubicInch);
+	},
+	[BenchmarkTitles.HoursToMinutes]() {
+		return Unit.convert(24, Units.Hour, Units.Minute);
 	}
 };
