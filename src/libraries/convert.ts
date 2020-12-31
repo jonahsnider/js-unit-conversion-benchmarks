@@ -1,4 +1,4 @@
-import {convert} from 'convert';
+import {convert, convertMany} from 'convert';
 import {BenchmarkTitles} from '../config.js';
 
 export const name = 'convert';
@@ -12,6 +12,9 @@ const tests = {
 	},
 	[BenchmarkTitles.HoursToMinutes]() {
 		return convert(24).from('hours').to('minutes');
+	},
+	[BenchmarkTitles.ParseDurationAndNormalize]() {
+		return convertMany('10h').to('ms');
 	},
 	[BenchmarkTitles.BigIntConversion]() {
 		return convert(24n).from('hours').to('minutes');
