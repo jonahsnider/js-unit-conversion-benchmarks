@@ -6,6 +6,7 @@ export * as jsQuantities from './js-quantities.js';
 export * as luxon from './luxon.js';
 export * as math from './math.js';
 export * as moment from './moment.js';
+export * as ms from './ms.js';
 export * as safeUnits from './safe-units.js';
 export * as tinu from './tinu.js';
 export * as unitsConverter from './units-converter.js';
