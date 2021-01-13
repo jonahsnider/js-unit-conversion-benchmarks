@@ -12,10 +12,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pizzafox/benchmark@npm:1.1.0":
-  version: 1.1.0
-  resolution: "@pizzafox/benchmark@npm:1.1.0"
-  checksum: b0d8aca8063792237fd67d48239f02fb23066f2a27801a62b21c31ade225bbca782d42bcfa36ddd52251c6a9aa762ca272e16c3dab3201a1e401ab59df259e43
+"@pizzafox/benchmark@npm:2.0.0":
+  version: 2.0.0
+  resolution: "@pizzafox/benchmark@npm:2.0.0"
+  checksum: bf7d0730ca1eed89919125b51ae830a968df30a3312dd1e7a2aa977086c63d3720fe3eeb04511ea0abd2a78eae12e02dd04490b81402b99f9784eb678f7634db
   languageName: node
   linkType: hard
 
@@ -24,7 +24,7 @@ __metadata:
   resolution: "@pizzafox/js-unit-conversion-benchmarks@workspace:."
   dependencies:
     "@favware/converter": 3.1.0
-    "@pizzafox/benchmark": 1.1.0
+    "@pizzafox/benchmark": 2.0.0
     "@pizzafox/util": 2.2.0
     "@types/convert-units": 2.3.3
     "@types/js-quantities": 1.6.2
