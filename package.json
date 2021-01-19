@@ -7,7 +7,7 @@
 	"dependencies": {
 		"@favware/converter": "3.1.0",
 		"@pizzafox/benchmark": "2.0.0",
-		"@pizzafox/util": "2.3.0",
+		"@pizzafox/util": "2.4.0",
 		"convert": "1.6.2",
 		"convert-units": "2.3.4",
 		"dayjs": "1.10.3",
