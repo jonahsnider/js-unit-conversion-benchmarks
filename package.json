@@ -10,7 +10,7 @@
 		"@pizzafox/util": "2.4.1",
 		"convert": "1.6.2",
 		"convert-units": "2.3.4",
-		"dayjs": "1.10.3",
+		"dayjs": "1.10.4",
 		"js-quantities": "1.7.6",
 		"luxon": "1.25.0",
 		"moment": "2.29.1",
