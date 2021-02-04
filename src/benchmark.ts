@@ -1,6 +1,5 @@
 import {Benchmark} from '@pizzafox/benchmark';
-import {ascending, mean} from '@pizzafox/util';
-import prettyMilliseconds from 'pretty-ms';
+import {mean} from '@pizzafox/util';
 import * as libraries from './libraries/index.js';
 
 export async function runBenchmark(trials: number, skip: number) {
