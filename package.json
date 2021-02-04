@@ -11,6 +11,7 @@
 		"convert": "1.6.2",
 		"convert-units": "2.3.4",
 		"dayjs": "1.10.4",
+		"fluxunit": "1.4.0",
 		"js-quantities": "1.7.6",
 		"luxon": "1.25.0",
 		"moment": "2.29.1",

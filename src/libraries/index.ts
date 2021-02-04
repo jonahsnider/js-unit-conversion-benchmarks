@@ -2,6 +2,7 @@ export * as favwareConverter from './@favware-converter.js';
 export * as convertUnits from './convert-units.js';
 export * as convert from './convert.js';
 export * as dayjs from './dayjs.js';
+export * as fluxunit from './fluxunit.js';
 export * as jsQuantities from './js-quantities.js';
 export * as luxon from './luxon.js';
 export * as math from './math.js';

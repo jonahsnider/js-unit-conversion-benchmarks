@@ -35,6 +35,7 @@ __metadata:
     convert: 1.6.2
     convert-units: 2.3.4
     dayjs: 1.10.4
+    fluxunit: 1.4.0
     js-quantities: 1.7.6
     luxon: 1.25.0
     moment: 2.29.1
@@ -122,6 +123,13 @@ __metadata:
   version: 1.10.4
   resolution: "dayjs@npm:1.10.4"
   checksum: 3b7bb2232fff808209870bc72d4b2000941a1aa45f0226e2907f9dd1dda306d4b3a1eb9058450fd2c324b01a007a37809ac6f9b525806a86902c55e2934cd5d5
+  languageName: node
+  linkType: hard
+
+"fluxunit@npm:1.4.0":
+  version: 1.4.0
+  resolution: "fluxunit@npm:1.4.0"
+  checksum: 593d4423a06d9e26a6380c7d4301fd4b1e9d46776df229274659e5aab848423b10fb0d49cec0411ada78b381d3716b48fa68064f4eca9694b12ddba2e6ae59f6
   languageName: node
   linkType: hard
 
