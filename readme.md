@@ -6,7 +6,7 @@ Some benchmarks of community-made libraries for converting units.
 
 <!-- beginblock(results) -->
 
-Generated automatically at Fri, 22 Jan 2021 11:48:46 GMT with Node.js v15.6.0 (V8 v8.6.395.17-node.23) on fv-az59-707 (Linux-x64 Intel(R) Xeon(R) Platinum 8272CL CPU @ 2.60GHz)
+Generated automatically at Thu, 04 Feb 2021 03:33:32 GMT with Node.js v15.8.0 (V8 v8.6.395.17-node.23) on fv-az184-398 (Linux-x64 Intel(R) Xeon(R) CPU E5-2673 v4 @ 2.30GHz)
 
 Each library was called 500 times to allow the runtime to warmup.
 Afterward 100000 trials were performed for each library.
@@ -16,59 +16,59 @@ The mean of the execution times are displayed in the tables below.
 
 | Library                                                            | Average execution time (lower is better) |
 | ------------------------------------------------------------------ | ---------------------------------------- |
-| raw math (builtin)                                                 | `177`ns (100%)                           |
-| [convert](https://npmjs.com/package/convert)                       | `292`ns (165%)                           |
-| [uom](https://npmjs.com/package/uom)                               | `528`ns (298%)                           |
-| [tinu](https://npmjs.com/package/tinu)                             | `753`ns (426%)                           |
-| [safe-units](https://npmjs.com/package/safe-units)                 | `859`ns (485%)                           |
-| [units-converter](https://npmjs.com/package/units-converter)       | `1,094`ns (618%)                         |
-| [convert-units](https://npmjs.com/package/convert-units)           | `1,216`ns (687%)                         |
-| [js-quantities](https://npmjs.com/package/js-quantities)           | `3,917`ns (2212%)                        |
-| [@favware/converter](https://npmjs.com/package/@favware/converter) | `40,607`ns (22935%)                      |
+| raw math (builtin)                                                 | `212`ns (100%)                           |
+| [convert](https://npmjs.com/package/convert)                       | `363`ns (171%)                           |
+| [uom](https://npmjs.com/package/uom)                               | `548`ns (258%)                           |
+| [tinu](https://npmjs.com/package/tinu)                             | `906`ns (427%)                           |
+| [safe-units](https://npmjs.com/package/safe-units)                 | `1,147`ns (541%)                         |
+| [units-converter](https://npmjs.com/package/units-converter)       | `1,310`ns (617%)                         |
+| [convert-units](https://npmjs.com/package/convert-units)           | `1,387`ns (654%)                         |
+| [js-quantities](https://npmjs.com/package/js-quantities)           | `5,110`ns (2409%)                        |
+| [@favware/converter](https://npmjs.com/package/@favware/converter) | `46,759`ns (22041%)                      |
 
 ### Fractional liters to cubic inches
 
 | Library                                                            | Average execution time (lower is better) |
 | ------------------------------------------------------------------ | ---------------------------------------- |
-| raw math (builtin)                                                 | `174`ns (100%)                           |
-| [convert](https://npmjs.com/package/convert)                       | `299`ns (171%)                           |
-| [tinu](https://npmjs.com/package/tinu)                             | `858`ns (493%)                           |
-| [uom](https://npmjs.com/package/uom)                               | `928`ns (533%)                           |
-| [safe-units](https://npmjs.com/package/safe-units)                 | `982`ns (564%)                           |
-| [units-converter](https://npmjs.com/package/units-converter)       | `1,158`ns (665%)                         |
-| [convert-units](https://npmjs.com/package/convert-units)           | `4,705`ns (2701%)                        |
-| [js-quantities](https://npmjs.com/package/js-quantities)           | `4,715`ns (2707%)                        |
-| [@favware/converter](https://npmjs.com/package/@favware/converter) | `40,414`ns (23200%)                      |
+| raw math (builtin)                                                 | `216`ns (100%)                           |
+| [convert](https://npmjs.com/package/convert)                       | `354`ns (164%)                           |
+| [tinu](https://npmjs.com/package/tinu)                             | `974`ns (452%)                           |
+| [uom](https://npmjs.com/package/uom)                               | `1,058`ns (491%)                         |
+| [safe-units](https://npmjs.com/package/safe-units)                 | `1,176`ns (546%)                         |
+| [units-converter](https://npmjs.com/package/units-converter)       | `1,299`ns (603%)                         |
+| [convert-units](https://npmjs.com/package/convert-units)           | `4,962`ns (2303%)                        |
+| [js-quantities](https://npmjs.com/package/js-quantities)           | `6,295`ns (2921%)                        |
+| [@favware/converter](https://npmjs.com/package/@favware/converter) | `46,525`ns (21589%)                      |
 
 ### Converting hours to minutes
 
 | Library                                                            | Average execution time (lower is better) |
 | ------------------------------------------------------------------ | ---------------------------------------- |
-| raw math (builtin)                                                 | `172`ns (100%)                           |
-| [convert](https://npmjs.com/package/convert)                       | `304`ns (176%)                           |
-| [uom](https://npmjs.com/package/uom)                               | `480`ns (278%)                           |
-| [safe-units](https://npmjs.com/package/safe-units)                 | `737`ns (427%)                           |
-| [moment](https://npmjs.com/package/moment)                         | `919`ns (533%)                           |
-| [units-converter](https://npmjs.com/package/units-converter)       | `971`ns (563%)                           |
-| [dayjs](https://npmjs.com/package/dayjs)                           | `1,090`ns (632%)                         |
-| [luxon](https://npmjs.com/package/luxon)                           | `1,865`ns (1082%)                        |
-| [js-quantities](https://npmjs.com/package/js-quantities)           | `3,718`ns (2156%)                        |
-| [convert-units](https://npmjs.com/package/convert-units)           | `7,545`ns (4375%)                        |
-| [@favware/converter](https://npmjs.com/package/@favware/converter) | `40,478`ns (23472%)                      |
+| raw math (builtin)                                                 | `231`ns (100%)                           |
+| [convert](https://npmjs.com/package/convert)                       | `343`ns (148%)                           |
+| [uom](https://npmjs.com/package/uom)                               | `554`ns (240%)                           |
+| [safe-units](https://npmjs.com/package/safe-units)                 | `842`ns (364%)                           |
+| [moment](https://npmjs.com/package/moment)                         | `1,067`ns (462%)                         |
+| [dayjs](https://npmjs.com/package/dayjs)                           | `1,100`ns (476%)                         |
+| [units-converter](https://npmjs.com/package/units-converter)       | `1,113`ns (481%)                         |
+| [luxon](https://npmjs.com/package/luxon)                           | `2,288`ns (990%)                         |
+| [js-quantities](https://npmjs.com/package/js-quantities)           | `4,720`ns (2042%)                        |
+| [convert-units](https://npmjs.com/package/convert-units)           | `8,056`ns (3486%)                        |
+| [@favware/converter](https://npmjs.com/package/@favware/converter) | `46,606`ns (20165%)                      |
 
 ### Parse a duration string and normalize it to milliseconds
 
 | Library                                      | Average execution time (lower is better) |
 | -------------------------------------------- | ---------------------------------------- |
-| [ms](https://npmjs.com/package/ms)           | `617`ns (100%)                           |
-| [convert](https://npmjs.com/package/convert) | `681`ns (110%)                           |
+| [ms](https://npmjs.com/package/ms)           | `648`ns (100%)                           |
+| [convert](https://npmjs.com/package/convert) | `852`ns (131%)                           |
 
 ### Converting hours to minutes, but with `BigInt`s
 
 | Library                                      | Average execution time (lower is better) |
 | -------------------------------------------- | ---------------------------------------- |
-| raw math (builtin)                           | `287`ns (100%)                           |
-| [convert](https://npmjs.com/package/convert) | `599`ns (209%)                           |
+| raw math (builtin)                           | `376`ns (100%)                           |
+| [convert](https://npmjs.com/package/convert) | `674`ns (179%)                           |
 
 <!-- endblock(results) -->
 
