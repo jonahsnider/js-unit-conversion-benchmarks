@@ -31,7 +31,7 @@ __metadata:
     "@types/luxon": 1.25.2
     "@types/ms": 0.7.31
     "@types/node": 14.14.27
-    "@types/prettier": 2.2.0
+    "@types/prettier": 2.2.1
     convert: 1.6.2
     convert-units: 2.3.4
     dayjs: 1.10.4
@@ -95,10 +95,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prettier@npm:2.2.0":
-  version: 2.2.0
-  resolution: "@types/prettier@npm:2.2.0"
-  checksum: 68d29aee4cc009c863388cce564406599630cd287c830436e943cebfd38280c15903e2e74f0270b25f8ef84307030600e1fd4bdc3205c2aa17eae758b9560d3e
+"@types/prettier@npm:2.2.1":
+  version: 2.2.1
+  resolution: "@types/prettier@npm:2.2.1"
+  checksum: 9dc257dfc51eab6bc1e9ce58df94b309a206b2cdc6768709de3d20f70ae545c616bbc46add6d66f66cfa6cfbb0613dd09e6b6028ff6ff8ba9d3625f38d85cc66
   languageName: node
   linkType: hard
 
