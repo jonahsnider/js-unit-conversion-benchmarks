@@ -22,7 +22,7 @@
 		"tinu": "1.0.8",
 		"units-converter": "1.0.3",
 		"uom": "6.0.0",
-		"uom-units": "2.0.0"
+		"uom-units": "2.2.0"
 	},
 	"devDependencies": {
 		"@types/convert-units": "2.3.3",
