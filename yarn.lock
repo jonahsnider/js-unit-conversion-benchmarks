@@ -49,7 +49,7 @@ __metadata:
     typescript: 4.1.5
     units-converter: 1.0.3
     uom: 6.0.0
-    uom-units: 2.0.0
+    uom-units: 2.2.0
   languageName: unknown
   linkType: soft
 
@@ -420,16 +420,16 @@ typescript@4.1.5:
   languageName: node
   linkType: hard
 
-"uom-units@npm:2.0.0":
-  version: 2.0.0
-  resolution: "uom-units@npm:2.0.0"
+"uom-units@npm:2.2.0":
+  version: 2.2.0
+  resolution: "uom-units@npm:2.2.0"
   dependencies:
-    uom: ^6.0.0-0
-  checksum: 7cc0edc86d715fdf0d86621dd04e2aedc24f1d7ae63d19c58277fd76a0e952810acf80f63ef5682d35e30238f5afc84825674cfa4d088e2901b14d46cf4b1cac
+    uom: ^6.0.0
+  checksum: aa380c09773191dba7a9c4997062f3e096abb5c98b3f57604769dbb126d0a4fcb9e35f66751aefe5b5d1d929c89c05a9ad5702eff3bc63ea634524bdabcc8ccb
   languageName: node
   linkType: hard
 
-"uom@npm:6.0.0, uom@npm:^6.0.0-0":
+"uom@npm:6.0.0, uom@npm:^6.0.0":
   version: 6.0.0
   resolution: "uom@npm:6.0.0"
   checksum: 328c1179f02d8ab159d93a1720d817dbd7de661a2d020cd79f3c0afe48fde925133711f95f0f0ccd85faf135fed846ee377a0d5319f3f0efbd5a243caafb1ca9
