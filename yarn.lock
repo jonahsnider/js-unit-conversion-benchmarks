@@ -12,6 +12,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@lukeed/ms@npm:2.0.0":
+  version: 2.0.0
+  resolution: "@lukeed/ms@npm:2.0.0"
+  checksum: 405d4781c01e5fe71d5b190e02902f258df6af54b2027f70f7800b91fcf0060a5cd99a3241a0b8b441bb4a268c8afa05f6db340991604266e50f1c230bb6ae11
+  languageName: node
+  linkType: hard
+
 "@pizzafox/benchmark@npm:2.0.0":
   version: 2.0.0
   resolution: "@pizzafox/benchmark@npm:2.0.0"
@@ -24,6 +31,7 @@ __metadata:
   resolution: "@pizzafox/js-unit-conversion-benchmarks@workspace:."
   dependencies:
     "@favware/converter": 3.1.0
+    "@lukeed/ms": 2.0.0
     "@pizzafox/benchmark": 2.0.0
     "@pizzafox/util": 2.5.1
     "@types/convert-units": 2.3.3
