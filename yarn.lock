@@ -40,7 +40,7 @@ __metadata:
     "@types/ms": 0.7.31
     "@types/node": 14.14.31
     "@types/prettier": 2.2.2
-    convert: 1.7.1
+    convert: 1.8.0
     convert-units: 2.3.4
     dayjs: 1.10.4
     fluxunit: 1.4.0
@@ -120,10 +120,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"convert@npm:1.7.1":
-  version: 1.7.1
-  resolution: "convert@npm:1.7.1"
-  checksum: eda249f2c545da3c04d814c0e48643f4100041f6d7c2d85b3b6e2118fbd60a5bd905963351532589f925bf0a18ce938e8d456cb6b544f602a6bf503a95a84d3b
+"convert@npm:1.8.0":
+  version: 1.8.0
+  resolution: "convert@npm:1.8.0"
+  checksum: 332cabfa431b1cd9a2832a77ed5a0b59aa4b1ca14c5694cc362b51107374513a38068a6f60d90033ae7b34b888a71e2a6952d766ba6597a86350073eb699af0c
   languageName: node
   linkType: hard
 
