@@ -18,8 +18,8 @@ console.log('average execution time (lower is better):');
 const markdownLines = [
 	`Generated automatically at ${new Date().toUTCString()} with ${runtimeStats}`,
 	'',
-	`Each library was called ${skip} times to allow the runtime to warmup.`,
-	`Afterward ${trials} trials were performed for each library.`,
+	`Each library was called ${skip.toLocaleString()} times to allow the runtime to warmup.`,
+	`Afterward ${trials.toLocaleString()} trials were performed for each library.`,
 	'The mean of the execution times are displayed in the tables below.'
 ];
 
