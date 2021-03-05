@@ -32,6 +32,8 @@ jobs:
         run: yarn run build
       - name: Run benchmarks
         run: yarn start
+        env:
+          NODE_ENV: production
       - name: Update benchmark results in readme
         run: |
           git config --global user.email "js.unit.conversion.benchmarks@jonah.pw"
@@ -70,6 +72,8 @@ jobs:
         run: yarn run build
       - name: Run tests
         run: yarn test
+        env:
+          NODE_ENV: production
 
   build:
     name: Build
