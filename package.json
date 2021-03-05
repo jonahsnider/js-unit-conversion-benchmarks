@@ -9,7 +9,7 @@
 		"@lukeed/ms": "2.0.0",
 		"@pizzafox/benchmark": "2.0.0",
 		"@pizzafox/util": "2.5.1",
-		"convert": "1.7.0",
+		"convert": "1.7.1",
 		"convert-units": "2.3.4",
 		"dayjs": "1.10.4",
 		"fluxunit": "1.4.0",
