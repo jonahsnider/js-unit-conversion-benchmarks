@@ -1,4 +1,4 @@
-import {parse, format} from '@lukeed/ms';
+import {parse} from '@lukeed/ms';
 import {BenchmarkTitles} from '../config.js';
 
 export const name = '@lukeed/ms';
