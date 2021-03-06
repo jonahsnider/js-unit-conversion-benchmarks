@@ -36,7 +36,7 @@ __metadata:
     "@pizzafox/util": 2.5.1
     "@types/convert-units": 2.3.3
     "@types/js-quantities": 1.6.2
-    "@types/luxon": 1.26.1
+    "@types/luxon": 1.26.2
     "@types/ms": 0.7.31
     "@types/node": 14.14.31
     "@types/prettier": 2.2.2
@@ -82,10 +82,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/luxon@npm:1.26.1":
-  version: 1.26.1
-  resolution: "@types/luxon@npm:1.26.1"
-  checksum: 5aac5bc7e77839fc006e28f1a4f9ca15f1708e995669e1624f3c43ebc75463290d6e57e836670c7a9560a68d4787fa818aa4f41d802664ad29a67deaedbbaef2
+"@types/luxon@npm:1.26.2":
+  version: 1.26.2
+  resolution: "@types/luxon@npm:1.26.2"
+  checksum: b9148779f070c2a966c2de3bcc5fc0e9ba3843c3222935c12e4cb0bf8659dbd3bdcf71c2a669e4e3a12d9188b58568541b8585b98df058cfb8bcb6a51fc05220
   languageName: node
   linkType: hard
 
