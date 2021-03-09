@@ -38,7 +38,7 @@ __metadata:
     "@types/js-quantities": 1.6.2
     "@types/luxon": 1.26.2
     "@types/ms": 0.7.31
-    "@types/node": 14.14.32
+    "@types/node": 14.14.33
     "@types/prettier": 2.2.2
     convert: 1.8.0
     convert-units: 2.3.4
@@ -96,10 +96,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:14.14.32":
-  version: 14.14.32
-  resolution: "@types/node@npm:14.14.32"
-  checksum: ae73f3b668242da660b4f4f2047114fc047f5a6a92b8f9f4ab2f8ca1325c914c08cf13b6f90e6e88016fafb7a662d1963b075a6220d2208651a98a1cb3407221
+"@types/node@npm:14.14.33":
+  version: 14.14.33
+  resolution: "@types/node@npm:14.14.33"
+  checksum: f269fc728f6547345e000a0d86e1be802b475bb6759493208d7bc1cf8d49e838d3952ae54b8c7cd2ce168f9ef50c30e0d7084064a5f98db87efc833a38d955af
   languageName: node
   linkType: hard
 
