@@ -33,7 +33,7 @@ __metadata:
     "@favware/converter": 3.1.0
     "@lukeed/ms": 2.0.0
     "@pizzafox/benchmark": 2.0.0
-    "@pizzafox/util": 2.6.0
+    "@pizzafox/util": 2.7.0
     "@types/convert-units": 2.3.3
     "@types/js-quantities": 1.6.2
     "@types/luxon": 1.26.2
@@ -61,10 +61,10 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@pizzafox/util@npm:2.6.0":
-  version: 2.6.0
-  resolution: "@pizzafox/util@npm:2.6.0"
-  checksum: 169fa3b983af161e4878d4bca7fe20a619e6d987588b279f116dd90329e85805fe0d6fd79e3d691229e6666924b97548ac38a1e1d7fe526107651527a8c47c43
+"@pizzafox/util@npm:2.7.0":
+  version: 2.7.0
+  resolution: "@pizzafox/util@npm:2.7.0"
+  checksum: abe0c96f19f8d0149359e20cf21323c6e05757046880f84c4968cde53443a84bb8da693d97ba313bec9ec342d72cf0b747454f1d8f7bf9a9b6cdaebecf58be0b
   languageName: node
   linkType: hard
 
