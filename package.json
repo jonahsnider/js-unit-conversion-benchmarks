@@ -8,7 +8,7 @@
 		"@favware/converter": "3.1.0",
 		"@lukeed/ms": "2.0.0",
 		"@pizzafox/benchmark": "2.0.1",
-		"@pizzafox/util": "2.7.2",
+		"@pizzafox/util": "2.7.3",
 		"convert": "1.8.2",
 		"convert-units": "2.3.4",
 		"dayjs": "1.10.4",
