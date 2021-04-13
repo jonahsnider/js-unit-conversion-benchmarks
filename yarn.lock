@@ -19,10 +19,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@pizzafox/benchmark@npm:2.0.1":
-  version: 2.0.1
-  resolution: "@pizzafox/benchmark@npm:2.0.1"
-  checksum: 8cbe67635c3a03da68ee61d0b2c8cad24918d1c20afa4e01201806ac839b5530eb0b8b50207cae34cded35f341b4fd69fc96428103329f2dddf0f2b0c8b2dacc
+"@pizzafox/benchmark@npm:2.0.2":
+  version: 2.0.2
+  resolution: "@pizzafox/benchmark@npm:2.0.2"
+  checksum: 54bff5b9734a8aa7aa646ce90610e8291c0c391d7ad372b8be7ef3fd8deb4bfb95c75f2afa9b838359d5cb0c4dfe5c42f15d7e503b26fef2c6150bf5204fa0e9
   languageName: node
   linkType: hard
 
@@ -32,7 +32,7 @@ __metadata:
   dependencies:
     "@favware/converter": 3.1.0
     "@lukeed/ms": 2.0.0
-    "@pizzafox/benchmark": 2.0.1
+    "@pizzafox/benchmark": 2.0.2
     "@pizzafox/util": 2.8.0
     "@types/convert-units": 2.3.3
     "@types/js-quantities": 1.6.2
