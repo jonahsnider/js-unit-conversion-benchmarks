@@ -20,7 +20,12 @@ const markdownLines = [
 	'',
 	`Each library was called ${skip.toLocaleString()} times to allow the runtime to warmup.`,
 	`Afterward ${trials.toLocaleString()} trials were performed for each library.`,
-	'The mean of the execution times are displayed in the tables below.'
+	'The mean of the execution times are displayed in the tables below.',
+	'',
+	'A baseline of raw math is included in each benchmark.',
+	'It should always be the fastest, although sometimes fast libraries get lucky and can outperform it.',
+	'',
+	"If you want a different library to be added to the benchmark, make an issue or create a pull request if you're comfortable."
 ];
 
 for (const [title, benchmark] of Object.entries(results)) {

@@ -12,6 +12,11 @@ Each library was called 500 times to allow the runtime to warmup.
 Afterward 100,000 trials were performed for each library.
 The mean of the execution times are displayed in the tables below.
 
+A baseline of raw math is included in each benchmark.
+It should always be the fastest, although sometimes fast libraries get lucky and can outperform it.
+
+If you want a different library to be added to the benchmark, make an issue or create a pull request if you're comfortable.
+
 ### Inches to feet
 
 | Library                                                            | Average execution time (lower is better) |
@@ -73,12 +78,6 @@ The mean of the execution times are displayed in the tables below.
 | [convert](https://npmjs.com/package/convert) | `2,391`ns (636%)                         |
 
 <!-- endblock(results) -->
-
----
-
-If you want a different library to be added to the benchmark, make an issue or create a pull request if you're comfortable.
-
----
 
 ## Benchmark strategy
 
