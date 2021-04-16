@@ -6,9 +6,9 @@
 	},
 	"dependencies": {
 		"@favware/converter": "3.1.0",
+		"@jonahsnider/benchmark": "2.0.3",
+		"@jonahsnider/util": "2.9.1",
 		"@lukeed/ms": "2.0.0",
-		"@pizzafox/benchmark": "2.0.2",
-		"@pizzafox/util": "2.8.0",
 		"convert": "1.8.3",
 		"convert-units": "2.3.4",
 		"dayjs": "1.10.4",
@@ -39,7 +39,7 @@
 	"description": "Some benchmarks of community-made libraries for converting units.",
 	"license": "MIT",
 	"main": "index.js",
-	"name": "@pizzafox/js-unit-conversion-benchmarks",
+	"name": "@jonahsnider/js-unit-conversion-benchmarks",
 	"private": true,
 	"scripts": {
 		"build": "tsc",

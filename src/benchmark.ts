@@ -1,5 +1,5 @@
-import {Benchmark} from '@pizzafox/benchmark';
-import {mean} from '@pizzafox/util';
+import {Benchmark} from '@jonahsnider/benchmark';
+import {mean} from '@jonahsnider/util';
 import * as libraries from './libraries/index.js';
 
 export async function runBenchmark(trials: number, skip: number) {

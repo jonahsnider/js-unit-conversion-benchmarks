@@ -1,4 +1,4 @@
-import {mean, stddev} from '@pizzafox/util';
+import {mean, stddev} from '@jonahsnider/util';
 import * as libraries from './libraries/index.js';
 
 function testLibraries() {

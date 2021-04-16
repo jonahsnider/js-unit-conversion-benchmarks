@@ -1,4 +1,4 @@
-import {ascending, sortObject} from '@pizzafox/util';
+import {ascending, sortObject} from '@jonahsnider/util';
 import {convert} from 'convert';
 import {readFile, writeFile} from 'fs/promises';
 import path from 'path';

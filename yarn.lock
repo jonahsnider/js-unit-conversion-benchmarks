@@ -12,28 +12,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lukeed/ms@npm:2.0.0":
-  version: 2.0.0
-  resolution: "@lukeed/ms@npm:2.0.0"
-  checksum: 405d4781c01e5fe71d5b190e02902f258df6af54b2027f70f7800b91fcf0060a5cd99a3241a0b8b441bb4a268c8afa05f6db340991604266e50f1c230bb6ae11
+"@jonahsnider/benchmark@npm:2.0.3":
+  version: 2.0.3
+  resolution: "@jonahsnider/benchmark@npm:2.0.3"
+  checksum: 7dbbc87abdd0dd7f36a4c559800dc3032304a8fd0f319a695c333c03d1a486ec8b616f44e76bca6d6ba14697235b4846ce1941c130eed0b070f19d9e48fbc160
   languageName: node
   linkType: hard
 
-"@pizzafox/benchmark@npm:2.0.2":
-  version: 2.0.2
-  resolution: "@pizzafox/benchmark@npm:2.0.2"
-  checksum: 54bff5b9734a8aa7aa646ce90610e8291c0c391d7ad372b8be7ef3fd8deb4bfb95c75f2afa9b838359d5cb0c4dfe5c42f15d7e503b26fef2c6150bf5204fa0e9
-  languageName: node
-  linkType: hard
-
-"@pizzafox/js-unit-conversion-benchmarks@workspace:.":
+"@jonahsnider/js-unit-conversion-benchmarks@workspace:.":
   version: 0.0.0-use.local
-  resolution: "@pizzafox/js-unit-conversion-benchmarks@workspace:."
+  resolution: "@jonahsnider/js-unit-conversion-benchmarks@workspace:."
   dependencies:
     "@favware/converter": 3.1.0
+    "@jonahsnider/benchmark": 2.0.3
+    "@jonahsnider/util": 2.9.1
     "@lukeed/ms": 2.0.0
-    "@pizzafox/benchmark": 2.0.2
-    "@pizzafox/util": 2.8.0
     "@types/convert-units": 2.3.3
     "@types/js-quantities": 1.6.2
     "@types/luxon": 1.26.3
@@ -61,10 +54,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@pizzafox/util@npm:2.8.0":
-  version: 2.8.0
-  resolution: "@pizzafox/util@npm:2.8.0"
-  checksum: 9d7f29e32e67d1fb6a458a80b1717162606154f8596726c98da16ffd208809d1efc8c404d0e66ac5ac49a9fe57ad25b8b0e626a6843d6dcc7a1005d12dda8fbc
+"@jonahsnider/util@npm:2.9.1":
+  version: 2.9.1
+  resolution: "@jonahsnider/util@npm:2.9.1"
+  checksum: 79191f75a9d0c734be6f75efc7d675e611e2a3aabcdd28d13b6bf07524ecb24bdcbf652c4a45e95ae14b592f58545f61a0e1e0903d6bec2bf5c46c213af9c565
+  languageName: node
+  linkType: hard
+
+"@lukeed/ms@npm:2.0.0":
+  version: 2.0.0
+  resolution: "@lukeed/ms@npm:2.0.0"
+  checksum: 405d4781c01e5fe71d5b190e02902f258df6af54b2027f70f7800b91fcf0060a5cd99a3241a0b8b441bb4a268c8afa05f6db340991604266e50f1c230bb6ae11
   languageName: node
   linkType: hard
 
