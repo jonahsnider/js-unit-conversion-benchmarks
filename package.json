@@ -11,7 +11,7 @@
 		"@lukeed/ms": "2.0.0",
 		"convert": "1.9.1",
 		"convert-units": "2.3.4",
-		"dayjs": "1.10.4",
+		"dayjs": "1.10.5",
 		"fluxunit": "1.4.0",
 		"js-quantities": "1.7.6",
 		"luxon": "1.27.0",
