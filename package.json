@@ -7,7 +7,7 @@
 	"dependencies": {
 		"@favware/converter": "3.1.0",
 		"@jonahsnider/benchmark": "2.0.3",
-		"@jonahsnider/util": "2.10.2",
+		"@jonahsnider/util": "2.12.0",
 		"@lukeed/ms": "2.0.0",
 		"convert": "1.9.1",
 		"convert-units": "2.3.4",
