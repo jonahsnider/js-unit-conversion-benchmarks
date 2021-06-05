@@ -1,11 +1,11 @@
-import {feet, hours, inches, liters, Measure, minutes} from 'safe-units';
+import {milli, hours, inches, liters, Measure, minutes, meters} from 'safe-units';
 import {BenchmarkTitles} from '../config.js';
 
 export const name = 'safe-units';
 
 export default {
-	[BenchmarkTitles.InchesToFeet]() {
-		return Measure.of(1024, inches).per(feet).value;
+	[BenchmarkTitles.InchesToMillimeters]() {
+		return Measure.of(4, inches).per(milli(meters)).value;
 	},
 	[BenchmarkTitles.FractionLitersToCubicInches]() {
 		return Measure.of(4.2, liters).per(inches.cubed()).value;

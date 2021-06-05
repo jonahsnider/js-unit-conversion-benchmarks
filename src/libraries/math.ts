@@ -3,8 +3,8 @@ import {BenchmarkTitles} from '../config.js';
 export const name = 'raw math (builtin)';
 
 const tests = {
-	[BenchmarkTitles.InchesToFeet]() {
-		return 1024 / 12;
+	[BenchmarkTitles.InchesToMillimeters]() {
+		return 4 * 25.4;
 	},
 	[BenchmarkTitles.BigIntConversion]() {
 		return 24n * 60n;

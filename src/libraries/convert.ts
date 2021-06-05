@@ -4,8 +4,8 @@ import {BenchmarkTitles} from '../config.js';
 export const name = 'convert';
 
 const tests = {
-	[BenchmarkTitles.InchesToFeet]() {
-		return convert(1024).from('inch').to('foot');
+	[BenchmarkTitles.InchesToMillimeters]() {
+		return convert(4).from('inch').to('millimeters');
 	},
 	[BenchmarkTitles.FractionLitersToCubicInches]() {
 		return convert(4.2).from('l').to('in3');

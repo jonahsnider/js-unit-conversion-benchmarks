@@ -4,8 +4,8 @@ import {BenchmarkTitles} from '../config.js';
 export const name = 'fluxunit';
 
 const tests = {
-	[BenchmarkTitles.InchesToFeet]() {
-		return dist.in2FT(1024);
+	[BenchmarkTitles.InchesToMillimeters]() {
+		return dist.in2MM(4);
 	}
 };
 

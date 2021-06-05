@@ -4,8 +4,8 @@ import {BenchmarkTitles} from '../config.js';
 export const name = 'units-converter';
 
 export default {
-	[BenchmarkTitles.InchesToFeet]() {
-		return length(1024).from('in').to('ft').value;
+	[BenchmarkTitles.InchesToMillimeters]() {
+		return length(4).from('in').to('mm').value;
 	},
 	[BenchmarkTitles.FractionLitersToCubicInches]() {
 		return volume(4.2).from('l').to('in3').value;
