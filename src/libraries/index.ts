@@ -1,5 +1,6 @@
 export * as favwareConverter from './@favware-converter.js';
 export * as lukeedMs from './@lukeed-ms.js';
+export * as anotherDimension from './another-dimension.js';
 export * as convertUnits from './convert-units.js';
 export * as convert from './convert.js';
 export * as dayjs from './dayjs.js';
