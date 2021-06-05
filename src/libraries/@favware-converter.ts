@@ -5,8 +5,8 @@ export const name = '@favware/converter';
 
 export default {
 	[BenchmarkTitles.InchesToMillimeters]() {
-		// There is a bug in @favware/converter that is swapping the from <-> to units, but only for length which is why this is `'ft', 'in'` instead of `'in', 'ft'`
-		return convert(4, 'in', 'mm');
+		// There is a bug in @favware/converter that is swapping the from <-> to units, but only for length which is why this is `'mm', 'in'` instead of `'in', 'mm'`
+		return convert(4, 'mm', 'in');
 	},
 	[BenchmarkTitles.FractionLitersToCubicInches]() {
 		return convert(4.2, 'l', 'in3');
