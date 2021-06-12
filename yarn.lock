@@ -47,7 +47,7 @@ __metadata:
     pretty-ms: 7.0.1
     safe-units: 1.1.0
     tinu: 1.0.8
-    tslib: 2.2.0
+    tslib: 2.3.0
     typescript: 4.2.4
     units-converter: 1.0.3
     uom: 6.0.0
@@ -402,10 +402,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:2.2.0":
-  version: 2.2.0
-  resolution: "tslib@npm:2.2.0"
-  checksum: 2d35468c470410871c5246e43f12dcb6d0fc363b617c176f26443b9530e5c5ee8448966892a42956168d8f495da7865bda33dfe82c26c91991e28999974a618f
+"tslib@npm:2.3.0":
+  version: 2.3.0
+  resolution: "tslib@npm:2.3.0"
+  checksum: 7b4fc9feff0f704743c3760f5d8d708f6417fac6458159e63df3a6b1100f0736e3b99edb9fe370f274ad15160a1f49ff05cb49402534c818ff552c48e38c3e6e
   languageName: node
   linkType: hard
 
