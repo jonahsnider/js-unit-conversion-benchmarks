@@ -5,10 +5,10 @@ __metadata:
   version: 4
   cacheKey: 7
 
-"@favware/converter@npm:3.1.0":
-  version: 3.1.0
-  resolution: "@favware/converter@npm:3.1.0"
-  checksum: 16a67887bf750266f86b2ba2456e620cc8504cd29daa41a0c987811ed6be7ca558ae8a5ebcdae109abe60a55a321607b0fe756a46ed7949449e1076d61ac52a7
+"@favware/converter@npm:3.1.1":
+  version: 3.1.1
+  resolution: "@favware/converter@npm:3.1.1"
+  checksum: 6529b36e4def45748962e6ac1c8931d4e91c1ce4c2d3fccfaedae64e058c7e0c517ecdd2bd4dabdcc355437a10359b55200be9bcb0da3f8f5afd10d8d18cdabd
   languageName: node
   linkType: hard
 
@@ -23,7 +23,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@jonahsnider/js-unit-conversion-benchmarks@workspace:."
   dependencies:
-    "@favware/converter": 3.1.0
+    "@favware/converter": 3.1.1
     "@jonahsnider/benchmark": 2.0.3
     "@jonahsnider/util": 2.14.0
     "@lukeed/ms": 2.0.0
