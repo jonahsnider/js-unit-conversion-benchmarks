@@ -1,4 +1,4 @@
-import {ascending, sortObject} from '@jonahsnider/util';
+import {Sort, sortObject} from '@jonahsnider/util';
 import {convert} from 'convert';
 import {readFile, writeFile} from 'fs/promises';
 import path from 'path';
@@ -36,7 +36,7 @@ for (const [title, benchmark] of Object.entries(results)) {
 	const table: Record<string, string> = {};
 
 	/** Benchmarks sorted by average execution time ascending. */
-	const sortedBenchmark = sortObject(benchmark, ascending);
+	const sortedBenchmark = Object.fromEntries(sortObject(benchmark, Sort.ascending));
 
 	/** The fastest speed of any library. */
 	let fastest: number;
