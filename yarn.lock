@@ -25,7 +25,7 @@ __metadata:
   dependencies:
     "@favware/converter": 3.1.1
     "@jonahsnider/benchmark": 2.0.3
-    "@jonahsnider/util": 3.1.0
+    "@jonahsnider/util": 3.1.1
     "@lukeed/ms": 2.0.0
     "@types/convert-units": 2.3.3
     "@types/js-quantities": 1.6.2
@@ -55,10 +55,10 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@jonahsnider/util@npm:3.1.0":
-  version: 3.1.0
-  resolution: "@jonahsnider/util@npm:3.1.0"
-  checksum: d52391947c761855139b2f5beee80c7a9c950cd9efdc00e1ebb7f927a87cdf54013322ef79cde743442c49b066988a9383c1be007ba43d3815e06bcb96cbaeb3
+"@jonahsnider/util@npm:3.1.1":
+  version: 3.1.1
+  resolution: "@jonahsnider/util@npm:3.1.1"
+  checksum: 52b8217b2e644f2ec7c7ef1127014ef5e2e7b50b44f47ed18630d6af570f22e2ac703fa59c365f0614d6194e40ccea58a2462dabf7833dd4d040148893bac945
   languageName: node
   linkType: hard
 
