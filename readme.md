@@ -79,19 +79,3 @@ Each library is tested with a few different common use cases.
 These are written as functions that return the value calculated by that use case (ex. converting inches to millimeters).
 Each of these functions are benchmarked several times and the execution time is recorded.
 The mean execution time for each use case is displayed in the above tables.
-
-A simplified example of a benchmark for raw math (as a baseline) is shown below:
-
-```js
-import {BenchmarkTitles} from '../config.js';
-
-export const name = 'raw math (builtin)';
-
-const tests = {
-	[BenchmarkTitles.InchesToMillimeters]() {
-		return 4 * 25.4;
-	}
-};
-
-export default tests;
-```
