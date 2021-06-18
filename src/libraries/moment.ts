@@ -1,7 +1,9 @@
 import moment from 'moment';
-import {BenchmarkTitles} from '../config.js';
+import {BenchmarkTitles, LibraryCategory} from '../config.js';
 
 export const name = 'moment';
+
+export const category = LibraryCategory.Popular;
 
 const tests = {
 	[BenchmarkTitles.HoursToMinutes]() {

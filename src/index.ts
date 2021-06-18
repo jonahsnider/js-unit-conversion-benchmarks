@@ -6,7 +6,8 @@ import prettier from 'prettier';
 import prettierConfig from '../prettier.config.cjs';
 import {runBenchmark} from './benchmark.js';
 import {skip, trials} from './config.js';
-import {baseDir, npmLink, replaceHtmlBlock, runtimeStats} from './util.js';
+import * as libraries from './libraries/index.js';
+import {baseDir, markdownPackageName, replaceHtmlBlock, runtimeStats} from './util.js';
 
 console.log('performing', trials + skip, 'trials and skipping the first', skip, 'trials');
 
@@ -27,6 +28,11 @@ const markdownLines = [
 	'',
 	"If you want a different library to be added to the benchmark, make an issue or create a pull request if you're comfortable."
 ];
+
+const nameToLibrary = Object.fromEntries(Object.values(libraries).map(library => [library.name, library])) as Record<
+	typeof libraries[keyof typeof libraries]['name'],
+	typeof libraries[keyof typeof libraries]
+>;
 
 for (const [title, benchmark] of Object.entries(results)) {
 	console.log(`${title}:`);
@@ -51,12 +57,14 @@ for (const [title, benchmark] of Object.entries(results)) {
 		// This will only assign once
 		fastest ??= averageExecutionTime;
 
+		const packageName = markdownPackageName(nameToLibrary[library as typeof libraries[keyof typeof libraries]['name']]);
 		const executionTimeNs = Math.round(convert(averageExecutionTime).from('ms').to('ns')).toLocaleString();
-		const opsPerSec = Math.round(1 / convert(averageExecutionTime).from('ms').to('s')).toLocaleString();
 		const percent = Math.round((averageExecutionTime / fastest) * 100);
+		const opsPerSec = Math.round(1 / convert(averageExecutionTime).from('ms').to('s')).toLocaleString();
 
 		table[library] = `${executionTimeNs}ns`;
-		markdownLines.push(`| ${npmLink(library)} | \`${executionTimeNs}\`ns (${percent}%) | \`${opsPerSec}\`/sec |`);
+
+		markdownLines.push(`| ${packageName} | \`${executionTimeNs}\`ns (${percent}%) | \`${opsPerSec}\`/sec |`);
 	}
 
 	console.table(table);
@@ -64,7 +72,7 @@ for (const [title, benchmark] of Object.entries(results)) {
 	markdownLines.push('');
 }
 
-if (process.env.CI) {
+if (true || process.env.CI) {
 	const markdown = markdownLines.join('\n');
 
 	const readMePath = path.join(baseDir, '..', 'readme.md');

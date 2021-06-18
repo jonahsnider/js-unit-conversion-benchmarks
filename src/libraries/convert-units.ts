@@ -1,7 +1,9 @@
 import convert from 'convert-units';
-import {BenchmarkTitles} from '../config.js';
+import {BenchmarkTitles, LibraryCategory} from '../config.js';
 
 export const name = 'convert-units';
+
+export const category = LibraryCategory.Popular;
 
 export default {
 	[BenchmarkTitles.InchesToMillimeters]() {

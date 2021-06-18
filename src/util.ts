@@ -1,7 +1,7 @@
+import os from 'os';
 import {dirname} from 'path';
 import {fileURLToPath} from 'url';
-import os from 'os';
-import {skip, trials} from './config.js';
+import {LibraryCategory} from './config.js';
 
 export const baseDir = dirname(fileURLToPath(import.meta.url));
 
@@ -33,16 +33,16 @@ export function replaceHtmlBlock(string: string, blockId: string, replaceValue: 
 }
 
 /**
- * Get an Markdown formatted npm link to a library, unless the library ends with `(builtin)`.
+ * Format a library for display in Markdown.
  *
- * @param library - The library to get the npm link for
+ * @param library - The library to format
  *
- * @returns The Markdown formatted npm link to the library, unless it ended with `(builtin)`
+ * @returns The Markdown formatted library
  */
-export function npmLink(library: string): string {
-	if (library.endsWith('(builtin)')) {
-		return library;
+export function markdownPackageName(library: {name: string; category: LibraryCategory}): string {
+	if (library.category === LibraryCategory.Baseline) {
+		return `${library.name} (${library.category})`;
 	}
 
-	return `[${library}](https://npmjs.com/package/${library})`;
+	return `[${library.name}](https://npmjs.com/package/${library.name}) (${library.category})`;
 }

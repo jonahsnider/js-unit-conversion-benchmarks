@@ -15,6 +15,12 @@ export enum BenchmarkTitles {
 	BigIntConversion = 'Converting hours to minutes, but with `BigInt`s'
 }
 
+export enum LibraryCategory {
+	Baseline = 'baseline',
+	Fast = 'fast',
+	Popular = 'popular'
+}
+
 if (process.env.NODE_ENV !== 'production') {
 	console.warn('[!] NODE_ENV is not production, got', process.env.NODE_ENV);
 }

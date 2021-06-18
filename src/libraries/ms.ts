@@ -1,7 +1,9 @@
 import ms from 'ms';
-import {BenchmarkTitles} from '../config.js';
+import {BenchmarkTitles, LibraryCategory} from '../config.js';
 
 export const name = 'ms';
+
+export const category = LibraryCategory.Popular;
 
 const tests = {
 	[BenchmarkTitles.ParseDurationAndNormalize]() {

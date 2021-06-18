@@ -1,7 +1,9 @@
 import {convert, convertMany} from 'convert';
-import {BenchmarkTitles} from '../config.js';
+import {BenchmarkTitles, LibraryCategory} from '../config.js';
 
 export const name = 'convert';
+
+export const category = LibraryCategory.Fast;
 
 const tests = {
 	[BenchmarkTitles.InchesToMillimeters]() {

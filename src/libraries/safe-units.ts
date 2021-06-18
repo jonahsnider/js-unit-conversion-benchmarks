@@ -1,7 +1,9 @@
 import {milli, hours, inches, liters, Measure, minutes, meters} from 'safe-units';
-import {BenchmarkTitles} from '../config.js';
+import {BenchmarkTitles, LibraryCategory} from '../config.js';
 
 export const name = 'safe-units';
+
+export const category = LibraryCategory.Fast;
 
 export default {
 	[BenchmarkTitles.InchesToMillimeters]() {

@@ -1,6 +1,8 @@
-import {BenchmarkTitles} from '../config.js';
+import {BenchmarkTitles, LibraryCategory} from '../config.js';
 
-export const name = 'raw math (builtin)';
+export const name = 'raw math';
+
+export const category = LibraryCategory.Baseline;
 
 const tests = {
 	[BenchmarkTitles.InchesToMillimeters]() {

@@ -1,7 +1,9 @@
 import {Duration} from 'luxon';
-import {BenchmarkTitles} from '../config.js';
+import {BenchmarkTitles, LibraryCategory} from '../config.js';
 
 export const name = 'luxon';
+
+export const category = LibraryCategory.Popular;
 
 const tests = {
 	[BenchmarkTitles.HoursToMinutes]() {

@@ -1,8 +1,10 @@
 import duration from 'dayjs/plugin/duration.js';
 import dayjs from 'dayjs';
-import {BenchmarkTitles} from '../config.js';
+import {BenchmarkTitles, LibraryCategory} from '../config.js';
 
 export const name = 'dayjs';
+
+export const category = LibraryCategory.Popular;
 
 dayjs.extend(duration);
 

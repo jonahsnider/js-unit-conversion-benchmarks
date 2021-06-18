@@ -1,8 +1,10 @@
 import {Unit} from 'uom';
 import {Units} from 'uom-units';
-import {BenchmarkTitles} from '../config.js';
+import {BenchmarkTitles, LibraryCategory} from '../config.js';
 
 export const name = 'uom';
+
+export const category = LibraryCategory.Fast;
 
 export default {
 	[BenchmarkTitles.InchesToMillimeters]() {

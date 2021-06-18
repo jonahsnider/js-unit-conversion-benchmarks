@@ -1,7 +1,9 @@
 import Qty from 'js-quantities';
-import {BenchmarkTitles} from '../config.js';
+import {BenchmarkTitles, LibraryCategory} from '../config.js';
 
 export const name = 'js-quantities';
+
+export const category = LibraryCategory.Popular;
 
 export default {
 	[BenchmarkTitles.InchesToMillimeters]() {
