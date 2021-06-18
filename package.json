@@ -5,15 +5,12 @@
 		"url": "https://jonah.pw"
 	},
 	"dependencies": {
-		"@favware/converter": "3.1.1",
 		"@jonahsnider/benchmark": "2.0.3",
 		"@jonahsnider/util": "4.0.0",
 		"@lukeed/ms": "2.0.0",
-		"another-dimension": "0.4.9",
 		"convert": "1.9.1",
 		"convert-units": "2.3.4",
 		"dayjs": "1.10.5",
-		"fluxunit": "1.4.0",
 		"js-quantities": "1.7.6",
 		"luxon": "1.27.0",
 		"moment": "2.29.1",
@@ -21,7 +18,6 @@
 		"prettier": "2.3.1",
 		"pretty-ms": "7.0.1",
 		"safe-units": "1.1.0",
-		"tinu": "1.0.8",
 		"units-converter": "1.0.3",
 		"uom": "6.0.0",
 		"uom-units": "2.2.0"

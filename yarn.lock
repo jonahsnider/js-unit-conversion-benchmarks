@@ -5,13 +5,6 @@ __metadata:
   version: 4
   cacheKey: 7
 
-"@favware/converter@npm:3.1.1":
-  version: 3.1.1
-  resolution: "@favware/converter@npm:3.1.1"
-  checksum: 6529b36e4def45748962e6ac1c8931d4e91c1ce4c2d3fccfaedae64e058c7e0c517ecdd2bd4dabdcc355437a10359b55200be9bcb0da3f8f5afd10d8d18cdabd
-  languageName: node
-  linkType: hard
-
 "@jonahsnider/benchmark@npm:2.0.3":
   version: 2.0.3
   resolution: "@jonahsnider/benchmark@npm:2.0.3"
@@ -23,7 +16,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@jonahsnider/js-unit-conversion-benchmarks@workspace:."
   dependencies:
-    "@favware/converter": 3.1.1
     "@jonahsnider/benchmark": 2.0.3
     "@jonahsnider/util": 4.0.0
     "@lukeed/ms": 2.0.0
@@ -33,11 +25,9 @@ __metadata:
     "@types/ms": 0.7.31
     "@types/node": 14.17.3
     "@types/prettier": 2.3.0
-    another-dimension: 0.4.9
     convert: 1.9.1
     convert-units: 2.3.4
     dayjs: 1.10.5
-    fluxunit: 1.4.0
     js-quantities: 1.7.6
     luxon: 1.27.0
     moment: 2.29.1
@@ -46,7 +36,6 @@ __metadata:
     prettier-config-xo: 1.0.4
     pretty-ms: 7.0.1
     safe-units: 1.1.0
-    tinu: 1.0.8
     tslib: 2.3.0
     typescript: 4.3.4
     units-converter: 1.0.3
@@ -111,13 +100,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"another-dimension@npm:0.4.9":
-  version: 0.4.9
-  resolution: "another-dimension@npm:0.4.9"
-  checksum: 1b234c0f0cc63bcd51ad2d5ca7551c953bc7e11e0e2121b658000a2cf4125ebb978a8695269b9a41664f7f9c2df942a34c48b5ee4f3e6c31a47c2afb1a7cc78e
-  languageName: node
-  linkType: hard
-
 "convert-units@npm:2.3.4":
   version: 2.3.4
   resolution: "convert-units@npm:2.3.4"
@@ -139,13 +121,6 @@ __metadata:
   version: 1.10.5
   resolution: "dayjs@npm:1.10.5"
   checksum: 11b3a952cdb77959b07318804bd982d1d377581e4752ec478da82b494da1ebb9d82e0539481ab51f90a36e35a268a730034cb6f3cac1b45609755c909329c0a1
-  languageName: node
-  linkType: hard
-
-"fluxunit@npm:1.4.0":
-  version: 1.4.0
-  resolution: "fluxunit@npm:1.4.0"
-  checksum: 593d4423a06d9e26a6380c7d4301fd4b1e9d46776df229274659e5aab848423b10fb0d49cec0411ada78b381d3716b48fa68064f4eca9694b12ddba2e6ae59f6
   languageName: node
   linkType: hard
 
@@ -392,13 +367,6 @@ __metadata:
   version: 1.1.0
   resolution: "safe-units@npm:1.1.0"
   checksum: ea92e64972ff501d9adcee128a35ce31706e9b6064ab6e963b287aba325f08a53fad073c257d58fd16964bff2abf8fe132970cc8aa652ff2e931a7b19470d2b9
-  languageName: node
-  linkType: hard
-
-"tinu@npm:1.0.8":
-  version: 1.0.8
-  resolution: "tinu@npm:1.0.8"
-  checksum: 81a2e548608c78e63b6abd35361c0ec1da4a1fb5a32655b14d73473b0654bc50a3b428948c3a67e2140c834b51e695ac17b3e60e2736c06873bfc035fd2eb709
   languageName: node
   linkType: hard
 
