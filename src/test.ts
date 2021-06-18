@@ -25,7 +25,7 @@ for (const [benchmark, outputs] of Object.entries(benchmarkOutputs)) {
 	console.table(outputs);
 
 	// One standard deviation away
-	if (Math.abs(outputStddev) > Math.abs(normalizedOutputValues.reduce(mean))) {
+	if (Math.abs(outputStddev) > Math.abs(mean(normalizedOutputValues))) {
 		success = false;
 		console.warn('[!] standard deviation exceeded safe threshold', outputStddev);
 	}
