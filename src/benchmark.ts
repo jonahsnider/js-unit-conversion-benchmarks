@@ -20,7 +20,7 @@ export async function runBenchmark(trials: number, skip: number) {
 			}
 
 			results[name] ??= {};
-			results[name][library.name] = benchmarkResult.slice(skip).reduce(mean);
+			results[name][library.name] = mean(benchmarkResult.slice(skip));
 		}
 	}
 
