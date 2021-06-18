@@ -30,7 +30,12 @@ const markdownLines = [
 
 for (const [title, benchmark] of Object.entries(results)) {
 	console.log(`${title}:`);
-	markdownLines.push(`### ${title}`, '', '| Library | Average execution time (lower is better) |', '| --- | --- |');
+	markdownLines.push(
+		`### ${title}`,
+		'',
+		'| Library | Average execution time (lower is better) | Executions per second (higher is better) |',
+		'| --- | --- | --- |'
+	);
 
 	/** Used to display data in the console. */
 	const table: Record<string, string> = {};
@@ -47,10 +52,11 @@ for (const [title, benchmark] of Object.entries(results)) {
 		fastest ??= averageExecutionTime;
 
 		const executionTimeNs = Math.round(convert(averageExecutionTime).from('ms').to('ns')).toLocaleString();
+		const opsPerSec = Math.round(1 / convert(averageExecutionTime).from('ms').to('s')).toLocaleString();
 		const percent = Math.round((averageExecutionTime / fastest) * 100);
 
 		table[library] = `${executionTimeNs}ns`;
-		markdownLines.push(`| ${npmLink(library)} | \`${executionTimeNs}\`ns (${percent}%) |`);
+		markdownLines.push(`| ${npmLink(library)} | \`${executionTimeNs}\`ns (${percent}%) | \`${opsPerSec}\`/sec |`);
 	}
 
 	console.table(table);
