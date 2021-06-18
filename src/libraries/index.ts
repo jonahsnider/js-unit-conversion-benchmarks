@@ -8,5 +8,4 @@ export * as math from './math.js';
 export * as moment from './moment.js';
 export * as ms from './ms.js';
 export * as safeUnits from './safe-units.js';
-export * as unitsConverter from './units-converter.js';
 export * as uom from './uom.js';

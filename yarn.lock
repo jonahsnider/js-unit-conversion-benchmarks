@@ -38,7 +38,6 @@ __metadata:
     safe-units: 1.1.0
     tslib: 2.3.0
     typescript: 4.3.4
-    units-converter: 1.0.3
     uom: 6.0.0
     uom-units: 2.2.0
   languageName: unknown
@@ -394,13 +393,6 @@ typescript@4.3.4:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: c8766e84a4f71e925cc059af8286cc7f41819fe821d433b90c83e9b36729cbda7a8e4be3292d8a1433cd717d529c93217d58d173418f43862290b206bd88b284
-  languageName: node
-  linkType: hard
-
-"units-converter@npm:1.0.3":
-  version: 1.0.3
-  resolution: "units-converter@npm:1.0.3"
-  checksum: ed6ac01ac82c87a57131a1a8ac516eb9b7861a0347d3e0746fa5da66abaad1a2c177e2817a04c357be6323b6ef727d8c2b0d64f762bc49342ede02a97350b24b
   languageName: node
   linkType: hard
 
