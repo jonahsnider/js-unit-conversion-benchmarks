@@ -58,9 +58,9 @@ for (const [title, benchmark] of Object.entries(results)) {
 		fastest ??= averageExecutionTime;
 
 		const packageName = markdownPackageName(nameToLibrary[library as typeof libraries[keyof typeof libraries]['name']]);
-		const executionTimeNs = Math.round(convert(averageExecutionTime).from('ms').to('ns')).toLocaleString();
+		const executionTimeNs = Math.round(convert(averageExecutionTime, 'ms').to('ns')).toLocaleString();
 		const percent = Math.round((averageExecutionTime / fastest) * 100);
-		const opsPerSec = Math.round(1 / convert(averageExecutionTime).from('ms').to('s')).toLocaleString();
+		const opsPerSec = Math.round(1 / convert(averageExecutionTime, 'ms').to('s')).toLocaleString();
 
 		table[library] = `${executionTimeNs}ns`;
 

@@ -7,19 +7,19 @@ export const category = LibraryCategory.Fast;
 
 const tests = {
 	[BenchmarkTitles.InchesToMillimeters]() {
-		return convert(4).from('inch').to('millimeters');
+		return convert(4, 'inch').to('millimeters');
 	},
 	[BenchmarkTitles.FractionLitersToCubicInches]() {
-		return convert(4.2).from('l').to('in3');
+		return convert(4.2, 'l').to('in3');
 	},
 	[BenchmarkTitles.HoursToMinutes]() {
-		return convert(24).from('hours').to('minutes');
+		return convert(24, 'hours').to('minutes');
 	},
 	[BenchmarkTitles.ParseDurationAndNormalize]() {
 		return convertMany('10h').to('ms');
 	},
 	[BenchmarkTitles.BigIntConversion]() {
-		return convert(24n).from('hours').to('minutes');
+		return convert(24n, 'hours').to('minutes');
 	}
 };
 
