@@ -14,8 +14,8 @@ const tests = {
 	[BenchmarkTitles.HoursToMinutes]() {
 		return 24 * 60;
 	},
-	[BenchmarkTitles.FractionLitersToCubicInches]() {
-		return 4.2 * 61.0237440947323;
+	[BenchmarkTitles.LitersToCubicInches]() {
+		return 2.5 * 61.0237440947323;
 	}
 };
 

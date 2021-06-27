@@ -6,7 +6,7 @@ export const name = '@lukeed/ms';
 export const category = LibraryCategory.Fast;
 
 const tests = {
-	[BenchmarkTitles.ParseDurationAndNormalize]() {
+	[BenchmarkTitles.ParseDurationToMilliseconds]() {
 		return parse('10h');
 	}
 };

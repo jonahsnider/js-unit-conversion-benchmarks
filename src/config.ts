@@ -8,10 +8,10 @@ export const skip = 500;
  * Human readable titles for different types of benchmarks performed on each library.
  */
 export enum BenchmarkTitles {
-	InchesToMillimeters = 'Inches to millimeters',
-	FractionLitersToCubicInches = 'Fractional liters to cubic inches',
-	HoursToMinutes = 'Converting hours to minutes',
-	ParseDurationAndNormalize = 'Parse a duration string and normalize it to milliseconds',
+	InchesToMillimeters = 'Convert 4 inches to millimeters',
+	LitersToCubicInches = 'Convert 2.5 liters to cubic inches',
+	HoursToMinutes = 'Convert 24 hours to minutes',
+	ParseDurationToMilliseconds = 'Parse "10h" and convert it to milliseconds',
 	BigIntConversion = 'Converting hours to minutes, but with `BigInt`s'
 }
 

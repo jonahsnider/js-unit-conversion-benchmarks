@@ -10,8 +10,8 @@ export default {
 	[BenchmarkTitles.InchesToMillimeters]() {
 		return Unit.convert(4, Units.Inch, Units.Millimeter);
 	},
-	[BenchmarkTitles.FractionLitersToCubicInches]() {
-		return Unit.convert(4.2, Units.Liter, Units.CubicInch);
+	[BenchmarkTitles.LitersToCubicInches]() {
+		return Unit.convert(2.5, Units.Liter, Units.CubicInch);
 	},
 	[BenchmarkTitles.HoursToMinutes]() {
 		return Unit.convert(24, Units.Hour, Units.Minute);
