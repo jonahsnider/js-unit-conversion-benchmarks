@@ -8,7 +8,7 @@
 		"@jonahsnider/benchmark": "2.0.3",
 		"@jonahsnider/util": "4.1.0",
 		"@lukeed/ms": "2.0.0",
-		"convert": "2.0.0",
+		"convert": "2.1.0",
 		"convert-units": "2.3.4",
 		"dayjs": "1.10.5",
 		"js-quantities": "1.7.6",

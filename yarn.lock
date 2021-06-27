@@ -25,7 +25,7 @@ __metadata:
     "@types/ms": 0.7.31
     "@types/node": 14.17.4
     "@types/prettier": 2.3.0
-    convert: 2.0.0
+    convert: 2.1.0
     convert-units: 2.3.4
     dayjs: 1.10.5
     js-quantities: 1.7.6
@@ -109,10 +109,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"convert@npm:2.0.0":
-  version: 2.0.0
-  resolution: "convert@npm:2.0.0"
-  checksum: 3139bd991b9207b1a2e726356600b5f0a945cde01a29955f114c1d2bcdefebacd0e6bad39fd05d47fa92a4989737410d443e1774e74321226b943f55649c124d
+"convert@npm:2.1.0":
+  version: 2.1.0
+  resolution: "convert@npm:2.1.0"
+  checksum: 59cdec222c58981d31a92eb1649a32ead2e543fc710c804c8d3c82879d6b05e3ee82aad3cf49dc3782304f6c678bc7b24214b3c49a847906ba8c114394a22c86
   languageName: node
   linkType: hard
 
