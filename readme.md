@@ -1,6 +1,6 @@
 # JavaScript unit conversion benchmarks
 
-Some benchmarks of community-made libraries for converting units.
+Some benchmarks of community-made JavaScript/TypeScript libraries for converting units.
 
 ## Results
 
