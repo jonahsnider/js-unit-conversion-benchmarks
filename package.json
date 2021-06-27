@@ -6,7 +6,7 @@
 	},
 	"dependencies": {
 		"@jonahsnider/benchmark": "2.0.3",
-		"@jonahsnider/util": "4.0.0",
+		"@jonahsnider/util": "4.1.0",
 		"@lukeed/ms": "2.0.0",
 		"convert": "2.0.0",
 		"convert-units": "2.3.4",
