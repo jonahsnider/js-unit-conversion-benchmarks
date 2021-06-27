@@ -72,7 +72,7 @@ for (const [title, benchmark] of Object.entries(results)) {
 	markdownLines.push('');
 }
 
-if (true || process.env.CI) {
+if (process.env.CI) {
 	const markdown = markdownLines.join('\n');
 
 	const readMePath = path.join(baseDir, '..', 'readme.md');
