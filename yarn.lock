@@ -27,7 +27,7 @@ __metadata:
     "@types/prettier": 2.3.1
     convert: 2.1.1
     convert-units: 2.3.4
-    dayjs: 1.10.5
+    dayjs: 1.10.6
     js-quantities: 1.7.6
     luxon: 1.27.0
     moment: 2.29.1
@@ -116,10 +116,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:1.10.5":
-  version: 1.10.5
-  resolution: "dayjs@npm:1.10.5"
-  checksum: 11b3a952cdb77959b07318804bd982d1d377581e4752ec478da82b494da1ebb9d82e0539481ab51f90a36e35a268a730034cb6f3cac1b45609755c909329c0a1
+"dayjs@npm:1.10.6":
+  version: 1.10.6
+  resolution: "dayjs@npm:1.10.6"
+  checksum: 474d21162c12d269d40e90cb3ce049bb2d987b8038c173224c8eb5805d6f38f07d11875779a81e282d8f889d3803c4bbb91d09b6ee08a1a44ae60ec26afd8f45
   languageName: node
   linkType: hard
 
