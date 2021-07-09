@@ -19,7 +19,7 @@ __metadata:
     "@jonahsnider/benchmark": 2.0.3
     "@jonahsnider/util": 4.1.0
     "@lukeed/ms": 2.0.0
-    "@types/convert-units": 2.3.3
+    "@types/convert-units": 2.3.4
     "@types/js-quantities": 1.6.2
     "@types/luxon": 1.27.1
     "@types/ms": 0.7.31
@@ -57,10 +57,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/convert-units@npm:2.3.3":
-  version: 2.3.3
-  resolution: "@types/convert-units@npm:2.3.3"
-  checksum: fef5f6219426bfe8b00e3d8f4b9be46dd14892c14f45fb425c48c66ac1849f63a7ac01655fb15a3bdb6d5476e373edb837c4c5e374c43090c4bb8a604749e17d
+"@types/convert-units@npm:2.3.4":
+  version: 2.3.4
+  resolution: "@types/convert-units@npm:2.3.4"
+  checksum: 189493ee844bbe2442d08713a1a9fa1cb03b0a0a2ce02fbcec8e12dcd74feb59ed87fa74c7f74be56725f4635a0b64da727d62b4705ce0b2471e5b0ac59822ab
   languageName: node
   linkType: hard
 
