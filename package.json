@@ -22,7 +22,7 @@
 		"uom-units": "2.2.0"
 	},
 	"devDependencies": {
-		"@types/convert-units": "2.3.3",
+		"@types/convert-units": "2.3.4",
 		"@types/js-quantities": "1.6.2",
 		"@types/luxon": "1.27.1",
 		"@types/ms": "0.7.31",
