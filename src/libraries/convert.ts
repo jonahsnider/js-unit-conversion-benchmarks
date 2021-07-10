@@ -20,7 +20,7 @@ const tests = {
 	},
 	[BenchmarkTitles.BigIntConversion]() {
 		return convert(24n, 'hours').to('minutes');
-	}
+	},
 };
 
 export default tests;

@@ -14,5 +14,5 @@ export default {
 	},
 	[BenchmarkTitles.HoursToMinutes]() {
 		return Measure.of(24, hours).per(minutes).value;
-	}
+	},
 };

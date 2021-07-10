@@ -15,5 +15,5 @@ export default {
 	},
 	[BenchmarkTitles.HoursToMinutes]() {
 		return Unit.convert(24, Units.Hour, Units.Minute);
-	}
+	},
 };

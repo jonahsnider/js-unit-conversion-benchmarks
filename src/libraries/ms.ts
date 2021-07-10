@@ -8,7 +8,7 @@ export const category = LibraryCategory.Popular;
 const tests = {
 	[BenchmarkTitles.ParseDurationToMilliseconds]() {
 		return ms('10h');
-	}
+	},
 };
 
 export default tests;
