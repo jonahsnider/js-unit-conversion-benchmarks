@@ -26,7 +26,7 @@ const markdownLines = [
 	'A baseline of raw math is included in each benchmark.',
 	'It should always be the fastest, although sometimes fast libraries get lucky and can outperform it.',
 	'',
-	"If you want a different library to be added to the benchmark, make an issue or create a pull request if you're comfortable."
+	"If you want a different library to be added to the benchmark, make an issue or create a pull request if you're comfortable.",
 ];
 
 const nameToLibrary = Object.fromEntries(Object.values(libraries).map(library => [library.name, library])) as Record<
@@ -40,7 +40,7 @@ for (const [title, benchmark] of Object.entries(results)) {
 		`### ${title}`,
 		'',
 		'| Library | Average execution time (lower is better) | Executions per second (higher is better) |',
-		'| --- | --- | --- |'
+		'| --- | --- | --- |',
 	);
 
 	/** Used to display data in the console. */

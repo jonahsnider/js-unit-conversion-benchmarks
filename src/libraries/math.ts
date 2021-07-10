@@ -16,7 +16,7 @@ const tests = {
 	},
 	[BenchmarkTitles.LitersToCubicInches]() {
 		return 2.5 * 61.0237440947323;
-	}
+	},
 };
 
 export default tests;

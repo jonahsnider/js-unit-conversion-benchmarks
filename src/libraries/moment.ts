@@ -8,7 +8,7 @@ export const category = LibraryCategory.Popular;
 const tests = {
 	[BenchmarkTitles.HoursToMinutes]() {
 		return moment.duration(24, 'hours').asMinutes();
-	}
+	},
 };
 
 export default tests;

@@ -12,13 +12,13 @@ export enum BenchmarkTitles {
 	LitersToCubicInches = 'Convert 2.5 liters to cubic inches',
 	HoursToMinutes = 'Convert 24 hours to minutes',
 	ParseDurationToMilliseconds = 'Parse "10h" and convert it to milliseconds',
-	BigIntConversion = 'Converting hours to minutes, but with `BigInt`s'
+	BigIntConversion = 'Converting hours to minutes, but with `BigInt`s',
 }
 
 export enum LibraryCategory {
 	Baseline = 'baseline',
 	Fast = 'fast',
-	Popular = 'popular'
+	Popular = 'popular',
 }
 
 if (process.env.NODE_ENV !== 'production') {

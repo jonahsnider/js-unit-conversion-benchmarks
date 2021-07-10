@@ -14,5 +14,5 @@ export default {
 	},
 	[BenchmarkTitles.HoursToMinutes]() {
 		return convert(24).from('h').to('min');
-	}
+	},
 };

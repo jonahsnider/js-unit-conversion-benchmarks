@@ -14,5 +14,5 @@ export default {
 	},
 	[BenchmarkTitles.HoursToMinutes]() {
 		return Qty(24, 'h/min').baseScalar;
-	}
+	},
 };
