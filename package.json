@@ -10,9 +10,9 @@
 		"@lukeed/ms": "2.0.0",
 		"convert": "2.1.1",
 		"convert-units": "2.3.4",
-		"dayjs": "1.10.5",
+		"dayjs": "1.10.6",
 		"js-quantities": "1.7.6",
-		"luxon": "1.27.0",
+		"luxon": "1.28.0",
 		"moment": "2.29.1",
 		"ms": "2.1.3",
 		"prettier": "2.3.2",
@@ -22,15 +22,15 @@
 		"uom-units": "2.2.0"
 	},
 	"devDependencies": {
-		"@types/convert-units": "2.3.3",
+		"@types/convert-units": "2.3.4",
 		"@types/js-quantities": "1.6.2",
-		"@types/luxon": "1.27.0",
+		"@types/luxon": "1.27.1",
 		"@types/ms": "0.7.31",
-		"@types/node": "14.17.4",
-		"@types/prettier": "2.3.0",
+		"@types/node": "14.17.5",
+		"@types/prettier": "2.3.2",
 		"prettier-config-xo": "1.0.4",
 		"tslib": "2.3.0",
-		"typescript": "4.3.4"
+		"typescript": "4.3.5"
 	},
 	"description": "Some benchmarks of community-made libraries for converting units.",
 	"license": "MIT",
