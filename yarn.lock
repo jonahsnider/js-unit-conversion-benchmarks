@@ -29,7 +29,7 @@ __metadata:
     convert-units: 2.3.4
     dayjs: 1.10.6
     js-quantities: 1.7.6
-    luxon: 2.0.1
+    luxon: 2.0.2
     moment: 2.29.1
     ms: 2.1.3
     prettier: 2.3.2
@@ -309,10 +309,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"luxon@npm:2.0.1":
-  version: 2.0.1
-  resolution: "luxon@npm:2.0.1"
-  checksum: 60c7bc66d33d38dcc80bfff6be1d33c1c1680da1ad7e3009df619aff482c17d59da465a7f9eb4ecc52e00798a9308312c6a1a12c3a167c9a0d24e302202b59c5
+"luxon@npm:2.0.2":
+  version: 2.0.2
+  resolution: "luxon@npm:2.0.2"
+  checksum: ea82fa2034e9d2e3b508f26bcf648771cacb8c988f6f9ff09f542efc6d6883251caab30e867019882cfb073a57da8d707ea515c7a3cd62ef50b25787a91d8697
   languageName: node
   linkType: hard
 
