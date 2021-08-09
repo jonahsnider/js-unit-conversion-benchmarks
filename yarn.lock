@@ -17,7 +17,7 @@ __metadata:
   resolution: "@jonahsnider/js-unit-conversion-benchmarks@workspace:."
   dependencies:
     "@jonahsnider/benchmark": 2.0.3
-    "@jonahsnider/util": 4.4.0
+    "@jonahsnider/util": 4.5.0
     "@lukeed/ms": 2.0.0
     "@types/convert-units": 2.3.4
     "@types/js-quantities": 1.6.2
@@ -43,10 +43,10 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@jonahsnider/util@npm:4.4.0":
-  version: 4.4.0
-  resolution: "@jonahsnider/util@npm:4.4.0"
-  checksum: 69114e1f515576013238978108cc1b6a767010fc76e4fea8ec9364af52eadb7e5ff95e48b2c9eb87e9eaf2c5578e5aa9eae18b979261321de63d8b3a47d1f94a
+"@jonahsnider/util@npm:4.5.0":
+  version: 4.5.0
+  resolution: "@jonahsnider/util@npm:4.5.0"
+  checksum: 1339ae5f46a130b5aca701e393a55127b0823f5189e81c4564adefaecfdc518b5a75d422d350446983ec8d35675ddb28adedcb00dd006ffec5d276d651603093
   languageName: node
   linkType: hard
 
