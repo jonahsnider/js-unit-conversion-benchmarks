@@ -21,7 +21,7 @@ __metadata:
     "@lukeed/ms": 2.0.0
     "@types/convert-units": 2.3.4
     "@types/js-quantities": 1.6.2
-    "@types/luxon": 1.27.1
+    "@types/luxon": 2.0.0
     "@types/ms": 0.7.31
     "@types/node": 14.17.9
     "@types/prettier": 2.3.2
@@ -71,10 +71,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/luxon@npm:1.27.1":
-  version: 1.27.1
-  resolution: "@types/luxon@npm:1.27.1"
-  checksum: 4aeca24d002210f47fb3714de68423888a6775f3f29b35df40c476395aa1846eaf08fa04bd1c9d6a0ab1e992d9418c46a2de5edc1c272f833f0f09d75ea4492a
+"@types/luxon@npm:2.0.0":
+  version: 2.0.0
+  resolution: "@types/luxon@npm:2.0.0"
+  checksum: 57d298f68ba22f44087a0b11f08690db07b4424b6b36e90b7e6c1c6c1d26535d4fd5a26430c0f590d8b3927d8270336873b4ad34dc280b7f4dcdec09635b5240
   languageName: node
   linkType: hard
 
