@@ -12,7 +12,7 @@ export enum BenchmarkTitles {
 	LitersToCubicInches = 'Convert 2.5 liters to cubic inches',
 	HoursToMinutes = 'Convert 24 hours to minutes',
 	ParseDurationToMilliseconds = 'Parse "10h" and convert it to milliseconds',
-	BigIntConversion = 'Converting hours to minutes, but with `BigInt`s',
+	BigIntConversion = 'Convert 24 hours to minutes, but with `BigInt`s',
 }
 
 export enum LibraryCategory {
