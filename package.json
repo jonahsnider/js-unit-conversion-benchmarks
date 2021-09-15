@@ -26,7 +26,7 @@
 		"@types/js-quantities": "1.6.2",
 		"@types/luxon": "2.0.4",
 		"@types/ms": "0.7.31",
-		"@types/node": "14.17.15",
+		"@types/node": "14.17.16",
 		"@types/prettier": "2.3.2",
 		"prettier-config-xo": "2.0.0",
 		"tslib": "2.3.1",
