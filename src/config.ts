@@ -13,6 +13,7 @@ export enum BenchmarkTitles {
 	HoursToMinutes = 'Convert 24 hours to minutes',
 	ParseDurationToMilliseconds = 'Parse "10h" and convert it to milliseconds',
 	BigIntConversion = 'Convert 24 hours to minutes, but with `BigInt`s',
+	BytesToBest = 'Convert 8192 bytes to the best applicable unit',
 }
 
 export enum LibraryCategory {

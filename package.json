@@ -8,6 +8,7 @@
 		"@jonahsnider/benchmark": "2.0.3",
 		"@jonahsnider/util": "8.0.1",
 		"@lukeed/ms": "2.0.0",
+		"byte-size": "8.1.0",
 		"convert": "4.0.2",
 		"convert-units": "2.3.4",
 		"dayjs": "1.10.7",
@@ -22,6 +23,7 @@
 		"uom-units": "2.2.0"
 	},
 	"devDependencies": {
+		"@types/byte-size": "8.1.0",
 		"@types/convert-units": "2.3.5",
 		"@types/js-quantities": "1.6.2",
 		"@types/luxon": "2.0.4",

@@ -1,4 +1,5 @@
 export * as lukeedMs from './@lukeed-ms.js';
+export * as byteSize from './byte-size.js';
 export * as convertUnits from './convert-units.js';
 export * as convert from './convert.js';
 export * as dayjs from './dayjs.js';

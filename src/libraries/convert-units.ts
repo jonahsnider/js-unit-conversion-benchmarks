@@ -15,4 +15,9 @@ export default {
 	[BenchmarkTitles.HoursToMinutes]() {
 		return convert(24).from('h').to('min');
 	},
+	[BenchmarkTitles.BytesToBest]() {
+		const best = convert(8192).from('B').toBest();
+
+		return best.val + best.unit;
+	},
 };

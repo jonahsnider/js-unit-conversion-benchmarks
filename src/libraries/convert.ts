@@ -21,6 +21,9 @@ const tests = {
 	[BenchmarkTitles.BigIntConversion]() {
 		return convert(24n, 'hours').to('minutes');
 	},
+	[BenchmarkTitles.BytesToBest]() {
+		return convert(8192, 'bytes').to('best').toString();
+	},
 };
 
 export default tests;
