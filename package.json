@@ -9,7 +9,7 @@
 		"@jonahsnider/util": "8.0.1",
 		"@lukeed/ms": "2.0.0",
 		"byte-size": "8.1.0",
-		"convert": "4.0.2",
+		"convert": "4.1.0",
 		"convert-units": "2.3.4",
 		"dayjs": "1.10.7",
 		"js-quantities": "1.7.6",
