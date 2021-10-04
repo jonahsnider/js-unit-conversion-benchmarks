@@ -37,6 +37,7 @@ __metadata:
     prettier: 2.4.1
     prettier-config-xo: 2.0.0
     safe-units: 1.1.0
+    simple-units: "*"
     tslib: 2.3.1
     typescript: 4.4.4
     uom: 6.0.0
@@ -114,6 +115,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cartesian-product-generator@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "cartesian-product-generator@npm:1.1.1"
+  dependencies:
+    ind2sub: ^2.0.0
+  checksum: bdb0cd2959c217175a60b11f8bab77022f4ad418b96a3841b1a60e143ff4f7a41ad63016c3b8cf644c9cc17a8ce3da3b506c503d3147464c70600b7dc2e9c19e
+  languageName: node
+  linkType: hard
+
 "convert-units@npm:2.3.4":
   version: 2.3.4
   resolution: "convert-units@npm:2.3.4"
@@ -135,6 +145,13 @@ __metadata:
   version: 1.10.7
   resolution: "dayjs@npm:1.10.7"
   checksum: a0a4ca95abaa03d0702161dc2c35d16121188e342f5052b9c61cdf784dab68af766f477c04f87f71c6af666fd4d13db9b9853b87265850d6093b7b04e1bb1cd7
+  languageName: node
+  linkType: hard
+
+"ind2sub@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "ind2sub@npm:2.0.0"
+  checksum: 04c828e588f5f98e4d03f82d915e783ed3bfa9729fa6e53d1ade2aa06ba76d88d25f8414b5a6bceb02fd543abc1e2f0ff6a94752dabe5f62ccd7313d13f8a998
   languageName: node
   linkType: hard
 
@@ -365,6 +382,22 @@ __metadata:
   version: 1.1.0
   resolution: "safe-units@npm:1.1.0"
   checksum: 52d445371390bd5b98dbb158e59cb68a905020f250534c033972afe6fb7b69098625266d2245cf86ff1678a469028cc490f4d2bfe639eb6a272e999c3ce182e4
+  languageName: node
+  linkType: hard
+
+"simple-units@portal:/Users/jonah/programming/simple-units::locator=%40jonahsnider%2Fjs-unit-conversion-benchmarks%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "simple-units@portal:/Users/jonah/programming/simple-units::locator=%40jonahsnider%2Fjs-unit-conversion-benchmarks%40workspace%3A."
+  dependencies:
+    cartesian-product-generator: ^1.1.1
+    sprintf-js: ^1.1.2
+  languageName: node
+  linkType: soft
+
+"sprintf-js@npm:^1.1.2":
+  version: 1.1.2
+  resolution: "sprintf-js@npm:1.1.2"
+  checksum: d4bb46464632b335e5faed381bd331157e0af64915a98ede833452663bc672823db49d7531c32d58798e85236581fb7342fd0270531ffc8f914e186187bf1c90
   languageName: node
   linkType: hard
 
