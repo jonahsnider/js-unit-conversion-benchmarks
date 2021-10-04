@@ -13,6 +13,7 @@
 	"main": "dist/index.js",
 	"scripts": {
 		"build": "tsc",
+		"postinstall": "yarn tsc --build node_modules/simple-units/tsconfig.json",
 		"start": "node .",
 		"style": "prettier --check .",
 		"test": "node dist/test"
