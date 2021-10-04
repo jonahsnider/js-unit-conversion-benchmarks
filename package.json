@@ -10,10 +10,10 @@
 		"url": "https://jonahsnider.com"
 	},
 	"type": "module",
-	"main": "index.js",
+	"main": "dist/index.js",
 	"scripts": {
 		"build": "tsc",
-		"start": "node dist",
+		"start": "node .",
 		"style": "prettier --check .",
 		"test": "node dist/test"
 	},
