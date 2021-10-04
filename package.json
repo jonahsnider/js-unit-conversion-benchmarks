@@ -1,8 +1,21 @@
 {
+	"name": "@jonahsnider/js-unit-conversion-benchmarks",
+	"version": "1.0.0",
+	"private": true,
+	"description": "Some benchmarks of community-made libraries for converting units.",
+	"license": "MIT",
 	"author": {
-		"email": "jonah@jonah.pw",
 		"name": "Jonah Snider",
-		"url": "https://jonah.pw"
+		"email": "jonah@jonah.pw",
+		"url": "https://jonahsnider.com"
+	},
+	"type": "module",
+	"main": "index.js",
+	"scripts": {
+		"build": "tsc",
+		"start": "node dist",
+		"style": "prettier --check .",
+		"test": "node dist/test"
 	},
 	"dependencies": {
 		"@jonahsnider/benchmark": "2.0.3",
@@ -34,17 +47,5 @@
 		"tslib": "2.3.1",
 		"typescript": "4.4.3"
 	},
-	"description": "Some benchmarks of community-made libraries for converting units.",
-	"license": "MIT",
-	"main": "index.js",
-	"name": "@jonahsnider/js-unit-conversion-benchmarks",
-	"private": true,
-	"scripts": {
-		"build": "tsc",
-		"start": "node dist",
-		"style": "prettier --check .",
-		"test": "node dist/test"
-	},
-	"type": "module",
-	"version": "1.0.0"
+	"packageManager": "yarn@3.0.2"
 }
