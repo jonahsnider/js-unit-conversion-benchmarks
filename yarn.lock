@@ -26,6 +26,7 @@ __metadata:
     "@types/ms": 0.7.31
     "@types/node": 14.17.22
     "@types/prettier": 2.4.1
+    "@types/sprintf-js": 1.1.2
     byte-size: 8.1.0
     convert: 4.2.2
     convert-units: 2.3.4
@@ -37,7 +38,7 @@ __metadata:
     prettier: 2.4.1
     prettier-config-xo: 2.0.0
     safe-units: 1.1.0
-    simple-units: "*"
+    simple-units: "github:jonahsnider/simple-units#benchmarks"
     tslib: 2.3.1
     typescript: 4.4.4
     uom: 6.0.0
@@ -105,6 +106,13 @@ __metadata:
   version: 2.4.1
   resolution: "@types/prettier@npm:2.4.1"
   checksum: df330c2d6fe7c282839b0f17701e069a9c6c96d2ff54704e933a1b3c1b98844d963a7cb00c5629d173604892ceee802312bbaeb8a97f5da21e13db8f653b519e
+  languageName: node
+  linkType: hard
+
+"@types/sprintf-js@npm:1.1.2":
+  version: 1.1.2
+  resolution: "@types/sprintf-js@npm:1.1.2"
+  checksum: 9679e069eebebd910af12e4f90cfde44cd9af5974792bac572f41cd365eca2a6868287679281f2eb600b7960b28ae951d2a1b5980fb2966be71af18f3def58c7
   languageName: node
   linkType: hard
 
@@ -385,14 +393,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"simple-units@portal:/Users/jonah/programming/simple-units::locator=%40jonahsnider%2Fjs-unit-conversion-benchmarks%40workspace%3A.":
-  version: 0.0.0-use.local
-  resolution: "simple-units@portal:/Users/jonah/programming/simple-units::locator=%40jonahsnider%2Fjs-unit-conversion-benchmarks%40workspace%3A."
+"simple-units@github:jonahsnider/simple-units#benchmarks":
+  version: 0.0.0
+  resolution: "simple-units@https://github.com/jonahsnider/simple-units.git#commit=b524e39bde50af6c13a970384eb07db37e96e92e"
   dependencies:
     cartesian-product-generator: ^1.1.1
     sprintf-js: ^1.1.2
+  checksum: d92ccfd1db5e784402d0dd7ab9d7497e9048f9a5fee873325b8834171add6874836e46f7d52195066337585cc6a9b465f12ae464148a0fe0771fbb1e5157424a
   languageName: node
-  linkType: soft
+  linkType: hard
 
 "sprintf-js@npm:^1.1.2":
   version: 1.1.2
