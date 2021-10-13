@@ -23,8 +23,7 @@ const markdownLines = [
 	`Afterward ${trials.toLocaleString()} trials were performed for each library.`,
 	'The mean of the execution times are displayed in the tables below.',
 	'',
-	'A baseline of raw math is included in each benchmark.',
-	'It should always be the fastest, although sometimes fast libraries get lucky and can outperform it.',
+	'A baseline of raw math is included when relevant.',
 	'',
 	"If you want a different library to be added to the benchmark, make an issue or create a pull request if you're comfortable.",
 ];
