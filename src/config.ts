@@ -2,7 +2,7 @@
 export const trials = 100_000;
 
 /** Number of trials to perform as warmup period, these are discarded. */
-export const skip = 500;
+export const skip = 10_000;
 
 /**
  * Human readable titles for different types of benchmarks performed on each library.
