@@ -3,7 +3,7 @@ import {convert} from 'convert';
 import {readFile, writeFile} from 'fs/promises';
 import path from 'path';
 import prettier from 'prettier';
-import prettierConfig from '../prettier.config.cjs';
+import prettierConfig from '@jonahsnider/prettier-config';
 import {runBenchmark} from './benchmark.js';
 import {skip, trials} from './config.js';
 import * as libraries from './libraries/index.js';
