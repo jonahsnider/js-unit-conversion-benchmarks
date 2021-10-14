@@ -395,6 +395,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"simple-units@patch:simple-units@npm:1.0.0#.yarn/patches/simple-units-npm-1.0.0-b24922e9b0::locator=%40jonahsnider%2Fjs-unit-conversion-benchmarks%40workspace%3A.":
+  version: 1.0.0
+  resolution: "simple-units@patch:simple-units@npm%3A1.0.0#.yarn/patches/simple-units-npm-1.0.0-b24922e9b0::version=1.0.0&hash=3bea9a&locator=%40jonahsnider%2Fjs-unit-conversion-benchmarks%40workspace%3A."
+  dependencies:
+    cartesian-product-generator: ^1.1.1
+    sprintf-js: ^1.1.2
+  checksum: 4d78f1625c294816ef5bfb66d02ea8d82d44eee5b05d7a09cca3cbe6f3329779d73f7443196ab68b1b769b499af7d4f085f302be2a207de75a13998bbbf2ceef
+  languageName: node
+  linkType: hard
+
 "sprintf-js@npm:^1.1.2":
   version: 1.1.2
   resolution: "sprintf-js@npm:1.1.2"

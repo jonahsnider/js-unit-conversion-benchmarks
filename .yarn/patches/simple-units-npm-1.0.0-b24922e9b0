@@ -1,0 +1,12 @@
+diff --git a/dist/Convertible.d.ts b/dist/Convertible.d.ts
+index b013262ad42931b94e8f5a1d19bcb3ad9674cede..dc2432ee4e6f6fe3f0f0af38a77935d6c7ff6a38 100644
+--- a/dist/Convertible.d.ts
++++ b/dist/Convertible.d.ts
+@@ -36,6 +36,7 @@ export default class Convertible {
+          * @param unit the target unit
+          * @returns this
+          */
++        // @ts-expect-error
+         _asUnitUnchecked: (unit: Unit) => this;
+     };
+     /**
