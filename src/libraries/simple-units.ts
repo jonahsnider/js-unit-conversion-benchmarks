@@ -12,7 +12,7 @@ const tests = {
 	[BenchmarkTitles.InchesToMillimeters]() {
 		return units.from(4, 'inch').to('millimeters');
 	},
-  [BenchmarkTitles.LitersToCubicInches]() {
+	[BenchmarkTitles.LitersToCubicInches]() {
 		return units.from(2.5, 'l').to('in3');
 	},
 	[BenchmarkTitles.HoursToMinutes]() {
