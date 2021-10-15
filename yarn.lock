@@ -36,7 +36,7 @@ __metadata:
     ms: 2.1.3
     prettier: 2.4.1
     safe-units: 1.1.0
-    simple-units: 1.0.0
+    simple-units: 1.0.4
     tslib: 2.3.1
     typescript: 4.4.4
     uom: 6.0.0
@@ -394,23 +394,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"simple-units@npm:1.0.0":
-  version: 1.0.0
-  resolution: "simple-units@npm:1.0.0"
+"simple-units@npm:1.0.4":
+  version: 1.0.4
+  resolution: "simple-units@npm:1.0.4"
   dependencies:
     cartesian-product-generator: ^1.1.1
     sprintf-js: ^1.1.2
-  checksum: 8c84213e29a9849e123bb87b83230c2abf84980bbbc191255620792c1a160f60e9a636d14622154ce4a266064b4e02ed64edb6ea33d6bbfbd389548e4a73e030
-  languageName: node
-  linkType: hard
-
-"simple-units@patch:simple-units@npm:1.0.0#.yarn/patches/simple-units-npm-1.0.0-b24922e9b0::locator=%40jonahsnider%2Fjs-unit-conversion-benchmarks%40workspace%3A.":
-  version: 1.0.0
-  resolution: "simple-units@patch:simple-units@npm%3A1.0.0#.yarn/patches/simple-units-npm-1.0.0-b24922e9b0::version=1.0.0&hash=3bea9a&locator=%40jonahsnider%2Fjs-unit-conversion-benchmarks%40workspace%3A."
-  dependencies:
-    cartesian-product-generator: ^1.1.1
-    sprintf-js: ^1.1.2
-  checksum: 4d78f1625c294816ef5bfb66d02ea8d82d44eee5b05d7a09cca3cbe6f3329779d73f7443196ab68b1b769b499af7d4f085f302be2a207de75a13998bbbf2ceef
+  checksum: 4c7691e09c65091f58865c5fb62a45c2674487e07dca2524429b3d1167ce1558bacfe110369526a8b6f5ef1af1953c24fc35b6fb9f0c62f2f3d612cfb1e1b515
   languageName: node
   linkType: hard
 
