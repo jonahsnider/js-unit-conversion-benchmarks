@@ -18,12 +18,13 @@ const tests = {
 	[BenchmarkTitles.ParseDurationToMilliseconds]() {
 		return convertMany('10h').to('ms');
 	},
-	[BenchmarkTitles.BigIntConversion]() {
-		return convert(24n, 'hours').to('minutes');
-	},
 	[BenchmarkTitles.BytesToBest]() {
-		return convert(8192, 'bytes').to('best').toString();
+    return convert(8192, 'bytes').to('best').toString();
 	},
+  // The bigint benchmark must run last so TurboFan doesn't deoptimize subsequent runs of the library for having mixed types
+  [BenchmarkTitles.BigIntConversion]() {
+    return convert(24n, 'hours').to('minutes');
+  },
 };
 
 export default tests;
