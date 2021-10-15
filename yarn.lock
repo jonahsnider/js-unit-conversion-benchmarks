@@ -27,7 +27,7 @@ __metadata:
     "@types/ms": 0.7.31
     "@types/node": 14.17.27
     byte-size: 8.1.0
-    convert: 4.2.2
+    convert: 4.2.4
     convert-units: 2.3.4
     dayjs: 1.10.7
     js-quantities: 1.7.6
@@ -143,10 +143,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"convert@npm:4.2.2":
-  version: 4.2.2
-  resolution: "convert@npm:4.2.2"
-  checksum: ce3967fcd6bd92328b3e5d1550ff306ee57c03a564db241f5c40693ac5b541158af86103543b16e8ea163225a0be85c8b5e301c275c9b86884bd9b542eae69e9
+"convert@npm:4.2.4":
+  version: 4.2.4
+  resolution: "convert@npm:4.2.4"
+  checksum: 64f6fa00053fcb178ddaaaf39a5205bca616f675c99b0f17843ba946e07f7c25aad2616717ac48a3fe8b0a0c0800b49a6ec13c6dbb374fdfb2df4972709d47c8
   languageName: node
   linkType: hard
 
