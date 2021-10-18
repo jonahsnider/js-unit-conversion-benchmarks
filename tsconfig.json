@@ -8,9 +8,10 @@
 		"moduleResolution": "Node",
 		"outDir": "dist",
 		"removeComments": true,
+		"skipLibCheck": true,
 		"strict": true,
 		"target": "ESNext"
 	},
 	"exclude": ["node_modules", "dist"],
-	"include": ["src", "types", "prettier.config.cjs.d.ts"]
+	"include": ["src", "types"]
 }
