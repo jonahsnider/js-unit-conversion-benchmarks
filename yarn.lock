@@ -18,7 +18,7 @@ __metadata:
   dependencies:
     "@jonahsnider/benchmark": 2.0.3
     "@jonahsnider/prettier-config": 1.1.0
-    "@jonahsnider/util": 8.0.1
+    "@jonahsnider/util": 8.2.1
     "@lukeed/ms": 2.0.0
     "@types/byte-size": 8.1.0
     "@types/convert-units": 2.3.5
@@ -54,10 +54,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jonahsnider/util@npm:8.0.1":
-  version: 8.0.1
-  resolution: "@jonahsnider/util@npm:8.0.1"
-  checksum: 01e4295e8ef2e70e5b91891d039290e75cc7621e9d3de382f639d22fd371569f743cd24364f3ecf64d95fa439b5ece28ebce2bf351cf1c1ffd56f26681fb2482
+"@jonahsnider/util@npm:8.2.1":
+  version: 8.2.1
+  resolution: "@jonahsnider/util@npm:8.2.1"
+  checksum: 8a6a98c0912eb62460bd5067d755641d6042baef28a46f11deb29d5534096b70aae069342baebd76f93b77d7575c1f17d98824f4bf320d438266fca57a83c62b
   languageName: node
   linkType: hard
 
