@@ -1,17 +1,11 @@
 {
 	"compilerOptions": {
-		"allowSyntheticDefaultImports": true,
-		"forceConsistentCasingInFileNames": true,
 		"importHelpers": true,
-		"lib": ["ESNext"],
 		"module": "ESNext",
 		"moduleResolution": "Node",
-		"outDir": "dist",
-		"removeComments": true,
-		"skipLibCheck": true,
-		"strict": true,
-		"target": "ESNext"
+		"outDir": "dist"
 	},
 	"exclude": ["node_modules", "dist"],
+	"extends": "@tsconfig/node16/tsconfig.json",
 	"include": ["src", "types"]
 }
