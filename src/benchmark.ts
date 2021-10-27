@@ -1,28 +1,34 @@
 import {Benchmark} from '@jonahsnider/benchmark';
-import {mean} from '@jonahsnider/util';
-import * as libraries from './libraries/index.js';
+import {Sort} from '@jonahsnider/util';
+import {benchmarkTitleOrder, BenchmarkTitles, Library} from './config.js';
+import * as suites from './suites/index.js';
 
-export async function runBenchmark(trials: number, skip: number) {
-	const results: Record<string, Record<string, number>> = {};
+export const benchmark = new Benchmark();
 
-	for (const library of Object.values(libraries)) {
-		for (const [name, test] of Object.entries(library.default)) {
-			const benchmark = new Benchmark();
+for (const suite of Object.values(suites)) {
+	await benchmark.addSuite(suite, {threaded: true});
+}
 
-			benchmark.add(name, test);
+function sortResults<T>(results: Map<BenchmarkTitles, T>): Map<BenchmarkTitles, T> {
+	return new Map<BenchmarkTitles, T>([...results.entries()].sort(Sort.ascending(([title]) => benchmarkTitleOrder[title])));
+}
 
-			const benchmarkResults = await benchmark.exec(trials + skip);
+export async function runBenchmark() {
+	const rawResults = await benchmark.runSuites();
 
-			const benchmarkResult = benchmarkResults.get(name);
+	const results = new Map<BenchmarkTitles, Map<Library, number>>();
 
-			if (!benchmarkResult) {
-				throw new TypeError(`Expected ${name} to be in the benchmark results`);
-			}
+	for (const [_suiteName, suite] of rawResults.entries()) {
+		const suiteName = _suiteName as BenchmarkTitles;
+		results.set(suiteName, new Map());
 
-			results[name] ??= {};
-			results[name][library.name] = mean(benchmarkResult.slice(skip));
+		for (const [_testName, test] of suite.entries()) {
+			const testName = _testName as Library;
+			const result = test.percentile(99);
+
+			results.get(suiteName)!.set(testName, result);
 		}
 	}
 
-	return results;
+	return sortResults(results);
 }

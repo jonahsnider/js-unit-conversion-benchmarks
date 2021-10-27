@@ -82,7 +82,6 @@ If you want a different library to be added to the benchmark, make an issue or c
 
 ## Benchmark strategy
 
-Each library is tested with a few different common use cases.
-These are written as functions that return the value calculated by that use case (ex. converting inches to millimeters).
-Each of these functions are benchmarked several times and the execution time is recorded.
-The mean execution time for each use case is displayed in the above tables.
+Common use cases are implemented using each library and run several times while their execution times are recorded.
+
+Afterward, the 99th percentile of each library's execution time is used to generate the tables shown above.

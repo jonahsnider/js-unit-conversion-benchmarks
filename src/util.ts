@@ -1,7 +1,8 @@
+import assert from 'node:assert/strict';
 import os from 'os';
 import {dirname} from 'path';
 import {fileURLToPath} from 'url';
-import {LibraryCategory} from './config.js';
+import {Library, libraryCategories, LibraryCategory} from './config.js';
 
 export const baseDir = dirname(fileURLToPath(import.meta.url));
 
@@ -39,10 +40,14 @@ export function replaceHtmlBlock(string: string, blockId: string, replaceValue: 
  *
  * @returns The Markdown formatted library
  */
-export function markdownPackageName(library: {name: string; category: LibraryCategory}): string {
-	if (library.category === LibraryCategory.Baseline) {
-		return `${library.name} (${library.category})`;
+export function markdownPackageName(library: Library): string {
+	assert(library in libraryCategories);
+
+	const category = libraryCategories[library];
+
+	if (category === LibraryCategory.Baseline) {
+		return `${library} (${category})`;
 	}
 
-	return `[${library.name}](https://npmjs.com/package/${library.name}) (${library.category})`;
+	return `[${library}](https://npmjs.com/package/${library}) (${category})`;
 }

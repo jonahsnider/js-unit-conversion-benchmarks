@@ -5,10 +5,13 @@ __metadata:
   version: 4
   cacheKey: 8
 
-"@jonahsnider/benchmark@npm:2.0.3":
-  version: 2.0.3
-  resolution: "@jonahsnider/benchmark@npm:2.0.3"
-  checksum: dbf4c8ff538532740351c32d9292eca4d4b8249ed438c0ee28f171820f83e2b7247e20c17bfcab6059b069f888e39720bc6c77f464e48ea3b445bdb176df6249
+"@jonahsnider/benchmark@npm:3.0.0":
+  version: 3.0.0
+  resolution: "@jonahsnider/benchmark@npm:3.0.0"
+  dependencies:
+    "@jonahsnider/util": 8.4.1
+    tslib: 2.3.1
+  checksum: 4eb20fb03d9b13794aeeb9919609bfaf927d259b2723fafca72ce287caf15f5454c8f704bf699f58b06f0c6a3306504b4cfa9b86c3b4e99d3fd8def0e0085958
   languageName: node
   linkType: hard
 
@@ -16,7 +19,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@jonahsnider/js-unit-conversion-benchmarks@workspace:."
   dependencies:
-    "@jonahsnider/benchmark": 2.0.3
+    "@jonahsnider/benchmark": 3.0.0
     "@jonahsnider/prettier-config": 1.1.0
     "@jonahsnider/util": 8.4.1
     "@lukeed/ms": 2.0.0
@@ -26,7 +29,7 @@ __metadata:
     "@types/js-quantities": 1.6.2
     "@types/luxon": 2.0.5
     "@types/ms": 0.7.31
-    "@types/node": 14.17.32
+    "@types/node": 16.11.6
     byte-size: 8.1.0
     convert: 4.2.4
     convert-units: 2.3.4
@@ -111,10 +114,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:14.17.32":
-  version: 14.17.32
-  resolution: "@types/node@npm:14.17.32"
-  checksum: c3ec45db5d8ca6ed80bcc2fe3cd9f15c1518d43cf048dd5444d1fcbe308d302a42721cb3f19548ac2e7b8b7db4f7f6cd4bf9ed58ab1d30a0bf61758350edd9d5
+"@types/node@npm:16.11.6":
+  version: 16.11.6
+  resolution: "@types/node@npm:16.11.6"
+  checksum: 6e19634766ff589d3d2f361c2196b671f8f133cdadc5ad347a621c360d8994b6c4fbccfb2ad9c60c588c593831a96497c9c6b77d2b7e91be723384b94f6368e7
   languageName: node
   linkType: hard
 

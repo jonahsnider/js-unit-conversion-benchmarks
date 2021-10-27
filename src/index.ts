@@ -1,44 +1,38 @@
-import {Sort, sortObject} from '@jonahsnider/util';
+import prettierConfig from '@jonahsnider/prettier-config';
+import {Sort} from '@jonahsnider/util';
 import {convert} from 'convert';
 import {readFile, writeFile} from 'fs/promises';
 import path from 'path';
 import prettier from 'prettier';
-import prettierConfig from '@jonahsnider/prettier-config';
 import {runBenchmark} from './benchmark.js';
-import {skip, trials} from './config.js';
-import * as libraries from './libraries/index.js';
+import {suiteRunOptions} from './config.js';
 import {baseDir, markdownPackageName, replaceHtmlBlock, runtimeStats} from './util.js';
 
-console.log('performing', trials + skip, 'trials and skipping the first', skip, 'trials');
+console.log('performing', suiteRunOptions.run.trials, 'trials with a warmup of', suiteRunOptions.warmup.trials, 'trials');
 
-const results = await runBenchmark(trials, skip);
-
-console.log();
-console.log('average execution time (lower is better):');
+const results = await runBenchmark();
 
 const markdownLines = [
 	`Generated automatically at ${new Date().toUTCString()} with ${runtimeStats}`,
 	'',
-	`Each library was called ${skip.toLocaleString()} times to allow the runtime to warmup.`,
-	`Afterward ${trials.toLocaleString()} trials were performed for each library.`,
-	'The mean of the execution times are displayed in the tables below.',
+	`Each test was called ${suiteRunOptions.warmup.trials.toLocaleString()} times to allow the runtime to warmup.`,
+	`Afterward ${suiteRunOptions.run.trials.toLocaleString()} trials were performed for each library.`,
+	'The 99th percentile of execution times are displayed in the tables below.',
 	'',
 	'A baseline of raw math is included when relevant.',
 	'',
 	"If you want a different library to be added to the benchmark, make an issue or create a pull request if you're comfortable.",
 ];
 
-const nameToLibrary = Object.fromEntries(Object.values(libraries).map(library => [library.name, library])) as Record<
-	typeof libraries[keyof typeof libraries]['name'],
-	typeof libraries[keyof typeof libraries]
->;
+console.log();
+console.log('execution time (lower is better):');
 
-for (const [title, benchmark] of Object.entries(results)) {
-	console.log(`${title}:`);
+for (const [suiteName, suite] of results) {
+	console.log(`${suiteName}:`);
 	markdownLines.push(
-		`### ${title}`,
+		`### ${suiteName}`,
 		'',
-		'| Library | Average execution time (lower is better) | Executions per second (higher is better) |',
+		'| Library | Execution time (lower is better) | Executions per second (higher is better) |',
 		'| --- | --- | --- |',
 	);
 
@@ -46,24 +40,25 @@ for (const [title, benchmark] of Object.entries(results)) {
 	const table: Record<string, string> = {};
 
 	/** Benchmarks sorted by average execution time ascending. */
-	const sortedBenchmark = Object.fromEntries(sortObject(benchmark, Sort.ascending));
+	const sortedBenchmark = [...suite.entries()].sort(Sort.ascending(([, executionTime]) => executionTime));
 
 	/** The fastest speed of any library. */
 	let fastest: number;
 
-	for (const [library, averageExecutionTime] of Object.entries(sortedBenchmark)) {
+	for (const [libraryName, executionTimeNs] of sortedBenchmark) {
 		// Times are sorted ascending, so the first iteration is always the fastest library
 		// This will only assign once
-		fastest ??= averageExecutionTime;
+		fastest ??= executionTimeNs;
 
-		const packageName = markdownPackageName(nameToLibrary[library as typeof libraries[keyof typeof libraries]['name']]);
-		const executionTimeNs = Math.round(convert(averageExecutionTime, 'ms').to('ns')).toLocaleString();
-		const percent = Math.round((averageExecutionTime / fastest) * 100);
-		const opsPerSec = Math.round(1 / convert(averageExecutionTime, 'ms').to('s')).toLocaleString();
+		// TODO: Make an object mapping library names to their categories
+		const packageName = markdownPackageName(libraryName);
+		const executionTimeNsFormatted = Math.round(executionTimeNs).toLocaleString();
+		const percent = Math.round((executionTimeNs / fastest) * 100);
+		const opsPerSec = Math.round(1 / convert(executionTimeNs, 'ns').to('s')).toLocaleString();
 
-		table[library] = `${executionTimeNs}ns`;
+		table[libraryName] = `${executionTimeNsFormatted}ns`;
 
-		markdownLines.push(`| ${packageName} | \`${executionTimeNs}\`ns (${percent}%) | \`${opsPerSec}\`/sec |`);
+		markdownLines.push(`| ${packageName} | \`${executionTimeNsFormatted}\`ns (${percent}%) | \`${opsPerSec}\`/sec |`);
 	}
 
 	console.table(table);
