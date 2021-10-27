@@ -3,21 +3,21 @@
  */
 export enum BenchmarkTitles {
 	HoursToMinutes = 'Convert 24 hours to minutes',
-	LitersToCubicInches = 'Convert 2.5 liters to cubic inches',
-	InchesToMillimeters = 'Convert 4 inches to millimeters',
 	BytesToBest = 'Convert 8192 bytes to the best applicable unit',
+	InchesToMillimeters = 'Convert 4 inches to millimeters',
+	LitersToCubicInches = 'Convert 2.5 liters to cubic inches',
 	ParseDurationToMilliseconds = 'Parse "10h" and convert it to milliseconds',
 	BigIntConversion = 'Convert 24 hours to minutes, but with `bigint`s',
 }
 
-export const benchmarkTitleOrder: Readonly<Record<BenchmarkTitles, number>> ={
-  [BenchmarkTitles.BytesToBest]: 0,
+export const benchmarkTitleOrder: Readonly<Record<BenchmarkTitles, number>> = {
+	[BenchmarkTitles.BytesToBest]: 0,
 	[BenchmarkTitles.InchesToMillimeters]: 1,
 	[BenchmarkTitles.LitersToCubicInches]: 2,
 	[BenchmarkTitles.HoursToMinutes]: 3,
 	[BenchmarkTitles.ParseDurationToMilliseconds]: 4,
 	[BenchmarkTitles.BigIntConversion]: 5,
-}
+};
 
 export enum LibraryCategory {
 	Baseline = 'baseline',
