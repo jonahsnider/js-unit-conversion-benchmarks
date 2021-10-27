@@ -11,10 +11,10 @@ export enum BenchmarkTitles {
 }
 
 export const benchmarkTitleOrder: Readonly<Record<BenchmarkTitles, number>> = {
-	[BenchmarkTitles.BytesToBest]: 0,
-	[BenchmarkTitles.InchesToMillimeters]: 1,
-	[BenchmarkTitles.LitersToCubicInches]: 2,
-	[BenchmarkTitles.HoursToMinutes]: 3,
+	[BenchmarkTitles.HoursToMinutes]: 0,
+	[BenchmarkTitles.BytesToBest]: 1,
+	[BenchmarkTitles.InchesToMillimeters]: 2,
+	[BenchmarkTitles.LitersToCubicInches]: 3,
 	[BenchmarkTitles.ParseDurationToMilliseconds]: 4,
 	[BenchmarkTitles.BigIntConversion]: 5,
 };
