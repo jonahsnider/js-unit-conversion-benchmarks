@@ -79,9 +79,3 @@ If you want a different library to be added to the benchmark, make an issue or c
 | [convert](https://npmjs.com/package/convert) (fast) | `501`ns (166%)                   | `1,996,008`/sec                          |
 
 <!-- endblock(results) -->
-
-## Benchmark strategy
-
-Common use cases are implemented using each library and run several times while their execution times are recorded.
-
-Afterward, the 99th percentile of each library's execution time is used to generate the tables shown above.

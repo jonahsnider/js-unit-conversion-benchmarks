@@ -17,7 +17,8 @@ const markdownLines = [
 	'',
 	`Each test was called ${suiteRunOptions.warmup.trials.toLocaleString()} times to allow the runtime to warmup.`,
 	`Afterward ${suiteRunOptions.run.trials.toLocaleString()} trials were performed for each library.`,
-	'The 99th percentile of execution times are displayed in the tables below.',
+	'Information about the execution times are shown below.',
+	'Lower execution times and higher executions per second are better.',
 	'',
 	'A baseline of raw math is included when relevant.',
 	'',
@@ -32,15 +33,15 @@ for (const [suiteName, suite] of results) {
 	markdownLines.push(
 		`### ${suiteName}`,
 		'',
-		'| Library | Execution time (lower is better) | Executions per second (higher is better) |',
-		'| --- | --- | --- |',
+		'| Library | Median execution time | 75th percentile execution time | Executions per second |',
+		'| ------- | --------------------- | ------------------------------ | --------------------- |',
 	);
 
 	/** Used to display data in the console. */
 	const table: Record<string, string> = {};
 
 	/** Benchmarks sorted by average execution time ascending. */
-	const sortedBenchmark = [...suite.entries()].sort(Sort.ascending(([, executionTime]) => executionTime));
+	const sortedBenchmark = [...suite.entries()].sort(Sort.ascending(([, executionTime]) => executionTime.median));
 
 	/** The fastest speed of any library. */
 	let fastest: number;
@@ -48,17 +49,24 @@ for (const [suiteName, suite] of results) {
 	for (const [libraryName, executionTimeNs] of sortedBenchmark) {
 		// Times are sorted ascending, so the first iteration is always the fastest library
 		// This will only assign once
-		fastest ??= executionTimeNs;
+		fastest ??= executionTimeNs.median;
 
-		// TODO: Make an object mapping library names to their categories
-		const packageName = markdownPackageName(libraryName);
-		const executionTimeNsFormatted = Math.round(executionTimeNs).toLocaleString();
-		const percent = Math.round((executionTimeNs / fastest) * 100);
-		const opsPerSec = Math.round(1 / convert(executionTimeNs, 'ns').to('s')).toLocaleString();
+		const executionTimeNsFormatted = Math.round(executionTimeNs.median).toLocaleString();
 
 		table[libraryName] = `${executionTimeNsFormatted}ns`;
 
-		markdownLines.push(`| ${packageName} | \`${executionTimeNsFormatted}\`ns (${percent}%) | \`${opsPerSec}\`/sec |`);
+		const columns: string[] = [
+			// Package name
+			markdownPackageName(libraryName),
+			// Median execution time
+			`\`${executionTimeNsFormatted}\`ns (${Math.round((executionTimeNs.median / fastest) * 100).toLocaleString()}%)`,
+			// 75th percentile execution time
+			`\`${Math.round(executionTimeNs.percentile75).toLocaleString()}\`ns (${Math.round((executionTimeNs.percentile75 / fastest) * 100).toLocaleString()}%)`,
+			// Executions per second
+			`\`${Math.round(1 / convert(executionTimeNs.median, 'ns').to('s')).toLocaleString()}\`/sec`,
+		];
+
+		markdownLines.push(`| ${columns.join('|')} |`);
 	}
 
 	console.table(table);
