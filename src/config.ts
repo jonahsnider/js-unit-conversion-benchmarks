@@ -61,6 +61,6 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 export const suiteRunOptions = {
-	run: {trials: 100_000 / 100},
-	warmup: {trials: 10_000 / 100},
+	run: {trials: 100_000},
+	warmup: {trials: 10_000},
 };
