@@ -1,20 +1,23 @@
+import {_Test} from '@jonahsnider/benchmark';
 import {mean, stddev} from '@jonahsnider/util';
-import * as libraries from './libraries/index.js';
+import * as suites from './suites/index.js';
 
-function testLibraries() {
-	const results: Record<string, Record<string, string | number | bigint>> = {};
+async function testLibraries() {
+	type Output = string | number | bigint;
 
-	for (const library of Object.values(libraries)) {
-		for (const [name, test] of Object.entries(library.default)) {
-			results[name] ??= {};
-			results[name][library.name] = test();
+	const results: Record<string, Record<string, Output>> = {};
+
+	for (const suite of Object.values(suites)) {
+		for (const [testName, test] of suite.tests.entries()) {
+			results[suite.name] ??= {};
+			results[suite.name][testName] = await (test as _Test<Output>).run();
 		}
 	}
 
 	return results;
 }
 
-const benchmarkOutputs = testLibraries();
+const benchmarkOutputs = await testLibraries();
 
 let success = true;
 for (const [benchmark, outputs] of Object.entries(benchmarkOutputs)) {
