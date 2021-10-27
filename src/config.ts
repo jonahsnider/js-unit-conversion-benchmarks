@@ -64,5 +64,3 @@ export const suiteRunOptions = {
 	run: {trials: 100_000},
 	warmup: {trials: 10_000},
 };
-
-null! - 1;
