@@ -63,7 +63,7 @@ for (const [suiteName, suite] of results) {
 			// 75th percentile execution time
 			`\`${Math.round(executionTimeNs.percentile75).toLocaleString()}\`ns (${Math.round((executionTimeNs.percentile75 / fastest) * 100).toLocaleString()}%)`,
 			// Executions per second
-			`\`${Math.round(1 / convert(executionTimeNs.median, 'ns').to('s')).toLocaleString()}\`/sec`,
+			`\`${Math.round(convert(1, 's').to('ns') / executionTimeNs.median).toLocaleString()}\`/sec`,
 		];
 
 		markdownLines.push(`| ${columns.join('|')} |`);
