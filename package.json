@@ -45,7 +45,7 @@
 		"@types/byte-size": "8.1.0",
 		"@types/convert-units": "2.3.5",
 		"@types/js-quantities": "1.6.2",
-		"@types/luxon": "2.0.5",
+		"@types/luxon": "2.0.6",
 		"@types/ms": "0.7.31",
 		"@types/node": "16.11.6",
 		"tslib": "2.3.1",
