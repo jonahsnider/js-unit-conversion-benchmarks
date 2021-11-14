@@ -14,7 +14,7 @@ import * as UomUnits from 'uom-units';
 
 dayjs.extend(duration);
 
-const suite = new Suite(BenchmarkTitles.HoursToMinutes, {...suiteRunOptions, filename: import.meta.url});
+const suite = new Suite(BenchmarkTitles.HoursToMinutes, {...suiteRunOptions, filepath: import.meta.url});
 
 export default suite;
 
