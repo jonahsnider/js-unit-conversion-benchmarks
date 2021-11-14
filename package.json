@@ -22,7 +22,7 @@
 		"simple-units@1.0.0": "patch:simple-units@npm:1.0.0#.yarn/patches/simple-units-npm-1.0.0-b24922e9b0"
 	},
 	"dependencies": {
-		"@jonahsnider/benchmark": "3.0.1",
+		"@jonahsnider/benchmark": "3.1.0",
 		"@jonahsnider/util": "8.4.2",
 		"@lukeed/ms": "2.0.0",
 		"byte-size": "8.1.0",
