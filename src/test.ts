@@ -1,4 +1,4 @@
-import {_Test} from '@jonahsnider/benchmark';
+import {Test} from '@jonahsnider/benchmark';
 import {mean, stddev} from '@jonahsnider/util';
 import * as suites from './suites/index.js';
 
@@ -10,7 +10,7 @@ async function testLibraries() {
 	for (const suite of Object.values(suites)) {
 		for (const [testName, test] of suite.tests.entries()) {
 			results[suite.name] ??= {};
-			results[suite.name][testName] = await (test as _Test<Output>).run();
+			results[suite.name][testName] = await (test as Test<Output>).run();
 		}
 	}
 

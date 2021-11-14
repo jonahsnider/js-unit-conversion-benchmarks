@@ -4,7 +4,7 @@ import {convertMany as convert} from 'convert';
 import ms from 'ms';
 import {BenchmarkTitles, suiteRunOptions} from '../config.js';
 
-const suite = new Suite(BenchmarkTitles.ParseDurationToMilliseconds, {...suiteRunOptions, filename: import.meta.url});
+const suite = new Suite(BenchmarkTitles.ParseDurationToMilliseconds, {...suiteRunOptions, filepath: import.meta.url});
 
 export default suite;
 

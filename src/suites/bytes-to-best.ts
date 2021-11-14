@@ -4,7 +4,7 @@ import convert from 'convert';
 import convertUnits from 'convert-units';
 import {BenchmarkTitles, suiteRunOptions} from '../config.js';
 
-const suite = new Suite(BenchmarkTitles.BytesToBest, {...suiteRunOptions, filename: import.meta.url});
+const suite = new Suite(BenchmarkTitles.BytesToBest, {...suiteRunOptions, filepath: import.meta.url});
 
 export default suite;
 

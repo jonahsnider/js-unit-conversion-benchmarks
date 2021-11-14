@@ -8,7 +8,7 @@ import * as Uom from 'uom';
 import * as UomUnits from 'uom-units';
 import {BenchmarkTitles, suiteRunOptions} from '../config.js';
 
-const suite = new Suite(BenchmarkTitles.LitersToCubicInches, {...suiteRunOptions, filename: import.meta.url});
+const suite = new Suite(BenchmarkTitles.LitersToCubicInches, {...suiteRunOptions, filepath: import.meta.url});
 
 export default suite;
 
