@@ -23,7 +23,7 @@
 	},
 	"dependencies": {
 		"@jonahsnider/benchmark": "5.0.0",
-		"@jonahsnider/util": "8.4.2",
+		"@jonahsnider/util": "8.4.3",
 		"@lukeed/ms": "2.0.0",
 		"byte-size": "8.1.0",
 		"convert": "4.3.0",
