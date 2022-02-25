@@ -21,7 +21,7 @@ __metadata:
   dependencies:
     "@jonahsnider/benchmark": 5.0.0
     "@jonahsnider/prettier-config": 1.1.0
-    "@jonahsnider/util": 8.12.0
+    "@jonahsnider/util": 9.0.0
     "@lukeed/ms": 2.0.0
     "@tsconfig/node16": 1.0.2
     "@types/byte-size": 8.1.0
@@ -58,17 +58,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jonahsnider/util@npm:8.12.0":
-  version: 8.12.0
-  resolution: "@jonahsnider/util@npm:8.12.0"
-  checksum: 76ca71cd8dcb2d7cdfe955cd263fede6c5879c9fba9915d4ee494d8021163637eb672bec8efbd1536d6645f95cd18994dcfbb04f7daf674a3cd9b75e29b230be
-  languageName: node
-  linkType: hard
-
 "@jonahsnider/util@npm:8.4.2":
   version: 8.4.2
   resolution: "@jonahsnider/util@npm:8.4.2"
   checksum: e37585d9a1625d3d26a0b104409e426ee356d40ef41a5f4503f88b8c20078b42bc45168132288b1d1d46049347f386e7465964b3c30e2a5b44401587dd15ae21
+  languageName: node
+  linkType: hard
+
+"@jonahsnider/util@npm:9.0.0":
+  version: 9.0.0
+  resolution: "@jonahsnider/util@npm:9.0.0"
+  checksum: 72c24bd295d6d3bb060335ce515b5e867b40279f1a85bdfbbd9541f86eae1b4e7f330da92453c23c8e51b2e34fb115e926fd92d76c89bdc7162dd8e8b3bcc9d2
   languageName: node
   linkType: hard
 
