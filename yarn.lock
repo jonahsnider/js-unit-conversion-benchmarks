@@ -29,7 +29,7 @@ __metadata:
     "@types/js-quantities": 1.6.3
     "@types/luxon": 2.3.1
     "@types/ms": 0.7.31
-    "@types/node": 16.11.27
+    "@types/node": 16.11.31
     byte-size: 8.1.0
     convert: 4.5.0
     convert-units: 2.3.4
@@ -121,10 +121,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:16.11.27":
-  version: 16.11.27
-  resolution: "@types/node@npm:16.11.27"
-  checksum: 6ed0c8c4d29a549d0cfd607d19edf9a4668fbd39087701d923b4a04cd760564e47ad27f9403968cb9c11ee006f0ea6ab698b2491b4b2d2dec3f4a53d0fc22df7
+"@types/node@npm:16.11.31":
+  version: 16.11.31
+  resolution: "@types/node@npm:16.11.31"
+  checksum: 0bad289e12c7066cd2ea7a204d051a0bb09a32a29da39850812ea14c075f9e2b4aeaab23aa23447ef9e3aa6a30173bf3d3524e37bbeeb56fb8ffa4bbd783c5db
   languageName: node
   linkType: hard
 
