@@ -33,7 +33,7 @@ __metadata:
     byte-size: 8.1.0
     convert: 4.7.0
     convert-units: 2.3.4
-    dayjs: 1.11.5
+    dayjs: 1.11.6
     js-quantities: 1.7.6
     luxon: 3.0.4
     moment: 2.29.4
@@ -168,10 +168,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:1.11.5":
-  version: 1.11.5
-  resolution: "dayjs@npm:1.11.5"
-  checksum: e3bbaa7b4883b31be4bf75a181f1447fbb19800c29b332852125aab96baeff3ac232dcba8b88c4ea17d3b636c99dac5fb9d1af4bb6ae26615698bbc4a852dffb
+"dayjs@npm:1.11.6":
+  version: 1.11.6
+  resolution: "dayjs@npm:1.11.6"
+  checksum: 18bdfd927009b68eab08dca578e421d4a581cefcbe9337f54c5d9e0d941ffb6b221c4b2c1cab15cdd9d419940e768ac4c984531461a90bbe1c158b75fe160580
   languageName: node
   linkType: hard
 
