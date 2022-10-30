@@ -47,7 +47,7 @@
 		"@types/js-quantities": "1.6.3",
 		"@types/luxon": "3.0.2",
 		"@types/ms": "0.7.31",
-		"@types/node": "18.11.7",
+		"@types/node": "18.11.8",
 		"tslib": "2.4.0",
 		"typescript": "4.8.4"
 	},
