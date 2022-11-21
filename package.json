@@ -26,7 +26,7 @@
 		"@jonahsnider/util": "9.0.1",
 		"@lukeed/ms": "2.0.1",
 		"byte-size": "8.1.0",
-		"convert": "4.7.0",
+		"convert": "4.7.1",
 		"convert-units": "2.3.4",
 		"dayjs": "1.11.6",
 		"js-quantities": "1.7.6",
