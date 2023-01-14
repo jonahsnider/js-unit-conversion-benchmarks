@@ -33,7 +33,7 @@
 		"luxon": "3.2.1",
 		"moment": "2.29.4",
 		"ms": "2.1.3",
-		"prettier": "2.8.2",
+		"prettier": "2.8.3",
 		"safe-units": "1.1.0",
 		"simple-units": "1.0.5",
 		"uom": "6.0.0",
