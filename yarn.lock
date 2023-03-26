@@ -40,7 +40,7 @@ __metadata:
     ms: 2.1.3
     prettier: 2.8.7
     safe-units: 1.1.0
-    simple-units: 1.0.5
+    simple-units: 1.0.6
     tslib: 2.5.0
     typescript: 4.9.5
     uom: 6.0.0
@@ -412,13 +412,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"simple-units@npm:1.0.5":
-  version: 1.0.5
-  resolution: "simple-units@npm:1.0.5"
+"simple-units@npm:1.0.6":
+  version: 1.0.6
+  resolution: "simple-units@npm:1.0.6"
   dependencies:
     cartesian-product-generator: ^1.1.1
     sprintf-js: ^1.1.2
-  checksum: 2a1eb2cd9ec447294d6be68eab802571d6a9176fcc7786f34af9f0c9e3059b242a4331f74d9cf739aca59097b202a8489969498a5153cc0f335fb898e46e17fe
+  checksum: ce9f5ba39bd0010aad901747a168fe19e7fe2adeceb934ec25eba6b313236fb1729cede48a2365a409b6649d1df21b8bd0d397b9bd8cd4ce56f9249908e74ed6
   languageName: node
   linkType: hard
 
