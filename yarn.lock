@@ -34,7 +34,7 @@ __metadata:
     convert: 4.13.1
     convert-units: 2.3.4
     dayjs: 1.11.9
-    js-quantities: 1.7.6
+    js-quantities: 1.8.0
     luxon: 3.4.0
     moment: 2.29.4
     ms: 2.1.3
@@ -182,10 +182,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"js-quantities@npm:1.7.6":
-  version: 1.7.6
-  resolution: "js-quantities@npm:1.7.6"
-  checksum: ab3ea04650d2581b09540328e4d644576e998de3ec8c67c7fd113ea2e8520a304568120a813d043a8b529243fecb303effacdd3ca0ad9e077394306749bae715
+"js-quantities@npm:1.8.0":
+  version: 1.8.0
+  resolution: "js-quantities@npm:1.8.0"
+  checksum: 555f5648b7b76b427fbe63e050c7fac99d2dbb597791d794d83508a46b2bfe0a2bdf85ebd88c85617408960d9d9e06a763400fc1071a89ef12c8c2d53e3e7687
   languageName: node
   linkType: hard
 

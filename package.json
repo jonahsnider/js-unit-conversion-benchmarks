@@ -29,7 +29,7 @@
 		"convert": "4.13.1",
 		"convert-units": "2.3.4",
 		"dayjs": "1.11.9",
-		"js-quantities": "1.7.6",
+		"js-quantities": "1.8.0",
 		"luxon": "3.4.0",
 		"moment": "2.29.4",
 		"ms": "2.1.3",
