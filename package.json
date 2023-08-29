@@ -33,7 +33,7 @@
 		"luxon": "3.4.2",
 		"moment": "2.29.4",
 		"ms": "2.1.3",
-		"prettier": "2.8.8",
+		"prettier": "3.0.3",
 		"safe-units": "1.1.0",
 		"simple-units": "1.0.6",
 		"uom": "6.0.0",
@@ -49,7 +49,7 @@
 		"@types/ms": "0.7.31",
 		"@types/node": "18.17.12",
 		"tslib": "2.6.2",
-		"typescript": "4.9.5"
+		"typescript": "5.2.2"
 	},
 	"packageManager": "yarn@3.6.3"
 }
