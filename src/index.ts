@@ -80,7 +80,7 @@ if (process.env.CI) {
 	const readMePath = path.join(baseDir, '..', 'readme.md');
 	const readMe = await readFile(readMePath, 'utf-8');
 
-	const updatedReadme = prettier.format(replaceHtmlBlock(readMe, 'results', markdown), {filepath: readMePath, ...prettierConfig});
+	const updatedReadme = await prettier.format(replaceHtmlBlock(readMe, 'results', markdown), {filepath: readMePath, ...prettierConfig});
 
 	await writeFile(readMePath, updatedReadme, 'utf-8');
 }
