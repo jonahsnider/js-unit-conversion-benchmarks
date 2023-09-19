@@ -25,7 +25,7 @@
 		"byte-size": "8.1.1",
 		"convert": "4.13.2",
 		"convert-units": "2.3.4",
-		"dayjs": "1.11.9",
+		"dayjs": "1.11.10",
 		"js-quantities": "1.8.0",
 		"luxon": "3.4.3",
 		"moment": "2.29.4",
