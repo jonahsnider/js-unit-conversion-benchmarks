@@ -26,7 +26,7 @@ __metadata:
     "@tsconfig/node16": 16.1.1
     "@types/byte-size": 8.1.1
     "@types/convert-units": 2.3.8
-    "@types/js-quantities": 1.6.4
+    "@types/js-quantities": 1.6.5
     "@types/luxon": 3.3.2
     "@types/ms": 0.7.32
     "@types/node": 18.18.5
@@ -100,10 +100,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/js-quantities@npm:1.6.4":
-  version: 1.6.4
-  resolution: "@types/js-quantities@npm:1.6.4"
-  checksum: 9f7c68f3911663083daed4109d4c80c6d8e4a60bc44eda0d740dbed15b9602063903f43bd04c803ac6d449c67aefbbd9d83dc8e1dd438dc4224dd7ecded4d796
+"@types/js-quantities@npm:1.6.5":
+  version: 1.6.5
+  resolution: "@types/js-quantities@npm:1.6.5"
+  checksum: 96bd5c952983f60eae10f243563b4cb834362e38c36e3eb8f8ec367ba7a1a08feecb6c7a65985e03a62fb5c493edef84463e7c56de1ed69a84ba60936e996edb
   languageName: node
   linkType: hard
 

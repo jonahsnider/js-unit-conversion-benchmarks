@@ -41,7 +41,7 @@
 		"@tsconfig/node16": "16.1.1",
 		"@types/byte-size": "8.1.1",
 		"@types/convert-units": "2.3.8",
-		"@types/js-quantities": "1.6.4",
+		"@types/js-quantities": "1.6.5",
 		"@types/luxon": "3.3.2",
 		"@types/ms": "0.7.32",
 		"@types/node": "18.18.5",
