@@ -39,7 +39,7 @@
 	"devDependencies": {
 		"@jonahsnider/prettier-config": "1.1.2",
 		"@tsconfig/node16": "16.1.1",
-		"@types/byte-size": "8.1.0",
+		"@types/byte-size": "8.1.1",
 		"@types/convert-units": "2.3.7",
 		"@types/js-quantities": "1.6.4",
 		"@types/luxon": "3.3.2",
