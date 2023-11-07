@@ -24,7 +24,7 @@ __metadata:
     "@jonahsnider/util": 10.2.0
     "@lukeed/ms": 2.0.1
     "@tsconfig/node16": 16.1.1
-    "@types/byte-size": 8.1.1
+    "@types/byte-size": 8.1.2
     "@types/convert-units": 2.3.8
     "@types/js-quantities": 1.6.5
     "@types/luxon": 3.3.3
@@ -86,10 +86,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/byte-size@npm:8.1.1":
-  version: 8.1.1
-  resolution: "@types/byte-size@npm:8.1.1"
-  checksum: 96372520483c5334ce8e45be626b56d6a8cb8a20ffc94cbba88c54f478d351f01ff8d77c811f9759891efbfb338534706c70c6c70eb3c500bf41cdc675c3c8d0
+"@types/byte-size@npm:8.1.2":
+  version: 8.1.2
+  resolution: "@types/byte-size@npm:8.1.2"
+  checksum: a7136d5ba41924491ab3d2df6f61f523f8241a9764b02e35b4fa2710eb17af18f7ffe494e5cad3071133a6c8a1c38bedaed28d26d348987d1ab9263a6730c9ce
   languageName: node
   linkType: hard
 
