@@ -22,7 +22,7 @@ __metadata:
     "@jonahsnider/benchmark": 5.0.0
     "@jonahsnider/prettier-config": 1.1.2
     "@jonahsnider/util": 10.3.0
-    "@lukeed/ms": 2.0.1
+    "@lukeed/ms": 2.0.2
     "@tsconfig/node16": 16.1.1
     "@types/byte-size": 8.1.2
     "@types/convert-units": 2.3.9
@@ -72,10 +72,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lukeed/ms@npm:2.0.1":
-  version: 2.0.1
-  resolution: "@lukeed/ms@npm:2.0.1"
-  checksum: c7b46933bf7bad3e024dcbbe2ad6201392b4ed2a05a717c0ef7e96a03fb885d44f08b4b749c392cc51c2736a6a45a08c77f1863ace1c072928fbfd9908a13db3
+"@lukeed/ms@npm:2.0.2":
+  version: 2.0.2
+  resolution: "@lukeed/ms@npm:2.0.2"
+  checksum: 6ae47ed3ebc857ffc0283cfe46129947209c770d0974eb86626138b6c194a760d08863ec593ec75a645aec133b3237b37af500739b030293e4d9a81130f4e2ae
   languageName: node
   linkType: hard
 

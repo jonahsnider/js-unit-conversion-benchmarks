@@ -21,7 +21,7 @@
 	"dependencies": {
 		"@jonahsnider/benchmark": "5.0.0",
 		"@jonahsnider/util": "10.3.0",
-		"@lukeed/ms": "2.0.1",
+		"@lukeed/ms": "2.0.2",
 		"byte-size": "8.1.1",
 		"convert": "4.14.0",
 		"convert-units": "2.3.4",
