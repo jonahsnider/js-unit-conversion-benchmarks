@@ -19,7 +19,7 @@
 	},
 	"prettier": "@jonahsnider/prettier-config",
 	"dependencies": {
-		"@jonahsnider/benchmark": "5.0.0",
+		"@jonahsnider/benchmark": "5.0.2",
 		"@jonahsnider/util": "10.3.0",
 		"@lukeed/ms": "2.0.2",
 		"byte-size": "8.1.1",
