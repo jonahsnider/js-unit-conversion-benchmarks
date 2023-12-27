@@ -36,7 +36,7 @@ __metadata:
     dayjs: 1.11.10
     js-quantities: 1.8.0
     luxon: 3.4.4
-    moment: 2.30.0
+    moment: 2.30.1
     ms: 2.1.3
     prettier: 3.1.1
     safe-units: 1.1.0
@@ -370,10 +370,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"moment@npm:2.30.0":
-  version: 2.30.0
-  resolution: "moment@npm:2.30.0"
-  checksum: f83bc6ee7fa35e2772fe2fda242446202920dcdccb52d341ce9dbb3bbf6ba7216bb70df9070c79ecaa908658f63c1f39f84501fd7241f56ae8b40e030126873e
+"moment@npm:2.30.1":
+  version: 2.30.1
+  resolution: "moment@npm:2.30.1"
+  checksum: 859236bab1e88c3e5802afcf797fc801acdbd0ee509d34ea3df6eea21eb6bcc2abd4ae4e4e64aa7c986aa6cba563c6e62806218e6412a765010712e5fa121ba6
   languageName: node
   linkType: hard
 
