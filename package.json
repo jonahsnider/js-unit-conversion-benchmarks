@@ -23,7 +23,7 @@
 		"@jonahsnider/util": "10.3.0",
 		"@lukeed/ms": "2.0.2",
 		"byte-size": "8.1.1",
-		"convert": "4.14.0",
+		"convert": "4.14.1",
 		"convert-units": "2.3.4",
 		"dayjs": "1.11.10",
 		"js-quantities": "1.8.0",
