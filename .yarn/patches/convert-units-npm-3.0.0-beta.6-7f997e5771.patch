@@ -1,0 +1,5403 @@
+diff --git a/lib/esm/convert.js b/lib/esm/convert.js
+deleted file mode 100644
+index 790715d96536653526e0582e2599b4fa2cb5dd2c..0000000000000000000000000000000000000000
+--- a/lib/esm/convert.js
++++ /dev/null
+@@ -1,276 +0,0 @@
+-/**
+- * Represents a conversion path
+- */
+-export class Converter {
+-    constructor(measures, value) {
+-        this.val = 0;
+-        this.destination = null;
+-        this.origin = null;
+-        if (typeof value === 'number') {
+-            this.val = value;
+-        }
+-        if (typeof measures !== 'object') {
+-            throw new Error('Measures cannot be blank');
+-        }
+-        this.measureData = measures;
+-    }
+-    /**
+-     * Lets the converter know the source unit abbreviation
+-     */
+-    from(from) {
+-        if (this.destination != null)
+-            throw new Error('.from must be called before .to');
+-        this.origin = this.getUnit(from);
+-        if (this.origin == null) {
+-            this.throwUnsupportedUnitError(from);
+-        }
+-        return this;
+-    }
+-    /**
+-     * Converts the unit and returns the value
+-     */
+-    to(to) {
+-        var _a, _b;
+-        if (this.origin == null)
+-            throw new Error('.to must be called after .from');
+-        this.destination = this.getUnit(to);
+-        if (this.destination == null) {
+-            this.throwUnsupportedUnitError(to);
+-        }
+-        const destination = this.destination;
+-        const origin = this.origin;
+-        // Don't change the value if origin and destination are the same
+-        if (origin.abbr === destination.abbr) {
+-            return this.val;
+-        }
+-        // You can't go from liquid to mass, for example
+-        if (destination.measure != origin.measure) {
+-            throw new Error(`Cannot convert incompatible measures of ${destination.measure} and ${origin.measure}`);
+-        }
+-        /**
+-         * Convert from the source value to its anchor inside the system
+-         */
+-        let result = this.val * origin.unit.to_anchor;
+-        /**
+-         * For some changes it's a simple shift (C to K)
+-         * So we'll add it when convering into the unit (later)
+-         * and subtract it when converting from the unit
+-         */
+-        if (origin.unit.anchor_shift) {
+-            result -= origin.unit.anchor_shift;
+-        }
+-        /**
+-         * Convert from one system to another through the anchor ratio. Some conversions
+-         * aren't ratio based or require more than a simple shift. We can provide a custom
+-         * transform here to provide the direct result
+-         */
+-        if (origin.system != destination.system) {
+-            const measure = this.measureData[origin.measure];
+-            const anchors = measure.anchors;
+-            if (anchors == null) {
+-                throw new Error(`Unable to convert units. Anchors are missing for "${origin.measure}" and "${destination.measure}" measures.`);
+-            }
+-            const anchor = anchors[origin.system];
+-            if (anchor == null) {
+-                throw new Error(`Unable to find anchor for "${origin.measure}" to "${destination.measure}". Please make sure it is defined.`);
+-            }
+-            const transform = (_a = anchor[destination.system]) === null || _a === void 0 ? void 0 : _a.transform;
+-            const ratio = (_b = anchor[destination.system]) === null || _b === void 0 ? void 0 : _b.ratio;
+-            if (typeof transform === 'function') {
+-                result = transform(result);
+-            }
+-            else if (typeof ratio === 'number') {
+-                result *= ratio;
+-            }
+-            else {
+-                throw new Error('A system anchor needs to either have a defined ratio number or a transform function.');
+-            }
+-        }
+-        /**
+-         * This shift has to be done after the system conversion business
+-         */
+-        if (destination.unit.anchor_shift) {
+-            result += destination.unit.anchor_shift;
+-        }
+-        /**
+-         * Convert to another unit inside the destination system
+-         */
+-        return result / destination.unit.to_anchor;
+-    }
+-    /**
+-     * Converts the unit to the best available unit.
+-     */
+-    toBest(options) {
+-        var _a, _b, _c;
+-        if (this.origin == null)
+-            throw new Error('.toBest must be called after .from');
+-        const isNegative = this.val < 0;
+-        let exclude = [];
+-        let cutOffNumber = isNegative ? -1 : 1;
+-        let system = this.origin.system;
+-        if (typeof options === 'object') {
+-            exclude = (_a = options.exclude) !== null && _a !== void 0 ? _a : [];
+-            cutOffNumber = (_b = options.cutOffNumber) !== null && _b !== void 0 ? _b : cutOffNumber;
+-            system = (_c = options.system) !== null && _c !== void 0 ? _c : this.origin.system;
+-        }
+-        let best = null;
+-        /**
+-          Looks through every possibility for the 'best' available unit.
+-          i.e. Where the value has the fewest numbers before the decimal point,
+-          but is still higher than 1.
+-        */
+-        for (const possibility of this.possibilities()) {
+-            const unit = this.describe(possibility);
+-            const isIncluded = exclude.indexOf(possibility) === -1;
+-            if (isIncluded && unit.system === system) {
+-                const result = this.to(possibility);
+-                if (isNegative ? result > cutOffNumber : result < cutOffNumber) {
+-                    continue;
+-                }
+-                if (best === null ||
+-                    (isNegative
+-                        ? result <= cutOffNumber && result > best.val
+-                        : result >= cutOffNumber && result < best.val)) {
+-                    best = {
+-                        val: result,
+-                        unit: possibility,
+-                        singular: unit.singular,
+-                        plural: unit.plural,
+-                    };
+-                }
+-            }
+-        }
+-        return best;
+-    }
+-    /**
+-     * Finds the unit
+-     */
+-    getUnit(abbr) {
+-        const found = null;
+-        for (const [measureName, measure] of Object.entries(this.measureData)) {
+-            for (const [systemName, system] of Object.entries(measure.systems)) {
+-                for (const [testAbbr, unit] of Object.entries(system)) {
+-                    if (testAbbr == abbr) {
+-                        return {
+-                            abbr: abbr,
+-                            measure: measureName,
+-                            system: systemName,
+-                            unit: unit,
+-                        };
+-                    }
+-                }
+-            }
+-        }
+-        return found;
+-    }
+-    /**
+-     * An alias for getUnit
+-     */
+-    describe(abbr) {
+-        const result = this.getUnit(abbr);
+-        if (result != null) {
+-            return this.describeUnit(result);
+-        }
+-        this.throwUnsupportedUnitError(abbr);
+-    }
+-    describeUnit(unit) {
+-        return {
+-            abbr: unit.abbr,
+-            measure: unit.measure,
+-            system: unit.system,
+-            singular: unit.unit.name.singular,
+-            plural: unit.unit.name.plural,
+-        };
+-    }
+-    /**
+-     * Detailed list of all supported units
+-     *
+-     * If a measure is supplied the list will only contain
+-     * details about that measure. Otherwise the list will contain
+-     * details abaout all measures.
+-     *
+-     * However, if the measure doesn't exist, an empty array will be
+-     * returned
+-     *
+-     */
+-    list(measureName) {
+-        const list = [];
+-        if (measureName == null) {
+-            for (const [name, measure] of Object.entries(this.measureData)) {
+-                for (const [systemName, units] of Object.entries(measure.systems)) {
+-                    for (const [abbr, unit] of Object.entries(units)) {
+-                        list.push(this.describeUnit({
+-                            abbr: abbr,
+-                            measure: name,
+-                            system: systemName,
+-                            unit: unit,
+-                        }));
+-                    }
+-                }
+-            }
+-        }
+-        else if (!(measureName in this.measureData)) {
+-            throw new Error(`Meausre "${measureName}" not found.`);
+-        }
+-        else {
+-            const measure = this.measureData[measureName];
+-            for (const [systemName, units] of Object.entries(measure.systems)) {
+-                for (const [abbr, unit] of Object.entries(units)) {
+-                    list.push(this.describeUnit({
+-                        abbr: abbr,
+-                        measure: measureName,
+-                        system: systemName,
+-                        unit: unit,
+-                    }));
+-                }
+-            }
+-        }
+-        return list;
+-    }
+-    throwUnsupportedUnitError(what) {
+-        let validUnits = [];
+-        for (const measure of Object.values(this.measureData)) {
+-            for (const systems of Object.values(measure.systems)) {
+-                validUnits = validUnits.concat(Object.keys(systems));
+-            }
+-        }
+-        throw new Error(`Unsupported unit ${what}, use one of: ${validUnits.join(', ')}`);
+-    }
+-    /**
+-     * Returns the abbreviated measures that the value can be
+-     * converted to.
+-     */
+-    possibilities(forMeasure) {
+-        let possibilities = [];
+-        let list_measures = [];
+-        if (typeof forMeasure == 'string') {
+-            list_measures.push(forMeasure);
+-        }
+-        else if (this.origin != null) {
+-            list_measures.push(this.origin.measure);
+-        }
+-        else {
+-            list_measures = Object.keys(this.measureData);
+-        }
+-        for (const measure of list_measures) {
+-            const systems = this.measureData[measure].systems;
+-            for (const system of Object.values(systems)) {
+-                possibilities = [
+-                    ...possibilities,
+-                    ...Object.keys(system),
+-                ];
+-            }
+-        }
+-        return possibilities;
+-    }
+-    /**
+-     * Returns the abbreviated measures that the value can be
+-     * converted to.
+-     */
+-    measures() {
+-        return Object.keys(this.measureData);
+-    }
+-}
+-export default function (measures) {
+-    return (value) => new Converter(measures, value);
+-}
+diff --git a/lib/esm/convert.mjs b/lib/esm/convert.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..790715d96536653526e0582e2599b4fa2cb5dd2c
+--- /dev/null
++++ b/lib/esm/convert.mjs
+@@ -0,0 +1,276 @@
++/**
++ * Represents a conversion path
++ */
++export class Converter {
++    constructor(measures, value) {
++        this.val = 0;
++        this.destination = null;
++        this.origin = null;
++        if (typeof value === 'number') {
++            this.val = value;
++        }
++        if (typeof measures !== 'object') {
++            throw new Error('Measures cannot be blank');
++        }
++        this.measureData = measures;
++    }
++    /**
++     * Lets the converter know the source unit abbreviation
++     */
++    from(from) {
++        if (this.destination != null)
++            throw new Error('.from must be called before .to');
++        this.origin = this.getUnit(from);
++        if (this.origin == null) {
++            this.throwUnsupportedUnitError(from);
++        }
++        return this;
++    }
++    /**
++     * Converts the unit and returns the value
++     */
++    to(to) {
++        var _a, _b;
++        if (this.origin == null)
++            throw new Error('.to must be called after .from');
++        this.destination = this.getUnit(to);
++        if (this.destination == null) {
++            this.throwUnsupportedUnitError(to);
++        }
++        const destination = this.destination;
++        const origin = this.origin;
++        // Don't change the value if origin and destination are the same
++        if (origin.abbr === destination.abbr) {
++            return this.val;
++        }
++        // You can't go from liquid to mass, for example
++        if (destination.measure != origin.measure) {
++            throw new Error(`Cannot convert incompatible measures of ${destination.measure} and ${origin.measure}`);
++        }
++        /**
++         * Convert from the source value to its anchor inside the system
++         */
++        let result = this.val * origin.unit.to_anchor;
++        /**
++         * For some changes it's a simple shift (C to K)
++         * So we'll add it when convering into the unit (later)
++         * and subtract it when converting from the unit
++         */
++        if (origin.unit.anchor_shift) {
++            result -= origin.unit.anchor_shift;
++        }
++        /**
++         * Convert from one system to another through the anchor ratio. Some conversions
++         * aren't ratio based or require more than a simple shift. We can provide a custom
++         * transform here to provide the direct result
++         */
++        if (origin.system != destination.system) {
++            const measure = this.measureData[origin.measure];
++            const anchors = measure.anchors;
++            if (anchors == null) {
++                throw new Error(`Unable to convert units. Anchors are missing for "${origin.measure}" and "${destination.measure}" measures.`);
++            }
++            const anchor = anchors[origin.system];
++            if (anchor == null) {
++                throw new Error(`Unable to find anchor for "${origin.measure}" to "${destination.measure}". Please make sure it is defined.`);
++            }
++            const transform = (_a = anchor[destination.system]) === null || _a === void 0 ? void 0 : _a.transform;
++            const ratio = (_b = anchor[destination.system]) === null || _b === void 0 ? void 0 : _b.ratio;
++            if (typeof transform === 'function') {
++                result = transform(result);
++            }
++            else if (typeof ratio === 'number') {
++                result *= ratio;
++            }
++            else {
++                throw new Error('A system anchor needs to either have a defined ratio number or a transform function.');
++            }
++        }
++        /**
++         * This shift has to be done after the system conversion business
++         */
++        if (destination.unit.anchor_shift) {
++            result += destination.unit.anchor_shift;
++        }
++        /**
++         * Convert to another unit inside the destination system
++         */
++        return result / destination.unit.to_anchor;
++    }
++    /**
++     * Converts the unit to the best available unit.
++     */
++    toBest(options) {
++        var _a, _b, _c;
++        if (this.origin == null)
++            throw new Error('.toBest must be called after .from');
++        const isNegative = this.val < 0;
++        let exclude = [];
++        let cutOffNumber = isNegative ? -1 : 1;
++        let system = this.origin.system;
++        if (typeof options === 'object') {
++            exclude = (_a = options.exclude) !== null && _a !== void 0 ? _a : [];
++            cutOffNumber = (_b = options.cutOffNumber) !== null && _b !== void 0 ? _b : cutOffNumber;
++            system = (_c = options.system) !== null && _c !== void 0 ? _c : this.origin.system;
++        }
++        let best = null;
++        /**
++          Looks through every possibility for the 'best' available unit.
++          i.e. Where the value has the fewest numbers before the decimal point,
++          but is still higher than 1.
++        */
++        for (const possibility of this.possibilities()) {
++            const unit = this.describe(possibility);
++            const isIncluded = exclude.indexOf(possibility) === -1;
++            if (isIncluded && unit.system === system) {
++                const result = this.to(possibility);
++                if (isNegative ? result > cutOffNumber : result < cutOffNumber) {
++                    continue;
++                }
++                if (best === null ||
++                    (isNegative
++                        ? result <= cutOffNumber && result > best.val
++                        : result >= cutOffNumber && result < best.val)) {
++                    best = {
++                        val: result,
++                        unit: possibility,
++                        singular: unit.singular,
++                        plural: unit.plural,
++                    };
++                }
++            }
++        }
++        return best;
++    }
++    /**
++     * Finds the unit
++     */
++    getUnit(abbr) {
++        const found = null;
++        for (const [measureName, measure] of Object.entries(this.measureData)) {
++            for (const [systemName, system] of Object.entries(measure.systems)) {
++                for (const [testAbbr, unit] of Object.entries(system)) {
++                    if (testAbbr == abbr) {
++                        return {
++                            abbr: abbr,
++                            measure: measureName,
++                            system: systemName,
++                            unit: unit,
++                        };
++                    }
++                }
++            }
++        }
++        return found;
++    }
++    /**
++     * An alias for getUnit
++     */
++    describe(abbr) {
++        const result = this.getUnit(abbr);
++        if (result != null) {
++            return this.describeUnit(result);
++        }
++        this.throwUnsupportedUnitError(abbr);
++    }
++    describeUnit(unit) {
++        return {
++            abbr: unit.abbr,
++            measure: unit.measure,
++            system: unit.system,
++            singular: unit.unit.name.singular,
++            plural: unit.unit.name.plural,
++        };
++    }
++    /**
++     * Detailed list of all supported units
++     *
++     * If a measure is supplied the list will only contain
++     * details about that measure. Otherwise the list will contain
++     * details abaout all measures.
++     *
++     * However, if the measure doesn't exist, an empty array will be
++     * returned
++     *
++     */
++    list(measureName) {
++        const list = [];
++        if (measureName == null) {
++            for (const [name, measure] of Object.entries(this.measureData)) {
++                for (const [systemName, units] of Object.entries(measure.systems)) {
++                    for (const [abbr, unit] of Object.entries(units)) {
++                        list.push(this.describeUnit({
++                            abbr: abbr,
++                            measure: name,
++                            system: systemName,
++                            unit: unit,
++                        }));
++                    }
++                }
++            }
++        }
++        else if (!(measureName in this.measureData)) {
++            throw new Error(`Meausre "${measureName}" not found.`);
++        }
++        else {
++            const measure = this.measureData[measureName];
++            for (const [systemName, units] of Object.entries(measure.systems)) {
++                for (const [abbr, unit] of Object.entries(units)) {
++                    list.push(this.describeUnit({
++                        abbr: abbr,
++                        measure: measureName,
++                        system: systemName,
++                        unit: unit,
++                    }));
++                }
++            }
++        }
++        return list;
++    }
++    throwUnsupportedUnitError(what) {
++        let validUnits = [];
++        for (const measure of Object.values(this.measureData)) {
++            for (const systems of Object.values(measure.systems)) {
++                validUnits = validUnits.concat(Object.keys(systems));
++            }
++        }
++        throw new Error(`Unsupported unit ${what}, use one of: ${validUnits.join(', ')}`);
++    }
++    /**
++     * Returns the abbreviated measures that the value can be
++     * converted to.
++     */
++    possibilities(forMeasure) {
++        let possibilities = [];
++        let list_measures = [];
++        if (typeof forMeasure == 'string') {
++            list_measures.push(forMeasure);
++        }
++        else if (this.origin != null) {
++            list_measures.push(this.origin.measure);
++        }
++        else {
++            list_measures = Object.keys(this.measureData);
++        }
++        for (const measure of list_measures) {
++            const systems = this.measureData[measure].systems;
++            for (const system of Object.values(systems)) {
++                possibilities = [
++                    ...possibilities,
++                    ...Object.keys(system),
++                ];
++            }
++        }
++        return possibilities;
++    }
++    /**
++     * Returns the abbreviated measures that the value can be
++     * converted to.
++     */
++    measures() {
++        return Object.keys(this.measureData);
++    }
++}
++export default function (measures) {
++    return (value) => new Converter(measures, value);
++}
+diff --git a/lib/esm/definitions/acceleration.js b/lib/esm/definitions/acceleration.js
+deleted file mode 100644
+index e934feda6f785d7845c7ccb082f56e47ea812fb0..0000000000000000000000000000000000000000
+--- a/lib/esm/definitions/acceleration.js
++++ /dev/null
+@@ -1,22 +0,0 @@
+-const metric = {
+-    'g-force': {
+-        name: {
+-            singular: 'g-force',
+-            plural: 'g-forces',
+-        },
+-        to_anchor: 9.80665,
+-    },
+-    'm/s2': {
+-        name: {
+-            singular: 'Metre per second squared',
+-            plural: 'Metres per second squared',
+-        },
+-        to_anchor: 1,
+-    },
+-};
+-const measure = {
+-    systems: {
+-        metric,
+-    },
+-};
+-export default measure;
+diff --git a/lib/esm/definitions/acceleration.mjs b/lib/esm/definitions/acceleration.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..e934feda6f785d7845c7ccb082f56e47ea812fb0
+--- /dev/null
++++ b/lib/esm/definitions/acceleration.mjs
+@@ -0,0 +1,22 @@
++const metric = {
++    'g-force': {
++        name: {
++            singular: 'g-force',
++            plural: 'g-forces',
++        },
++        to_anchor: 9.80665,
++    },
++    'm/s2': {
++        name: {
++            singular: 'Metre per second squared',
++            plural: 'Metres per second squared',
++        },
++        to_anchor: 1,
++    },
++};
++const measure = {
++    systems: {
++        metric,
++    },
++};
++export default measure;
+diff --git a/lib/esm/definitions/all.js b/lib/esm/definitions/all.js
+deleted file mode 100644
+index 559aebda1cc35e7a56707f99700867e69bd67cb0..0000000000000000000000000000000000000000
+--- a/lib/esm/definitions/all.js
++++ /dev/null
+@@ -1,61 +0,0 @@
+-import acceleration from './acceleration.js';
+-import angle from './angle.js';
+-import apparentPower from './apparentPower.js';
+-import area from './area.js';
+-import charge from './charge.js';
+-import current from './current.js';
+-import digital from './digital.js';
+-import each from './each.js';
+-import energy from './energy.js';
+-import force from './force.js';
+-import frequency from './frequency.js';
+-import illuminance from './illuminance.js';
+-import length from './length.js';
+-import mass from './mass.js';
+-import massFlowRate from './massFlowRate.js';
+-import pace from './pace.js';
+-import partsPer from './partsPer.js';
+-import pieces from './pieces.js';
+-import power from './power.js';
+-import pressure from './pressure.js';
+-import reactiveEnergy from './reactiveEnergy.js';
+-import reactivePower from './reactivePower.js';
+-import speed from './speed.js';
+-import temperature from './temperature.js';
+-import time from './time.js';
+-import torque from './torque.js';
+-import voltage from './voltage.js';
+-import volume from './volume.js';
+-import volumeFlowRate from './volumeFlowRate.js';
+-const allMeasures = {
+-    acceleration,
+-    angle,
+-    apparentPower,
+-    area,
+-    charge,
+-    current,
+-    digital,
+-    each,
+-    energy,
+-    force,
+-    frequency,
+-    illuminance,
+-    length,
+-    mass,
+-    massFlowRate,
+-    pace,
+-    partsPer,
+-    pieces,
+-    power,
+-    pressure,
+-    reactiveEnergy,
+-    reactivePower,
+-    speed,
+-    torque,
+-    temperature,
+-    time,
+-    voltage,
+-    volume,
+-    volumeFlowRate,
+-};
+-export default allMeasures;
+diff --git a/lib/esm/definitions/all.mjs b/lib/esm/definitions/all.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..d95d134d665214d7897f56eca0b6e9818ba0c232
+--- /dev/null
++++ b/lib/esm/definitions/all.mjs
+@@ -0,0 +1,61 @@
++import acceleration from './acceleration.mjs';
++import angle from './angle.mjs';
++import apparentPower from './apparentPower.mjs';
++import area from './area.mjs';
++import charge from './charge.mjs';
++import current from './current.mjs';
++import digital from './digital.mjs';
++import each from './each.mjs';
++import energy from './energy.mjs';
++import force from './force.mjs';
++import frequency from './frequency.mjs';
++import illuminance from './illuminance.mjs';
++import length from './length.mjs';
++import mass from './mass.mjs';
++import massFlowRate from './massFlowRate.mjs';
++import pace from './pace.mjs';
++import partsPer from './partsPer.mjs';
++import pieces from './pieces.mjs';
++import power from './power.mjs';
++import pressure from './pressure.mjs';
++import reactiveEnergy from './reactiveEnergy.mjs';
++import reactivePower from './reactivePower.mjs';
++import speed from './speed.mjs';
++import temperature from './temperature.mjs';
++import time from './time.mjs';
++import torque from './torque.mjs';
++import voltage from './voltage.mjs';
++import volume from './volume.mjs';
++import volumeFlowRate from './volumeFlowRate.mjs';
++const allMeasures = {
++    acceleration,
++    angle,
++    apparentPower,
++    area,
++    charge,
++    current,
++    digital,
++    each,
++    energy,
++    force,
++    frequency,
++    illuminance,
++    length,
++    mass,
++    massFlowRate,
++    pace,
++    partsPer,
++    pieces,
++    power,
++    pressure,
++    reactiveEnergy,
++    reactivePower,
++    speed,
++    torque,
++    temperature,
++    time,
++    voltage,
++    volume,
++    volumeFlowRate,
++};
++export default allMeasures;
+diff --git a/lib/esm/definitions/angle.js b/lib/esm/definitions/angle.js
+deleted file mode 100644
+index d7d019b267c945de2be80f5933dcd9594788d27b..0000000000000000000000000000000000000000
+--- a/lib/esm/definitions/angle.js
++++ /dev/null
+@@ -1,43 +0,0 @@
+-const SI = {
+-    rad: {
+-        name: {
+-            singular: 'radian',
+-            plural: 'radians',
+-        },
+-        to_anchor: 180 / Math.PI,
+-    },
+-    deg: {
+-        name: {
+-            singular: 'degree',
+-            plural: 'degrees',
+-        },
+-        to_anchor: 1,
+-    },
+-    grad: {
+-        name: {
+-            singular: 'gradian',
+-            plural: 'gradians',
+-        },
+-        to_anchor: 9 / 10,
+-    },
+-    arcmin: {
+-        name: {
+-            singular: 'arcminute',
+-            plural: 'arcminutes',
+-        },
+-        to_anchor: 1 / 60,
+-    },
+-    arcsec: {
+-        name: {
+-            singular: 'arcsecond',
+-            plural: 'arcseconds',
+-        },
+-        to_anchor: 1 / 3600,
+-    },
+-};
+-const measure = {
+-    systems: {
+-        SI,
+-    },
+-};
+-export default measure;
+diff --git a/lib/esm/definitions/angle.mjs b/lib/esm/definitions/angle.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..d7d019b267c945de2be80f5933dcd9594788d27b
+--- /dev/null
++++ b/lib/esm/definitions/angle.mjs
+@@ -0,0 +1,43 @@
++const SI = {
++    rad: {
++        name: {
++            singular: 'radian',
++            plural: 'radians',
++        },
++        to_anchor: 180 / Math.PI,
++    },
++    deg: {
++        name: {
++            singular: 'degree',
++            plural: 'degrees',
++        },
++        to_anchor: 1,
++    },
++    grad: {
++        name: {
++            singular: 'gradian',
++            plural: 'gradians',
++        },
++        to_anchor: 9 / 10,
++    },
++    arcmin: {
++        name: {
++            singular: 'arcminute',
++            plural: 'arcminutes',
++        },
++        to_anchor: 1 / 60,
++    },
++    arcsec: {
++        name: {
++            singular: 'arcsecond',
++            plural: 'arcseconds',
++        },
++        to_anchor: 1 / 3600,
++    },
++};
++const measure = {
++    systems: {
++        SI,
++    },
++};
++export default measure;
+diff --git a/lib/esm/definitions/apparentPower.js b/lib/esm/definitions/apparentPower.js
+deleted file mode 100644
+index 20c626d6d06d3678dae11fabc9dbdbb56c2af1d2..0000000000000000000000000000000000000000
+--- a/lib/esm/definitions/apparentPower.js
++++ /dev/null
+@@ -1,43 +0,0 @@
+-const SI = {
+-    VA: {
+-        name: {
+-            singular: 'Volt-Ampere',
+-            plural: 'Volt-Amperes',
+-        },
+-        to_anchor: 1,
+-    },
+-    mVA: {
+-        name: {
+-            singular: 'Millivolt-Ampere',
+-            plural: 'Millivolt-Amperes',
+-        },
+-        to_anchor: 0.001,
+-    },
+-    kVA: {
+-        name: {
+-            singular: 'Kilovolt-Ampere',
+-            plural: 'Kilovolt-Amperes',
+-        },
+-        to_anchor: 1000,
+-    },
+-    MVA: {
+-        name: {
+-            singular: 'Megavolt-Ampere',
+-            plural: 'Megavolt-Amperes',
+-        },
+-        to_anchor: 1000000,
+-    },
+-    GVA: {
+-        name: {
+-            singular: 'Gigavolt-Ampere',
+-            plural: 'Gigavolt-Amperes',
+-        },
+-        to_anchor: 1000000000,
+-    },
+-};
+-const measure = {
+-    systems: {
+-        SI,
+-    },
+-};
+-export default measure;
+diff --git a/lib/esm/definitions/apparentPower.mjs b/lib/esm/definitions/apparentPower.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..20c626d6d06d3678dae11fabc9dbdbb56c2af1d2
+--- /dev/null
++++ b/lib/esm/definitions/apparentPower.mjs
+@@ -0,0 +1,43 @@
++const SI = {
++    VA: {
++        name: {
++            singular: 'Volt-Ampere',
++            plural: 'Volt-Amperes',
++        },
++        to_anchor: 1,
++    },
++    mVA: {
++        name: {
++            singular: 'Millivolt-Ampere',
++            plural: 'Millivolt-Amperes',
++        },
++        to_anchor: 0.001,
++    },
++    kVA: {
++        name: {
++            singular: 'Kilovolt-Ampere',
++            plural: 'Kilovolt-Amperes',
++        },
++        to_anchor: 1000,
++    },
++    MVA: {
++        name: {
++            singular: 'Megavolt-Ampere',
++            plural: 'Megavolt-Amperes',
++        },
++        to_anchor: 1000000,
++    },
++    GVA: {
++        name: {
++            singular: 'Gigavolt-Ampere',
++            plural: 'Gigavolt-Amperes',
++        },
++        to_anchor: 1000000000,
++    },
++};
++const measure = {
++    systems: {
++        SI,
++    },
++};
++export default measure;
+diff --git a/lib/esm/definitions/area.js b/lib/esm/definitions/area.js
+deleted file mode 100644
+index 962ac480851d8a3b0a18455fe5e196ef2dadb6af..0000000000000000000000000000000000000000
+--- a/lib/esm/definitions/area.js
++++ /dev/null
+@@ -1,107 +0,0 @@
+-const metric = {
+-    nm2: {
+-        name: {
+-            singular: 'Square Nanometer',
+-            plural: 'Square Nanometers',
+-        },
+-        to_anchor: 1e-18,
+-    },
+-    μm2: {
+-        name: {
+-            singular: 'Square Micrometer',
+-            plural: 'Square Micrometers',
+-        },
+-        to_anchor: 1e-12,
+-    },
+-    mm2: {
+-        name: {
+-            singular: 'Square Millimeter',
+-            plural: 'Square Millimeters',
+-        },
+-        to_anchor: 1 / 1000000,
+-    },
+-    cm2: {
+-        name: {
+-            singular: 'Square Centimeter',
+-            plural: 'Square Centimeters',
+-        },
+-        to_anchor: 1 / 10000,
+-    },
+-    m2: {
+-        name: {
+-            singular: 'Square Meter',
+-            plural: 'Square Meters',
+-        },
+-        to_anchor: 1,
+-    },
+-    ha: {
+-        name: {
+-            singular: 'Hectare',
+-            plural: 'Hectares',
+-        },
+-        to_anchor: 10000,
+-    },
+-    km2: {
+-        name: {
+-            singular: 'Square Kilometer',
+-            plural: 'Square Kilometers',
+-        },
+-        to_anchor: 1000000,
+-    },
+-};
+-const imperial = {
+-    in2: {
+-        name: {
+-            singular: 'Square Inch',
+-            plural: 'Square Inches',
+-        },
+-        to_anchor: 1 / 144,
+-    },
+-    yd2: {
+-        name: {
+-            singular: 'Square Yard',
+-            plural: 'Square Yards',
+-        },
+-        to_anchor: 9,
+-    },
+-    ft2: {
+-        name: {
+-            singular: 'Square Foot',
+-            plural: 'Square Feet',
+-        },
+-        to_anchor: 1,
+-    },
+-    ac: {
+-        name: {
+-            singular: 'Acre',
+-            plural: 'Acres',
+-        },
+-        to_anchor: 43560,
+-    },
+-    mi2: {
+-        name: {
+-            singular: 'Square Mile',
+-            plural: 'Square Miles',
+-        },
+-        to_anchor: 27878400,
+-    },
+-};
+-const measure = {
+-    systems: {
+-        metric,
+-        imperial,
+-    },
+-    anchors: {
+-        metric: {
+-            imperial: {
+-                ratio: 10.7639,
+-            },
+-        },
+-        imperial: {
+-            metric: {
+-                ratio: 1 / 10.7639,
+-            },
+-        },
+-    },
+-};
+-export default measure;
+diff --git a/lib/esm/definitions/area.mjs b/lib/esm/definitions/area.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..962ac480851d8a3b0a18455fe5e196ef2dadb6af
+--- /dev/null
++++ b/lib/esm/definitions/area.mjs
+@@ -0,0 +1,107 @@
++const metric = {
++    nm2: {
++        name: {
++            singular: 'Square Nanometer',
++            plural: 'Square Nanometers',
++        },
++        to_anchor: 1e-18,
++    },
++    μm2: {
++        name: {
++            singular: 'Square Micrometer',
++            plural: 'Square Micrometers',
++        },
++        to_anchor: 1e-12,
++    },
++    mm2: {
++        name: {
++            singular: 'Square Millimeter',
++            plural: 'Square Millimeters',
++        },
++        to_anchor: 1 / 1000000,
++    },
++    cm2: {
++        name: {
++            singular: 'Square Centimeter',
++            plural: 'Square Centimeters',
++        },
++        to_anchor: 1 / 10000,
++    },
++    m2: {
++        name: {
++            singular: 'Square Meter',
++            plural: 'Square Meters',
++        },
++        to_anchor: 1,
++    },
++    ha: {
++        name: {
++            singular: 'Hectare',
++            plural: 'Hectares',
++        },
++        to_anchor: 10000,
++    },
++    km2: {
++        name: {
++            singular: 'Square Kilometer',
++            plural: 'Square Kilometers',
++        },
++        to_anchor: 1000000,
++    },
++};
++const imperial = {
++    in2: {
++        name: {
++            singular: 'Square Inch',
++            plural: 'Square Inches',
++        },
++        to_anchor: 1 / 144,
++    },
++    yd2: {
++        name: {
++            singular: 'Square Yard',
++            plural: 'Square Yards',
++        },
++        to_anchor: 9,
++    },
++    ft2: {
++        name: {
++            singular: 'Square Foot',
++            plural: 'Square Feet',
++        },
++        to_anchor: 1,
++    },
++    ac: {
++        name: {
++            singular: 'Acre',
++            plural: 'Acres',
++        },
++        to_anchor: 43560,
++    },
++    mi2: {
++        name: {
++            singular: 'Square Mile',
++            plural: 'Square Miles',
++        },
++        to_anchor: 27878400,
++    },
++};
++const measure = {
++    systems: {
++        metric,
++        imperial,
++    },
++    anchors: {
++        metric: {
++            imperial: {
++                ratio: 10.7639,
++            },
++        },
++        imperial: {
++            metric: {
++                ratio: 1 / 10.7639,
++            },
++        },
++    },
++};
++export default measure;
+diff --git a/lib/esm/definitions/charge.js b/lib/esm/definitions/charge.js
+deleted file mode 100644
+index 7410f508cb0e2d108dce8e0e02341f594c81cbee..0000000000000000000000000000000000000000
+--- a/lib/esm/definitions/charge.js
++++ /dev/null
+@@ -1,43 +0,0 @@
+-const SI = {
+-    c: {
+-        name: {
+-            singular: 'Coulomb',
+-            plural: 'Coulombs',
+-        },
+-        to_anchor: 1,
+-    },
+-    mC: {
+-        name: {
+-            singular: 'Millicoulomb',
+-            plural: 'Millicoulombs',
+-        },
+-        to_anchor: 1 / 1000,
+-    },
+-    μC: {
+-        name: {
+-            singular: 'Microcoulomb',
+-            plural: 'Microcoulombs',
+-        },
+-        to_anchor: 1 / 1000000,
+-    },
+-    nC: {
+-        name: {
+-            singular: 'Nanocoulomb',
+-            plural: 'Nanocoulombs',
+-        },
+-        to_anchor: 1e-9,
+-    },
+-    pC: {
+-        name: {
+-            singular: 'Picocoulomb',
+-            plural: 'Picocoulombs',
+-        },
+-        to_anchor: 1e-12,
+-    },
+-};
+-const measure = {
+-    systems: {
+-        SI,
+-    },
+-};
+-export default measure;
+diff --git a/lib/esm/definitions/charge.mjs b/lib/esm/definitions/charge.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..7410f508cb0e2d108dce8e0e02341f594c81cbee
+--- /dev/null
++++ b/lib/esm/definitions/charge.mjs
+@@ -0,0 +1,43 @@
++const SI = {
++    c: {
++        name: {
++            singular: 'Coulomb',
++            plural: 'Coulombs',
++        },
++        to_anchor: 1,
++    },
++    mC: {
++        name: {
++            singular: 'Millicoulomb',
++            plural: 'Millicoulombs',
++        },
++        to_anchor: 1 / 1000,
++    },
++    μC: {
++        name: {
++            singular: 'Microcoulomb',
++            plural: 'Microcoulombs',
++        },
++        to_anchor: 1 / 1000000,
++    },
++    nC: {
++        name: {
++            singular: 'Nanocoulomb',
++            plural: 'Nanocoulombs',
++        },
++        to_anchor: 1e-9,
++    },
++    pC: {
++        name: {
++            singular: 'Picocoulomb',
++            plural: 'Picocoulombs',
++        },
++        to_anchor: 1e-12,
++    },
++};
++const measure = {
++    systems: {
++        SI,
++    },
++};
++export default measure;
+diff --git a/lib/esm/definitions/current.js b/lib/esm/definitions/current.js
+deleted file mode 100644
+index 200c663228f1b6e03631487b08051e2df8acaa42..0000000000000000000000000000000000000000
+--- a/lib/esm/definitions/current.js
++++ /dev/null
+@@ -1,29 +0,0 @@
+-const SI = {
+-    A: {
+-        name: {
+-            singular: 'Ampere',
+-            plural: 'Amperes',
+-        },
+-        to_anchor: 1,
+-    },
+-    mA: {
+-        name: {
+-            singular: 'Milliampere',
+-            plural: 'Milliamperes',
+-        },
+-        to_anchor: 0.001,
+-    },
+-    kA: {
+-        name: {
+-            singular: 'Kiloampere',
+-            plural: 'Kiloamperes',
+-        },
+-        to_anchor: 1000,
+-    },
+-};
+-const measure = {
+-    systems: {
+-        SI,
+-    },
+-};
+-export default measure;
+diff --git a/lib/esm/definitions/current.mjs b/lib/esm/definitions/current.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..200c663228f1b6e03631487b08051e2df8acaa42
+--- /dev/null
++++ b/lib/esm/definitions/current.mjs
+@@ -0,0 +1,29 @@
++const SI = {
++    A: {
++        name: {
++            singular: 'Ampere',
++            plural: 'Amperes',
++        },
++        to_anchor: 1,
++    },
++    mA: {
++        name: {
++            singular: 'Milliampere',
++            plural: 'Milliamperes',
++        },
++        to_anchor: 0.001,
++    },
++    kA: {
++        name: {
++            singular: 'Kiloampere',
++            plural: 'Kiloamperes',
++        },
++        to_anchor: 1000,
++    },
++};
++const measure = {
++    systems: {
++        SI,
++    },
++};
++export default measure;
+diff --git a/lib/esm/definitions/digital.js b/lib/esm/definitions/digital.js
+deleted file mode 100644
+index a7e47c797a1194e49e6c9c8c7938fda5fcbd3b5b..0000000000000000000000000000000000000000
+--- a/lib/esm/definitions/digital.js
++++ /dev/null
+@@ -1,93 +0,0 @@
+-const bits = {
+-    b: {
+-        name: {
+-            singular: 'Bit',
+-            plural: 'Bits',
+-        },
+-        to_anchor: 1,
+-    },
+-    Kb: {
+-        name: {
+-            singular: 'Kilobit',
+-            plural: 'Kilobits',
+-        },
+-        to_anchor: 1e3,
+-    },
+-    Mb: {
+-        name: {
+-            singular: 'Megabit',
+-            plural: 'Megabits',
+-        },
+-        to_anchor: 1e6,
+-    },
+-    Gb: {
+-        name: {
+-            singular: 'Gigabit',
+-            plural: 'Gigabits',
+-        },
+-        to_anchor: 1e9,
+-    },
+-    Tb: {
+-        name: {
+-            singular: 'Terabit',
+-            plural: 'Terabits',
+-        },
+-        to_anchor: 1e12,
+-    },
+-};
+-const bytes = {
+-    B: {
+-        name: {
+-            singular: 'Byte',
+-            plural: 'Bytes',
+-        },
+-        to_anchor: 1,
+-    },
+-    KB: {
+-        name: {
+-            singular: 'Kilobyte',
+-            plural: 'Kilobytes',
+-        },
+-        to_anchor: 1e3,
+-    },
+-    MB: {
+-        name: {
+-            singular: 'Megabyte',
+-            plural: 'Megabytes',
+-        },
+-        to_anchor: 1e6,
+-    },
+-    GB: {
+-        name: {
+-            singular: 'Gigabyte',
+-            plural: 'Gigabytes',
+-        },
+-        to_anchor: 1e9,
+-    },
+-    TB: {
+-        name: {
+-            singular: 'Terabyte',
+-            plural: 'Terabytes',
+-        },
+-        to_anchor: 1e12,
+-    },
+-};
+-const measure = {
+-    systems: {
+-        bits,
+-        bytes,
+-    },
+-    anchors: {
+-        bits: {
+-            bytes: {
+-                ratio: 1 / 8,
+-            },
+-        },
+-        bytes: {
+-            bits: {
+-                ratio: 8,
+-            },
+-        },
+-    },
+-};
+-export default measure;
+diff --git a/lib/esm/definitions/digital.mjs b/lib/esm/definitions/digital.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..a7e47c797a1194e49e6c9c8c7938fda5fcbd3b5b
+--- /dev/null
++++ b/lib/esm/definitions/digital.mjs
+@@ -0,0 +1,93 @@
++const bits = {
++    b: {
++        name: {
++            singular: 'Bit',
++            plural: 'Bits',
++        },
++        to_anchor: 1,
++    },
++    Kb: {
++        name: {
++            singular: 'Kilobit',
++            plural: 'Kilobits',
++        },
++        to_anchor: 1e3,
++    },
++    Mb: {
++        name: {
++            singular: 'Megabit',
++            plural: 'Megabits',
++        },
++        to_anchor: 1e6,
++    },
++    Gb: {
++        name: {
++            singular: 'Gigabit',
++            plural: 'Gigabits',
++        },
++        to_anchor: 1e9,
++    },
++    Tb: {
++        name: {
++            singular: 'Terabit',
++            plural: 'Terabits',
++        },
++        to_anchor: 1e12,
++    },
++};
++const bytes = {
++    B: {
++        name: {
++            singular: 'Byte',
++            plural: 'Bytes',
++        },
++        to_anchor: 1,
++    },
++    KB: {
++        name: {
++            singular: 'Kilobyte',
++            plural: 'Kilobytes',
++        },
++        to_anchor: 1e3,
++    },
++    MB: {
++        name: {
++            singular: 'Megabyte',
++            plural: 'Megabytes',
++        },
++        to_anchor: 1e6,
++    },
++    GB: {
++        name: {
++            singular: 'Gigabyte',
++            plural: 'Gigabytes',
++        },
++        to_anchor: 1e9,
++    },
++    TB: {
++        name: {
++            singular: 'Terabyte',
++            plural: 'Terabytes',
++        },
++        to_anchor: 1e12,
++    },
++};
++const measure = {
++    systems: {
++        bits,
++        bytes,
++    },
++    anchors: {
++        bits: {
++            bytes: {
++                ratio: 1 / 8,
++            },
++        },
++        bytes: {
++            bits: {
++                ratio: 8,
++            },
++        },
++    },
++};
++export default measure;
+diff --git a/lib/esm/definitions/each.js b/lib/esm/definitions/each.js
+deleted file mode 100644
+index 1f056e7aaace703bfd23ab5f6e37f629dfb15dab..0000000000000000000000000000000000000000
+--- a/lib/esm/definitions/each.js
++++ /dev/null
+@@ -1,22 +0,0 @@
+-const metric = {
+-    ea: {
+-        name: {
+-            singular: 'Each',
+-            plural: 'Each',
+-        },
+-        to_anchor: 1,
+-    },
+-    dz: {
+-        name: {
+-            singular: 'Dozen',
+-            plural: 'Dozens',
+-        },
+-        to_anchor: 12,
+-    },
+-};
+-const measure = {
+-    systems: {
+-        metric,
+-    },
+-};
+-export default measure;
+diff --git a/lib/esm/definitions/each.mjs b/lib/esm/definitions/each.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..1f056e7aaace703bfd23ab5f6e37f629dfb15dab
+--- /dev/null
++++ b/lib/esm/definitions/each.mjs
+@@ -0,0 +1,22 @@
++const metric = {
++    ea: {
++        name: {
++            singular: 'Each',
++            plural: 'Each',
++        },
++        to_anchor: 1,
++    },
++    dz: {
++        name: {
++            singular: 'Dozen',
++            plural: 'Dozens',
++        },
++        to_anchor: 12,
++    },
++};
++const measure = {
++    systems: {
++        metric,
++    },
++};
++export default measure;
+diff --git a/lib/esm/definitions/energy.js b/lib/esm/definitions/energy.js
+deleted file mode 100644
+index bbcc20b4e94354b4eda6fe472153b62db6a47fce..0000000000000000000000000000000000000000
+--- a/lib/esm/definitions/energy.js
++++ /dev/null
+@@ -1,114 +0,0 @@
+-const SI = {
+-    Ws: {
+-        name: {
+-            singular: 'Watt-second',
+-            plural: 'Watt-seconds',
+-        },
+-        to_anchor: 1,
+-    },
+-    Wm: {
+-        name: {
+-            singular: 'Watt-minute',
+-            plural: 'Watt-minutes',
+-        },
+-        to_anchor: 60,
+-    },
+-    Wh: {
+-        name: {
+-            singular: 'Watt-hour',
+-            plural: 'Watt-hours',
+-        },
+-        to_anchor: 3600,
+-    },
+-    mWh: {
+-        name: {
+-            singular: 'Milliwatt-hour',
+-            plural: 'Milliwatt-hours',
+-        },
+-        to_anchor: 3.6,
+-    },
+-    kWh: {
+-        name: {
+-            singular: 'Kilowatt-hour',
+-            plural: 'Kilowatt-hours',
+-        },
+-        to_anchor: 3600000,
+-    },
+-    MWh: {
+-        name: {
+-            singular: 'Megawatt-hour',
+-            plural: 'Megawatt-hours',
+-        },
+-        to_anchor: 3600000000,
+-    },
+-    GWh: {
+-        name: {
+-            singular: 'Gigawatt-hour',
+-            plural: 'Gigawatt-hours',
+-        },
+-        to_anchor: 3600000000000,
+-    },
+-    J: {
+-        name: {
+-            singular: 'Joule',
+-            plural: 'Joules',
+-        },
+-        to_anchor: 1,
+-    },
+-    kJ: {
+-        name: {
+-            singular: 'Kilojoule',
+-            plural: 'Kilojoules',
+-        },
+-        to_anchor: 1000,
+-    },
+-    MJ: {
+-        name: {
+-            singular: 'Megajoule',
+-            plural: 'Megajoules',
+-        },
+-        to_anchor: 1000000,
+-    },
+-    GJ: {
+-        name: {
+-            singular: 'Gigajoule',
+-            plural: 'Gigajoules',
+-        },
+-        to_anchor: 1000000000,
+-    },
+-};
+-const nutrition = {
+-    cal: {
+-        name: {
+-            singular: 'calorie',
+-            plural: 'calories',
+-        },
+-        to_anchor: 1,
+-    },
+-    kcal: {
+-        name: {
+-            singular: 'Kilocalorie',
+-            plural: 'Kilocalories',
+-        },
+-        to_anchor: 1000,
+-    },
+-};
+-const measure = {
+-    systems: {
+-        SI,
+-        nutrition,
+-    },
+-    anchors: {
+-        SI: {
+-            nutrition: {
+-                ratio: 1 / 4.184,
+-            },
+-        },
+-        nutrition: {
+-            SI: {
+-                ratio: 4.184,
+-            },
+-        },
+-    },
+-};
+-export default measure;
+diff --git a/lib/esm/definitions/energy.mjs b/lib/esm/definitions/energy.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..bbcc20b4e94354b4eda6fe472153b62db6a47fce
+--- /dev/null
++++ b/lib/esm/definitions/energy.mjs
+@@ -0,0 +1,114 @@
++const SI = {
++    Ws: {
++        name: {
++            singular: 'Watt-second',
++            plural: 'Watt-seconds',
++        },
++        to_anchor: 1,
++    },
++    Wm: {
++        name: {
++            singular: 'Watt-minute',
++            plural: 'Watt-minutes',
++        },
++        to_anchor: 60,
++    },
++    Wh: {
++        name: {
++            singular: 'Watt-hour',
++            plural: 'Watt-hours',
++        },
++        to_anchor: 3600,
++    },
++    mWh: {
++        name: {
++            singular: 'Milliwatt-hour',
++            plural: 'Milliwatt-hours',
++        },
++        to_anchor: 3.6,
++    },
++    kWh: {
++        name: {
++            singular: 'Kilowatt-hour',
++            plural: 'Kilowatt-hours',
++        },
++        to_anchor: 3600000,
++    },
++    MWh: {
++        name: {
++            singular: 'Megawatt-hour',
++            plural: 'Megawatt-hours',
++        },
++        to_anchor: 3600000000,
++    },
++    GWh: {
++        name: {
++            singular: 'Gigawatt-hour',
++            plural: 'Gigawatt-hours',
++        },
++        to_anchor: 3600000000000,
++    },
++    J: {
++        name: {
++            singular: 'Joule',
++            plural: 'Joules',
++        },
++        to_anchor: 1,
++    },
++    kJ: {
++        name: {
++            singular: 'Kilojoule',
++            plural: 'Kilojoules',
++        },
++        to_anchor: 1000,
++    },
++    MJ: {
++        name: {
++            singular: 'Megajoule',
++            plural: 'Megajoules',
++        },
++        to_anchor: 1000000,
++    },
++    GJ: {
++        name: {
++            singular: 'Gigajoule',
++            plural: 'Gigajoules',
++        },
++        to_anchor: 1000000000,
++    },
++};
++const nutrition = {
++    cal: {
++        name: {
++            singular: 'calorie',
++            plural: 'calories',
++        },
++        to_anchor: 1,
++    },
++    kcal: {
++        name: {
++            singular: 'Kilocalorie',
++            plural: 'Kilocalories',
++        },
++        to_anchor: 1000,
++    },
++};
++const measure = {
++    systems: {
++        SI,
++        nutrition,
++    },
++    anchors: {
++        SI: {
++            nutrition: {
++                ratio: 1 / 4.184,
++            },
++        },
++        nutrition: {
++            SI: {
++                ratio: 4.184,
++            },
++        },
++    },
++};
++export default measure;
+diff --git a/lib/esm/definitions/force.js b/lib/esm/definitions/force.js
+deleted file mode 100644
+index b8f628aaa533c4a2ba2c64a7a77b68a710cd3431..0000000000000000000000000000000000000000
+--- a/lib/esm/definitions/force.js
++++ /dev/null
+@@ -1,36 +0,0 @@
+-const SI = {
+-    N: {
+-        name: {
+-            singular: 'Newton',
+-            plural: 'Newtons',
+-        },
+-        to_anchor: 1,
+-    },
+-    kN: {
+-        name: {
+-            singular: 'Kilonewton',
+-            plural: 'Kilonewtons',
+-        },
+-        to_anchor: 1000,
+-    },
+-    lbf: {
+-        name: {
+-            singular: 'Pound-force',
+-            plural: 'Pound-forces',
+-        },
+-        to_anchor: 4.44822,
+-    },
+-    kgf: {
+-        name: {
+-            singular: 'Kilogram-force',
+-            plural: 'Kilogram-forces',
+-        },
+-        to_anchor: 9.807,
+-    },
+-};
+-const measure = {
+-    systems: {
+-        SI,
+-    },
+-};
+-export default measure;
+diff --git a/lib/esm/definitions/force.mjs b/lib/esm/definitions/force.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..b8f628aaa533c4a2ba2c64a7a77b68a710cd3431
+--- /dev/null
++++ b/lib/esm/definitions/force.mjs
+@@ -0,0 +1,36 @@
++const SI = {
++    N: {
++        name: {
++            singular: 'Newton',
++            plural: 'Newtons',
++        },
++        to_anchor: 1,
++    },
++    kN: {
++        name: {
++            singular: 'Kilonewton',
++            plural: 'Kilonewtons',
++        },
++        to_anchor: 1000,
++    },
++    lbf: {
++        name: {
++            singular: 'Pound-force',
++            plural: 'Pound-forces',
++        },
++        to_anchor: 4.44822,
++    },
++    kgf: {
++        name: {
++            singular: 'Kilogram-force',
++            plural: 'Kilogram-forces',
++        },
++        to_anchor: 9.807,
++    },
++};
++const measure = {
++    systems: {
++        SI,
++    },
++};
++export default measure;
+diff --git a/lib/esm/definitions/frequency.js b/lib/esm/definitions/frequency.js
+deleted file mode 100644
+index 80e8190cf04a8010220aa69e3facfbbddd2a0a0e..0000000000000000000000000000000000000000
+--- a/lib/esm/definitions/frequency.js
++++ /dev/null
+@@ -1,71 +0,0 @@
+-const SI = {
+-    mHz: {
+-        name: {
+-            singular: 'millihertz',
+-            plural: 'millihertz',
+-        },
+-        to_anchor: 1 / 1000,
+-    },
+-    Hz: {
+-        name: {
+-            singular: 'hertz',
+-            plural: 'hertz',
+-        },
+-        to_anchor: 1,
+-    },
+-    kHz: {
+-        name: {
+-            singular: 'kilohertz',
+-            plural: 'kilohertz',
+-        },
+-        to_anchor: 1000,
+-    },
+-    MHz: {
+-        name: {
+-            singular: 'megahertz',
+-            plural: 'megahertz',
+-        },
+-        to_anchor: 1000 * 1000,
+-    },
+-    GHz: {
+-        name: {
+-            singular: 'gigahertz',
+-            plural: 'gigahertz',
+-        },
+-        to_anchor: 1000 * 1000 * 1000,
+-    },
+-    THz: {
+-        name: {
+-            singular: 'terahertz',
+-            plural: 'terahertz',
+-        },
+-        to_anchor: 1000 * 1000 * 1000 * 1000,
+-    },
+-    rpm: {
+-        name: {
+-            singular: 'rotation per minute',
+-            plural: 'rotations per minute',
+-        },
+-        to_anchor: 1 / 60,
+-    },
+-    'deg/s': {
+-        name: {
+-            singular: 'degree per second',
+-            plural: 'degrees per second',
+-        },
+-        to_anchor: 1 / 360,
+-    },
+-    'rad/s': {
+-        name: {
+-            singular: 'radian per second',
+-            plural: 'radians per second',
+-        },
+-        to_anchor: 1 / (Math.PI * 2),
+-    },
+-};
+-const measure = {
+-    systems: {
+-        SI,
+-    },
+-};
+-export default measure;
+diff --git a/lib/esm/definitions/frequency.mjs b/lib/esm/definitions/frequency.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..80e8190cf04a8010220aa69e3facfbbddd2a0a0e
+--- /dev/null
++++ b/lib/esm/definitions/frequency.mjs
+@@ -0,0 +1,71 @@
++const SI = {
++    mHz: {
++        name: {
++            singular: 'millihertz',
++            plural: 'millihertz',
++        },
++        to_anchor: 1 / 1000,
++    },
++    Hz: {
++        name: {
++            singular: 'hertz',
++            plural: 'hertz',
++        },
++        to_anchor: 1,
++    },
++    kHz: {
++        name: {
++            singular: 'kilohertz',
++            plural: 'kilohertz',
++        },
++        to_anchor: 1000,
++    },
++    MHz: {
++        name: {
++            singular: 'megahertz',
++            plural: 'megahertz',
++        },
++        to_anchor: 1000 * 1000,
++    },
++    GHz: {
++        name: {
++            singular: 'gigahertz',
++            plural: 'gigahertz',
++        },
++        to_anchor: 1000 * 1000 * 1000,
++    },
++    THz: {
++        name: {
++            singular: 'terahertz',
++            plural: 'terahertz',
++        },
++        to_anchor: 1000 * 1000 * 1000 * 1000,
++    },
++    rpm: {
++        name: {
++            singular: 'rotation per minute',
++            plural: 'rotations per minute',
++        },
++        to_anchor: 1 / 60,
++    },
++    'deg/s': {
++        name: {
++            singular: 'degree per second',
++            plural: 'degrees per second',
++        },
++        to_anchor: 1 / 360,
++    },
++    'rad/s': {
++        name: {
++            singular: 'radian per second',
++            plural: 'radians per second',
++        },
++        to_anchor: 1 / (Math.PI * 2),
++    },
++};
++const measure = {
++    systems: {
++        SI,
++    },
++};
++export default measure;
+diff --git a/lib/esm/definitions/illuminance.js b/lib/esm/definitions/illuminance.js
+deleted file mode 100644
+index af54db367947114fa340cabdfebb422ffe68ccb3..0000000000000000000000000000000000000000
+--- a/lib/esm/definitions/illuminance.js
++++ /dev/null
+@@ -1,37 +0,0 @@
+-const metric = {
+-    lx: {
+-        name: {
+-            singular: 'Lux',
+-            plural: 'Lux',
+-        },
+-        to_anchor: 1,
+-    },
+-};
+-const imperial = {
+-    'ft-cd': {
+-        name: {
+-            singular: 'Foot-candle',
+-            plural: 'Foot-candles',
+-        },
+-        to_anchor: 1,
+-    },
+-};
+-const measure = {
+-    systems: {
+-        metric,
+-        imperial,
+-    },
+-    anchors: {
+-        metric: {
+-            imperial: {
+-                ratio: 1 / 10.76391,
+-            },
+-        },
+-        imperial: {
+-            metric: {
+-                ratio: 10.76391,
+-            },
+-        },
+-    },
+-};
+-export default measure;
+diff --git a/lib/esm/definitions/illuminance.mjs b/lib/esm/definitions/illuminance.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..af54db367947114fa340cabdfebb422ffe68ccb3
+--- /dev/null
++++ b/lib/esm/definitions/illuminance.mjs
+@@ -0,0 +1,37 @@
++const metric = {
++    lx: {
++        name: {
++            singular: 'Lux',
++            plural: 'Lux',
++        },
++        to_anchor: 1,
++    },
++};
++const imperial = {
++    'ft-cd': {
++        name: {
++            singular: 'Foot-candle',
++            plural: 'Foot-candles',
++        },
++        to_anchor: 1,
++    },
++};
++const measure = {
++    systems: {
++        metric,
++        imperial,
++    },
++    anchors: {
++        metric: {
++            imperial: {
++                ratio: 1 / 10.76391,
++            },
++        },
++        imperial: {
++            metric: {
++                ratio: 10.76391,
++            },
++        },
++    },
++};
++export default measure;
+diff --git a/lib/esm/definitions/length.js b/lib/esm/definitions/length.js
+deleted file mode 100644
+index 18796488dd6d3fc71af8527e147c36de0b356359..0000000000000000000000000000000000000000
+--- a/lib/esm/definitions/length.js
++++ /dev/null
+@@ -1,121 +0,0 @@
+-const metric = {
+-    nm: {
+-        name: {
+-            singular: 'Nanometer',
+-            plural: 'Nanometers',
+-        },
+-        to_anchor: 1e-9,
+-    },
+-    μm: {
+-        name: {
+-            singular: 'Micrometer',
+-            plural: 'Micrometers',
+-        },
+-        to_anchor: 1e-6,
+-    },
+-    mm: {
+-        name: {
+-            singular: 'Millimeter',
+-            plural: 'Millimeters',
+-        },
+-        to_anchor: 1e-3,
+-    },
+-    cm: {
+-        name: {
+-            singular: 'Centimeter',
+-            plural: 'Centimeters',
+-        },
+-        to_anchor: 1e-2,
+-    },
+-    m: {
+-        name: {
+-            singular: 'Meter',
+-            plural: 'Meters',
+-        },
+-        to_anchor: 1,
+-    },
+-    km: {
+-        name: {
+-            singular: 'Kilometer',
+-            plural: 'Kilometers',
+-        },
+-        to_anchor: 1e3,
+-    },
+-};
+-const imperial = {
+-    mil: {
+-        name: {
+-            singular: 'Mil',
+-            plural: 'Mils',
+-        },
+-        to_anchor: 1 / 12000,
+-    },
+-    in: {
+-        name: {
+-            singular: 'Inch',
+-            plural: 'Inches',
+-        },
+-        to_anchor: 1 / 12,
+-    },
+-    yd: {
+-        name: {
+-            singular: 'Yard',
+-            plural: 'Yards',
+-        },
+-        to_anchor: 3,
+-    },
+-    'ft-us': {
+-        name: {
+-            singular: 'US Survey Foot',
+-            plural: 'US Survey Feet',
+-        },
+-        to_anchor: 1.000002,
+-    },
+-    ft: {
+-        name: {
+-            singular: 'Foot',
+-            plural: 'Feet',
+-        },
+-        to_anchor: 1,
+-    },
+-    fathom: {
+-        name: {
+-            singular: 'Fathom',
+-            plural: 'Fathoms',
+-        },
+-        to_anchor: 6,
+-    },
+-    mi: {
+-        name: {
+-            singular: 'Mile',
+-            plural: 'Miles',
+-        },
+-        to_anchor: 5280,
+-    },
+-    nMi: {
+-        name: {
+-            singular: 'Nautical Mile',
+-            plural: 'Nautical Miles',
+-        },
+-        to_anchor: 6076.12,
+-    },
+-};
+-const measure = {
+-    systems: {
+-        metric,
+-        imperial,
+-    },
+-    anchors: {
+-        metric: {
+-            imperial: {
+-                ratio: 3.28084,
+-            },
+-        },
+-        imperial: {
+-            metric: {
+-                ratio: 1 / 3.28084,
+-            },
+-        },
+-    },
+-};
+-export default measure;
+diff --git a/lib/esm/definitions/length.mjs b/lib/esm/definitions/length.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..18796488dd6d3fc71af8527e147c36de0b356359
+--- /dev/null
++++ b/lib/esm/definitions/length.mjs
+@@ -0,0 +1,121 @@
++const metric = {
++    nm: {
++        name: {
++            singular: 'Nanometer',
++            plural: 'Nanometers',
++        },
++        to_anchor: 1e-9,
++    },
++    μm: {
++        name: {
++            singular: 'Micrometer',
++            plural: 'Micrometers',
++        },
++        to_anchor: 1e-6,
++    },
++    mm: {
++        name: {
++            singular: 'Millimeter',
++            plural: 'Millimeters',
++        },
++        to_anchor: 1e-3,
++    },
++    cm: {
++        name: {
++            singular: 'Centimeter',
++            plural: 'Centimeters',
++        },
++        to_anchor: 1e-2,
++    },
++    m: {
++        name: {
++            singular: 'Meter',
++            plural: 'Meters',
++        },
++        to_anchor: 1,
++    },
++    km: {
++        name: {
++            singular: 'Kilometer',
++            plural: 'Kilometers',
++        },
++        to_anchor: 1e3,
++    },
++};
++const imperial = {
++    mil: {
++        name: {
++            singular: 'Mil',
++            plural: 'Mils',
++        },
++        to_anchor: 1 / 12000,
++    },
++    in: {
++        name: {
++            singular: 'Inch',
++            plural: 'Inches',
++        },
++        to_anchor: 1 / 12,
++    },
++    yd: {
++        name: {
++            singular: 'Yard',
++            plural: 'Yards',
++        },
++        to_anchor: 3,
++    },
++    'ft-us': {
++        name: {
++            singular: 'US Survey Foot',
++            plural: 'US Survey Feet',
++        },
++        to_anchor: 1.000002,
++    },
++    ft: {
++        name: {
++            singular: 'Foot',
++            plural: 'Feet',
++        },
++        to_anchor: 1,
++    },
++    fathom: {
++        name: {
++            singular: 'Fathom',
++            plural: 'Fathoms',
++        },
++        to_anchor: 6,
++    },
++    mi: {
++        name: {
++            singular: 'Mile',
++            plural: 'Miles',
++        },
++        to_anchor: 5280,
++    },
++    nMi: {
++        name: {
++            singular: 'Nautical Mile',
++            plural: 'Nautical Miles',
++        },
++        to_anchor: 6076.12,
++    },
++};
++const measure = {
++    systems: {
++        metric,
++        imperial,
++    },
++    anchors: {
++        metric: {
++            imperial: {
++                ratio: 3.28084,
++            },
++        },
++        imperial: {
++            metric: {
++                ratio: 1 / 3.28084,
++            },
++        },
++    },
++};
++export default measure;
+diff --git a/lib/esm/definitions/mass.js b/lib/esm/definitions/mass.js
+deleted file mode 100644
+index cb0366307c1e2aff9179a9cc2a8a8fa1986f425e..0000000000000000000000000000000000000000
+--- a/lib/esm/definitions/mass.js
++++ /dev/null
+@@ -1,86 +0,0 @@
+-const metric = {
+-    mcg: {
+-        name: {
+-            singular: 'Microgram',
+-            plural: 'Micrograms',
+-        },
+-        to_anchor: 1 / 1000000,
+-    },
+-    mg: {
+-        name: {
+-            singular: 'Milligram',
+-            plural: 'Milligrams',
+-        },
+-        to_anchor: 1 / 1000,
+-    },
+-    g: {
+-        name: {
+-            singular: 'Gram',
+-            plural: 'Grams',
+-        },
+-        to_anchor: 1,
+-    },
+-    kg: {
+-        name: {
+-            singular: 'Kilogram',
+-            plural: 'Kilograms',
+-        },
+-        to_anchor: 1000,
+-    },
+-    mt: {
+-        name: {
+-            singular: 'Metric Tonne',
+-            plural: 'Metric Tonnes',
+-        },
+-        to_anchor: 1000000,
+-    },
+-};
+-const imperial = {
+-    oz: {
+-        name: {
+-            singular: 'Ounce',
+-            plural: 'Ounces',
+-        },
+-        to_anchor: 1 / 16,
+-    },
+-    lb: {
+-        name: {
+-            singular: 'Pound',
+-            plural: 'Pounds',
+-        },
+-        to_anchor: 1,
+-    },
+-    st: {
+-        name: {
+-            singular: 'Stone',
+-            plural: 'Stones',
+-        },
+-        to_anchor: 14,
+-    },
+-    t: {
+-        name: {
+-            singular: 'Ton',
+-            plural: 'Tons',
+-        },
+-        to_anchor: 2000,
+-    },
+-};
+-const measure = {
+-    systems: {
+-        metric,
+-        imperial,
+-    },
+-    anchors: {
+-        metric: {
+-            imperial: {
+-                ratio: 1 / 453.592,
+-            },
+-        },
+-        imperial: {
+-            metric: {
+-                ratio: 453.592,
+-            },
+-        },
+-    },
+-};
+-export default measure;
+diff --git a/lib/esm/definitions/mass.mjs b/lib/esm/definitions/mass.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..cb0366307c1e2aff9179a9cc2a8a8fa1986f425e
+--- /dev/null
++++ b/lib/esm/definitions/mass.mjs
+@@ -0,0 +1,86 @@
++const metric = {
++    mcg: {
++        name: {
++            singular: 'Microgram',
++            plural: 'Micrograms',
++        },
++        to_anchor: 1 / 1000000,
++    },
++    mg: {
++        name: {
++            singular: 'Milligram',
++            plural: 'Milligrams',
++        },
++        to_anchor: 1 / 1000,
++    },
++    g: {
++        name: {
++            singular: 'Gram',
++            plural: 'Grams',
++        },
++        to_anchor: 1,
++    },
++    kg: {
++        name: {
++            singular: 'Kilogram',
++            plural: 'Kilograms',
++        },
++        to_anchor: 1000,
++    },
++    mt: {
++        name: {
++            singular: 'Metric Tonne',
++            plural: 'Metric Tonnes',
++        },
++        to_anchor: 1000000,
++    },
++};
++const imperial = {
++    oz: {
++        name: {
++            singular: 'Ounce',
++            plural: 'Ounces',
++        },
++        to_anchor: 1 / 16,
++    },
++    lb: {
++        name: {
++            singular: 'Pound',
++            plural: 'Pounds',
++        },
++        to_anchor: 1,
++    },
++    st: {
++        name: {
++            singular: 'Stone',
++            plural: 'Stones',
++        },
++        to_anchor: 14,
++    },
++    t: {
++        name: {
++            singular: 'Ton',
++            plural: 'Tons',
++        },
++        to_anchor: 2000,
++    },
++};
++const measure = {
++    systems: {
++        metric,
++        imperial,
++    },
++    anchors: {
++        metric: {
++            imperial: {
++                ratio: 1 / 453.592,
++            },
++        },
++        imperial: {
++            metric: {
++                ratio: 453.592,
++            },
++        },
++    },
++};
++export default measure;
+diff --git a/lib/esm/definitions/massFlowRate.js b/lib/esm/definitions/massFlowRate.js
+deleted file mode 100644
+index 1c8534297c30df260063386e10747260894e103e..0000000000000000000000000000000000000000
+--- a/lib/esm/definitions/massFlowRate.js
++++ /dev/null
+@@ -1,58 +0,0 @@
+-const metric = {
+-    'kg/s': {
+-        name: {
+-            singular: 'Kilogram per second',
+-            plural: 'Kilograms per second',
+-        },
+-        to_anchor: 1,
+-    },
+-    'kg/h': {
+-        name: {
+-            singular: 'Kilogram per hour',
+-            plural: 'Kilograms per hour',
+-        },
+-        to_anchor: 1 / 3600,
+-    },
+-    'mt/h': {
+-        name: {
+-            singular: 'Ton per hour',
+-            plural: 'Tons per hour',
+-        },
+-        to_anchor: 1 / 3.6,
+-    },
+-};
+-const imperial = {
+-    'lb/s': {
+-        name: {
+-            singular: 'Pound per second',
+-            plural: 'Pounds per second',
+-        },
+-        to_anchor: 1,
+-    },
+-    'lb/h': {
+-        name: {
+-            singular: 'Pound per hour',
+-            plural: 'Pounds per hour',
+-        },
+-        to_anchor: 1 / 3600,
+-    },
+-};
+-const measure = {
+-    systems: {
+-        metric,
+-        imperial,
+-    },
+-    anchors: {
+-        metric: {
+-            imperial: {
+-                ratio: 1 / 0.453592,
+-            },
+-        },
+-        imperial: {
+-            metric: {
+-                ratio: 0.453592,
+-            },
+-        },
+-    },
+-};
+-export default measure;
+diff --git a/lib/esm/definitions/massFlowRate.mjs b/lib/esm/definitions/massFlowRate.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..1c8534297c30df260063386e10747260894e103e
+--- /dev/null
++++ b/lib/esm/definitions/massFlowRate.mjs
+@@ -0,0 +1,58 @@
++const metric = {
++    'kg/s': {
++        name: {
++            singular: 'Kilogram per second',
++            plural: 'Kilograms per second',
++        },
++        to_anchor: 1,
++    },
++    'kg/h': {
++        name: {
++            singular: 'Kilogram per hour',
++            plural: 'Kilograms per hour',
++        },
++        to_anchor: 1 / 3600,
++    },
++    'mt/h': {
++        name: {
++            singular: 'Ton per hour',
++            plural: 'Tons per hour',
++        },
++        to_anchor: 1 / 3.6,
++    },
++};
++const imperial = {
++    'lb/s': {
++        name: {
++            singular: 'Pound per second',
++            plural: 'Pounds per second',
++        },
++        to_anchor: 1,
++    },
++    'lb/h': {
++        name: {
++            singular: 'Pound per hour',
++            plural: 'Pounds per hour',
++        },
++        to_anchor: 1 / 3600,
++    },
++};
++const measure = {
++    systems: {
++        metric,
++        imperial,
++    },
++    anchors: {
++        metric: {
++            imperial: {
++                ratio: 1 / 0.453592,
++            },
++        },
++        imperial: {
++            metric: {
++                ratio: 0.453592,
++            },
++        },
++    },
++};
++export default measure;
+diff --git a/lib/esm/definitions/pace.js b/lib/esm/definitions/pace.js
+deleted file mode 100644
+index a037b0b5f8e0922a4f075571972e8dda7cecd908..0000000000000000000000000000000000000000
+--- a/lib/esm/definitions/pace.js
++++ /dev/null
+@@ -1,51 +0,0 @@
+-const metric = {
+-    'min/km': {
+-        name: {
+-            singular: 'Minute per kilometre',
+-            plural: 'Minutes per kilometre',
+-        },
+-        to_anchor: 0.06,
+-    },
+-    's/m': {
+-        name: {
+-            singular: 'Second per metre',
+-            plural: 'Seconds per metre',
+-        },
+-        to_anchor: 1,
+-    },
+-};
+-const imperial = {
+-    'min/mi': {
+-        name: {
+-            singular: 'Minute per mile',
+-            plural: 'Minutes per mile',
+-        },
+-        to_anchor: 0.0113636,
+-    },
+-    's/ft': {
+-        name: {
+-            singular: 'Second per foot',
+-            plural: 'Seconds per foot',
+-        },
+-        to_anchor: 1,
+-    },
+-};
+-const measure = {
+-    systems: {
+-        metric,
+-        imperial,
+-    },
+-    anchors: {
+-        metric: {
+-            imperial: {
+-                ratio: 0.3048,
+-            },
+-        },
+-        imperial: {
+-            metric: {
+-                ratio: 1 / 0.3048,
+-            },
+-        },
+-    },
+-};
+-export default measure;
+diff --git a/lib/esm/definitions/pace.mjs b/lib/esm/definitions/pace.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..a037b0b5f8e0922a4f075571972e8dda7cecd908
+--- /dev/null
++++ b/lib/esm/definitions/pace.mjs
+@@ -0,0 +1,51 @@
++const metric = {
++    'min/km': {
++        name: {
++            singular: 'Minute per kilometre',
++            plural: 'Minutes per kilometre',
++        },
++        to_anchor: 0.06,
++    },
++    's/m': {
++        name: {
++            singular: 'Second per metre',
++            plural: 'Seconds per metre',
++        },
++        to_anchor: 1,
++    },
++};
++const imperial = {
++    'min/mi': {
++        name: {
++            singular: 'Minute per mile',
++            plural: 'Minutes per mile',
++        },
++        to_anchor: 0.0113636,
++    },
++    's/ft': {
++        name: {
++            singular: 'Second per foot',
++            plural: 'Seconds per foot',
++        },
++        to_anchor: 1,
++    },
++};
++const measure = {
++    systems: {
++        metric,
++        imperial,
++    },
++    anchors: {
++        metric: {
++            imperial: {
++                ratio: 0.3048,
++            },
++        },
++        imperial: {
++            metric: {
++                ratio: 1 / 0.3048,
++            },
++        },
++    },
++};
++export default measure;
+diff --git a/lib/esm/definitions/partsPer.js b/lib/esm/definitions/partsPer.js
+deleted file mode 100644
+index c56f2628590dd640759149c354d1fa17c3f40af9..0000000000000000000000000000000000000000
+--- a/lib/esm/definitions/partsPer.js
++++ /dev/null
+@@ -1,36 +0,0 @@
+-const SI = {
+-    ppm: {
+-        name: {
+-            singular: 'Part-per Million',
+-            plural: 'Parts-per Million',
+-        },
+-        to_anchor: 1,
+-    },
+-    ppb: {
+-        name: {
+-            singular: 'Part-per Billion',
+-            plural: 'Parts-per Billion',
+-        },
+-        to_anchor: 0.001,
+-    },
+-    ppt: {
+-        name: {
+-            singular: 'Part-per Trillion',
+-            plural: 'Parts-per Trillion',
+-        },
+-        to_anchor: 0.000001,
+-    },
+-    ppq: {
+-        name: {
+-            singular: 'Part-per Quadrillion',
+-            plural: 'Parts-per Quadrillion',
+-        },
+-        to_anchor: 0.000000001,
+-    },
+-};
+-const measure = {
+-    systems: {
+-        SI,
+-    },
+-};
+-export default measure;
+diff --git a/lib/esm/definitions/partsPer.mjs b/lib/esm/definitions/partsPer.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..c56f2628590dd640759149c354d1fa17c3f40af9
+--- /dev/null
++++ b/lib/esm/definitions/partsPer.mjs
+@@ -0,0 +1,36 @@
++const SI = {
++    ppm: {
++        name: {
++            singular: 'Part-per Million',
++            plural: 'Parts-per Million',
++        },
++        to_anchor: 1,
++    },
++    ppb: {
++        name: {
++            singular: 'Part-per Billion',
++            plural: 'Parts-per Billion',
++        },
++        to_anchor: 0.001,
++    },
++    ppt: {
++        name: {
++            singular: 'Part-per Trillion',
++            plural: 'Parts-per Trillion',
++        },
++        to_anchor: 0.000001,
++    },
++    ppq: {
++        name: {
++            singular: 'Part-per Quadrillion',
++            plural: 'Parts-per Quadrillion',
++        },
++        to_anchor: 0.000000001,
++    },
++};
++const measure = {
++    systems: {
++        SI,
++    },
++};
++export default measure;
+diff --git a/lib/esm/definitions/pieces.js b/lib/esm/definitions/pieces.js
+deleted file mode 100644
+index 4c8be6b547250e9d0cd3ca8a5852be8ba8eb8d98..0000000000000000000000000000000000000000
+--- a/lib/esm/definitions/pieces.js
++++ /dev/null
+@@ -1,99 +0,0 @@
+-const unit = {
+-    pcs: {
+-        name: {
+-            singular: 'Piece',
+-            plural: 'Pieces',
+-        },
+-        to_anchor: 1,
+-    },
+-    'bk-doz': {
+-        name: {
+-            singular: 'Bakers Dozen',
+-            plural: 'Bakers Dozen',
+-        },
+-        to_anchor: 13,
+-    },
+-    cp: {
+-        name: {
+-            singular: 'Couple',
+-            plural: 'Couples',
+-        },
+-        to_anchor: 2,
+-    },
+-    'doz-doz': {
+-        name: {
+-            singular: 'Dozen Dozen',
+-            plural: 'Dozen Dozen',
+-        },
+-        to_anchor: 144,
+-    },
+-    doz: {
+-        name: {
+-            singular: 'Dozen',
+-            plural: 'Dozens',
+-        },
+-        to_anchor: 12,
+-    },
+-    'gr-gr': {
+-        name: {
+-            singular: 'Great Gross',
+-            plural: 'Great Gross',
+-        },
+-        to_anchor: 1728,
+-    },
+-    gros: {
+-        name: {
+-            singular: 'Gross',
+-            plural: 'Gross',
+-        },
+-        to_anchor: 144,
+-    },
+-    'half-dozen': {
+-        name: {
+-            singular: 'Half Dozen',
+-            plural: 'Half Dozen',
+-        },
+-        to_anchor: 6,
+-    },
+-    'long-hundred': {
+-        name: {
+-            singular: 'Long Hundred',
+-            plural: 'Long Hundred',
+-        },
+-        to_anchor: 120,
+-    },
+-    ream: {
+-        name: {
+-            singular: 'Reams',
+-            plural: 'Reams',
+-        },
+-        to_anchor: 500,
+-    },
+-    scores: {
+-        name: {
+-            singular: 'Scores',
+-            plural: 'Scores',
+-        },
+-        to_anchor: 20,
+-    },
+-    'sm-gr': {
+-        name: {
+-            singular: 'Small Gross',
+-            plural: 'Small Gross',
+-        },
+-        to_anchor: 120,
+-    },
+-    trio: {
+-        name: {
+-            singular: 'Trio',
+-            plural: 'Trio',
+-        },
+-        to_anchor: 3,
+-    },
+-};
+-const measure = {
+-    systems: {
+-        unit,
+-    },
+-};
+-export default measure;
+diff --git a/lib/esm/definitions/pieces.mjs b/lib/esm/definitions/pieces.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..4c8be6b547250e9d0cd3ca8a5852be8ba8eb8d98
+--- /dev/null
++++ b/lib/esm/definitions/pieces.mjs
+@@ -0,0 +1,99 @@
++const unit = {
++    pcs: {
++        name: {
++            singular: 'Piece',
++            plural: 'Pieces',
++        },
++        to_anchor: 1,
++    },
++    'bk-doz': {
++        name: {
++            singular: 'Bakers Dozen',
++            plural: 'Bakers Dozen',
++        },
++        to_anchor: 13,
++    },
++    cp: {
++        name: {
++            singular: 'Couple',
++            plural: 'Couples',
++        },
++        to_anchor: 2,
++    },
++    'doz-doz': {
++        name: {
++            singular: 'Dozen Dozen',
++            plural: 'Dozen Dozen',
++        },
++        to_anchor: 144,
++    },
++    doz: {
++        name: {
++            singular: 'Dozen',
++            plural: 'Dozens',
++        },
++        to_anchor: 12,
++    },
++    'gr-gr': {
++        name: {
++            singular: 'Great Gross',
++            plural: 'Great Gross',
++        },
++        to_anchor: 1728,
++    },
++    gros: {
++        name: {
++            singular: 'Gross',
++            plural: 'Gross',
++        },
++        to_anchor: 144,
++    },
++    'half-dozen': {
++        name: {
++            singular: 'Half Dozen',
++            plural: 'Half Dozen',
++        },
++        to_anchor: 6,
++    },
++    'long-hundred': {
++        name: {
++            singular: 'Long Hundred',
++            plural: 'Long Hundred',
++        },
++        to_anchor: 120,
++    },
++    ream: {
++        name: {
++            singular: 'Reams',
++            plural: 'Reams',
++        },
++        to_anchor: 500,
++    },
++    scores: {
++        name: {
++            singular: 'Scores',
++            plural: 'Scores',
++        },
++        to_anchor: 20,
++    },
++    'sm-gr': {
++        name: {
++            singular: 'Small Gross',
++            plural: 'Small Gross',
++        },
++        to_anchor: 120,
++    },
++    trio: {
++        name: {
++            singular: 'Trio',
++            plural: 'Trio',
++        },
++        to_anchor: 3,
++    },
++};
++const measure = {
++    systems: {
++        unit,
++    },
++};
++export default measure;
+diff --git a/lib/esm/definitions/power.js b/lib/esm/definitions/power.js
+deleted file mode 100644
+index 4003fc3ebf68c26d61e5d50216d96eeb1fd9f51b..0000000000000000000000000000000000000000
+--- a/lib/esm/definitions/power.js
++++ /dev/null
+@@ -1,86 +0,0 @@
+-const metric = {
+-    W: {
+-        name: {
+-            singular: 'Watt',
+-            plural: 'Watts',
+-        },
+-        to_anchor: 1,
+-    },
+-    mW: {
+-        name: {
+-            singular: 'Milliwatt',
+-            plural: 'Milliwatts',
+-        },
+-        to_anchor: 0.001,
+-    },
+-    kW: {
+-        name: {
+-            singular: 'Kilowatt',
+-            plural: 'Kilowatts',
+-        },
+-        to_anchor: 1000,
+-    },
+-    MW: {
+-        name: {
+-            singular: 'Megawatt',
+-            plural: 'Megawatts',
+-        },
+-        to_anchor: 1000000,
+-    },
+-    GW: {
+-        name: {
+-            singular: 'Gigawatt',
+-            plural: 'Gigawatts',
+-        },
+-        to_anchor: 1000000000,
+-    },
+-    PS: {
+-        name: {
+-            singular: 'Horsepower (metric)',
+-            plural: 'Horsepower (metric)',
+-        },
+-        to_anchor: 735.49875,
+-    },
+-};
+-const imperial = {
+-    'Btu/s': {
+-        name: {
+-            singular: 'British thermal unit per second',
+-            plural: 'British thermal units per second',
+-        },
+-        to_anchor: 778.16937,
+-    },
+-    'ft-lb/s': {
+-        name: {
+-            singular: 'Foot-pound per second',
+-            plural: 'Foot-pounds per second',
+-        },
+-        to_anchor: 1,
+-    },
+-    hp: {
+-        name: {
+-            singular: 'Horsepower (British)',
+-            plural: 'Horsepower (British)',
+-        },
+-        to_anchor: 550,
+-    },
+-};
+-const measure = {
+-    systems: {
+-        metric,
+-        imperial,
+-    },
+-    anchors: {
+-        metric: {
+-            imperial: {
+-                ratio: 0.737562149,
+-            },
+-        },
+-        imperial: {
+-            metric: {
+-                ratio: 1 / 0.737562149,
+-            },
+-        },
+-    },
+-};
+-export default measure;
+diff --git a/lib/esm/definitions/power.mjs b/lib/esm/definitions/power.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..4003fc3ebf68c26d61e5d50216d96eeb1fd9f51b
+--- /dev/null
++++ b/lib/esm/definitions/power.mjs
+@@ -0,0 +1,86 @@
++const metric = {
++    W: {
++        name: {
++            singular: 'Watt',
++            plural: 'Watts',
++        },
++        to_anchor: 1,
++    },
++    mW: {
++        name: {
++            singular: 'Milliwatt',
++            plural: 'Milliwatts',
++        },
++        to_anchor: 0.001,
++    },
++    kW: {
++        name: {
++            singular: 'Kilowatt',
++            plural: 'Kilowatts',
++        },
++        to_anchor: 1000,
++    },
++    MW: {
++        name: {
++            singular: 'Megawatt',
++            plural: 'Megawatts',
++        },
++        to_anchor: 1000000,
++    },
++    GW: {
++        name: {
++            singular: 'Gigawatt',
++            plural: 'Gigawatts',
++        },
++        to_anchor: 1000000000,
++    },
++    PS: {
++        name: {
++            singular: 'Horsepower (metric)',
++            plural: 'Horsepower (metric)',
++        },
++        to_anchor: 735.49875,
++    },
++};
++const imperial = {
++    'Btu/s': {
++        name: {
++            singular: 'British thermal unit per second',
++            plural: 'British thermal units per second',
++        },
++        to_anchor: 778.16937,
++    },
++    'ft-lb/s': {
++        name: {
++            singular: 'Foot-pound per second',
++            plural: 'Foot-pounds per second',
++        },
++        to_anchor: 1,
++    },
++    hp: {
++        name: {
++            singular: 'Horsepower (British)',
++            plural: 'Horsepower (British)',
++        },
++        to_anchor: 550,
++    },
++};
++const measure = {
++    systems: {
++        metric,
++        imperial,
++    },
++    anchors: {
++        metric: {
++            imperial: {
++                ratio: 0.737562149,
++            },
++        },
++        imperial: {
++            metric: {
++                ratio: 1 / 0.737562149,
++            },
++        },
++    },
++};
++export default measure;
+diff --git a/lib/esm/definitions/pressure.js b/lib/esm/definitions/pressure.js
+deleted file mode 100644
+index 159ec3d2f9336f057ddfb80e18711459771f3cf4..0000000000000000000000000000000000000000
+--- a/lib/esm/definitions/pressure.js
++++ /dev/null
+@@ -1,100 +0,0 @@
+-const metric = {
+-    Pa: {
+-        name: {
+-            singular: 'pascal',
+-            plural: 'pascals',
+-        },
+-        to_anchor: 1 / 1000,
+-    },
+-    kPa: {
+-        name: {
+-            singular: 'kilopascal',
+-            plural: 'kilopascals',
+-        },
+-        to_anchor: 1,
+-    },
+-    MPa: {
+-        name: {
+-            singular: 'megapascal',
+-            plural: 'megapascals',
+-        },
+-        to_anchor: 1000,
+-    },
+-    hPa: {
+-        name: {
+-            singular: 'hectopascal',
+-            plural: 'hectopascals',
+-        },
+-        to_anchor: 1 / 10,
+-    },
+-    bar: {
+-        name: {
+-            singular: 'bar',
+-            plural: 'bar',
+-        },
+-        to_anchor: 100,
+-    },
+-    torr: {
+-        name: {
+-            singular: 'torr',
+-            plural: 'torr',
+-        },
+-        to_anchor: 101325 / 760000,
+-    },
+-    mH2O: {
+-        name: {
+-            singular: 'meter of water @ 4°C',
+-            plural: 'meters of water @ 4°C',
+-        },
+-        to_anchor: 9.80665,
+-    },
+-    mmHg: {
+-        name: {
+-            singular: 'millimeter of mercury',
+-            plural: 'millimeters of mercury',
+-        },
+-        to_anchor: 0.133322,
+-    },
+-};
+-const imperial = {
+-    psi: {
+-        name: {
+-            singular: 'pound per square inch',
+-            plural: 'pounds per square inch',
+-        },
+-        to_anchor: 1 / 1000,
+-    },
+-    ksi: {
+-        name: {
+-            singular: 'kilopound per square inch',
+-            plural: 'kilopound per square inch',
+-        },
+-        to_anchor: 1,
+-    },
+-    inHg: {
+-        name: {
+-            singular: 'Inch of mercury',
+-            plural: 'Inches of mercury',
+-        },
+-        to_anchor: 0.000491154,
+-    },
+-};
+-const measure = {
+-    systems: {
+-        metric,
+-        imperial,
+-    },
+-    anchors: {
+-        metric: {
+-            imperial: {
+-                ratio: 0.00014503768078,
+-            },
+-        },
+-        imperial: {
+-            metric: {
+-                ratio: 1 / 0.00014503768078,
+-            },
+-        },
+-    },
+-};
+-export default measure;
+diff --git a/lib/esm/definitions/pressure.mjs b/lib/esm/definitions/pressure.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..159ec3d2f9336f057ddfb80e18711459771f3cf4
+--- /dev/null
++++ b/lib/esm/definitions/pressure.mjs
+@@ -0,0 +1,100 @@
++const metric = {
++    Pa: {
++        name: {
++            singular: 'pascal',
++            plural: 'pascals',
++        },
++        to_anchor: 1 / 1000,
++    },
++    kPa: {
++        name: {
++            singular: 'kilopascal',
++            plural: 'kilopascals',
++        },
++        to_anchor: 1,
++    },
++    MPa: {
++        name: {
++            singular: 'megapascal',
++            plural: 'megapascals',
++        },
++        to_anchor: 1000,
++    },
++    hPa: {
++        name: {
++            singular: 'hectopascal',
++            plural: 'hectopascals',
++        },
++        to_anchor: 1 / 10,
++    },
++    bar: {
++        name: {
++            singular: 'bar',
++            plural: 'bar',
++        },
++        to_anchor: 100,
++    },
++    torr: {
++        name: {
++            singular: 'torr',
++            plural: 'torr',
++        },
++        to_anchor: 101325 / 760000,
++    },
++    mH2O: {
++        name: {
++            singular: 'meter of water @ 4°C',
++            plural: 'meters of water @ 4°C',
++        },
++        to_anchor: 9.80665,
++    },
++    mmHg: {
++        name: {
++            singular: 'millimeter of mercury',
++            plural: 'millimeters of mercury',
++        },
++        to_anchor: 0.133322,
++    },
++};
++const imperial = {
++    psi: {
++        name: {
++            singular: 'pound per square inch',
++            plural: 'pounds per square inch',
++        },
++        to_anchor: 1 / 1000,
++    },
++    ksi: {
++        name: {
++            singular: 'kilopound per square inch',
++            plural: 'kilopound per square inch',
++        },
++        to_anchor: 1,
++    },
++    inHg: {
++        name: {
++            singular: 'Inch of mercury',
++            plural: 'Inches of mercury',
++        },
++        to_anchor: 0.000491154,
++    },
++};
++const measure = {
++    systems: {
++        metric,
++        imperial,
++    },
++    anchors: {
++        metric: {
++            imperial: {
++                ratio: 0.00014503768078,
++            },
++        },
++        imperial: {
++            metric: {
++                ratio: 1 / 0.00014503768078,
++            },
++        },
++    },
++};
++export default measure;
+diff --git a/lib/esm/definitions/reactiveEnergy.js b/lib/esm/definitions/reactiveEnergy.js
+deleted file mode 100644
+index a8db2e9f04e08074f9ef03acf9b0a4d38a27bf5e..0000000000000000000000000000000000000000
+--- a/lib/esm/definitions/reactiveEnergy.js
++++ /dev/null
+@@ -1,43 +0,0 @@
+-const SI = {
+-    VARh: {
+-        name: {
+-            singular: 'Volt-Ampere Reactive Hour',
+-            plural: 'Volt-Amperes Reactive Hour',
+-        },
+-        to_anchor: 1,
+-    },
+-    mVARh: {
+-        name: {
+-            singular: 'Millivolt-Ampere Reactive Hour',
+-            plural: 'Millivolt-Amperes Reactive Hour',
+-        },
+-        to_anchor: 0.001,
+-    },
+-    kVARh: {
+-        name: {
+-            singular: 'Kilovolt-Ampere Reactive Hour',
+-            plural: 'Kilovolt-Amperes Reactive Hour',
+-        },
+-        to_anchor: 1000,
+-    },
+-    MVARh: {
+-        name: {
+-            singular: 'Megavolt-Ampere Reactive Hour',
+-            plural: 'Megavolt-Amperes Reactive Hour',
+-        },
+-        to_anchor: 1000000,
+-    },
+-    GVARh: {
+-        name: {
+-            singular: 'Gigavolt-Ampere Reactive Hour',
+-            plural: 'Gigavolt-Amperes Reactive Hour',
+-        },
+-        to_anchor: 1000000000,
+-    },
+-};
+-const measure = {
+-    systems: {
+-        SI,
+-    },
+-};
+-export default measure;
+diff --git a/lib/esm/definitions/reactiveEnergy.mjs b/lib/esm/definitions/reactiveEnergy.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..a8db2e9f04e08074f9ef03acf9b0a4d38a27bf5e
+--- /dev/null
++++ b/lib/esm/definitions/reactiveEnergy.mjs
+@@ -0,0 +1,43 @@
++const SI = {
++    VARh: {
++        name: {
++            singular: 'Volt-Ampere Reactive Hour',
++            plural: 'Volt-Amperes Reactive Hour',
++        },
++        to_anchor: 1,
++    },
++    mVARh: {
++        name: {
++            singular: 'Millivolt-Ampere Reactive Hour',
++            plural: 'Millivolt-Amperes Reactive Hour',
++        },
++        to_anchor: 0.001,
++    },
++    kVARh: {
++        name: {
++            singular: 'Kilovolt-Ampere Reactive Hour',
++            plural: 'Kilovolt-Amperes Reactive Hour',
++        },
++        to_anchor: 1000,
++    },
++    MVARh: {
++        name: {
++            singular: 'Megavolt-Ampere Reactive Hour',
++            plural: 'Megavolt-Amperes Reactive Hour',
++        },
++        to_anchor: 1000000,
++    },
++    GVARh: {
++        name: {
++            singular: 'Gigavolt-Ampere Reactive Hour',
++            plural: 'Gigavolt-Amperes Reactive Hour',
++        },
++        to_anchor: 1000000000,
++    },
++};
++const measure = {
++    systems: {
++        SI,
++    },
++};
++export default measure;
+diff --git a/lib/esm/definitions/reactivePower.js b/lib/esm/definitions/reactivePower.js
+deleted file mode 100644
+index 3b76611e24825ec2750f5bae892e0453bdefb1e2..0000000000000000000000000000000000000000
+--- a/lib/esm/definitions/reactivePower.js
++++ /dev/null
+@@ -1,43 +0,0 @@
+-const SI = {
+-    VAR: {
+-        name: {
+-            singular: 'Volt-Ampere Reactive',
+-            plural: 'Volt-Amperes Reactive',
+-        },
+-        to_anchor: 1,
+-    },
+-    mVAR: {
+-        name: {
+-            singular: 'Millivolt-Ampere Reactive',
+-            plural: 'Millivolt-Amperes Reactive',
+-        },
+-        to_anchor: 0.001,
+-    },
+-    kVAR: {
+-        name: {
+-            singular: 'Kilovolt-Ampere Reactive',
+-            plural: 'Kilovolt-Amperes Reactive',
+-        },
+-        to_anchor: 1000,
+-    },
+-    MVAR: {
+-        name: {
+-            singular: 'Megavolt-Ampere Reactive',
+-            plural: 'Megavolt-Amperes Reactive',
+-        },
+-        to_anchor: 1000000,
+-    },
+-    GVAR: {
+-        name: {
+-            singular: 'Gigavolt-Ampere Reactive',
+-            plural: 'Gigavolt-Amperes Reactive',
+-        },
+-        to_anchor: 1000000000,
+-    },
+-};
+-const measure = {
+-    systems: {
+-        SI,
+-    },
+-};
+-export default measure;
+diff --git a/lib/esm/definitions/reactivePower.mjs b/lib/esm/definitions/reactivePower.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..3b76611e24825ec2750f5bae892e0453bdefb1e2
+--- /dev/null
++++ b/lib/esm/definitions/reactivePower.mjs
+@@ -0,0 +1,43 @@
++const SI = {
++    VAR: {
++        name: {
++            singular: 'Volt-Ampere Reactive',
++            plural: 'Volt-Amperes Reactive',
++        },
++        to_anchor: 1,
++    },
++    mVAR: {
++        name: {
++            singular: 'Millivolt-Ampere Reactive',
++            plural: 'Millivolt-Amperes Reactive',
++        },
++        to_anchor: 0.001,
++    },
++    kVAR: {
++        name: {
++            singular: 'Kilovolt-Ampere Reactive',
++            plural: 'Kilovolt-Amperes Reactive',
++        },
++        to_anchor: 1000,
++    },
++    MVAR: {
++        name: {
++            singular: 'Megavolt-Ampere Reactive',
++            plural: 'Megavolt-Amperes Reactive',
++        },
++        to_anchor: 1000000,
++    },
++    GVAR: {
++        name: {
++            singular: 'Gigavolt-Ampere Reactive',
++            plural: 'Gigavolt-Amperes Reactive',
++        },
++        to_anchor: 1000000000,
++    },
++};
++const measure = {
++    systems: {
++        SI,
++    },
++};
++export default measure;
+diff --git a/lib/esm/definitions/speed.js b/lib/esm/definitions/speed.js
+deleted file mode 100644
+index fd8b37fc9404bdd92722176ef0f6bb46bd7f07a8..0000000000000000000000000000000000000000
+--- a/lib/esm/definitions/speed.js
++++ /dev/null
+@@ -1,79 +0,0 @@
+-const metric = {
+-    'm/s': {
+-        name: {
+-            singular: 'Metre per second',
+-            plural: 'Metres per second',
+-        },
+-        to_anchor: 3.6,
+-    },
+-    'km/h': {
+-        name: {
+-            singular: 'Kilometre per hour',
+-            plural: 'Kilometres per hour',
+-        },
+-        to_anchor: 1,
+-    },
+-    'mm/h': {
+-        name: {
+-            singular: 'Millimeter per hour',
+-            plural: 'Millimeters per hour',
+-        },
+-        to_anchor: 0.000001,
+-    },
+-};
+-const imperial = {
+-    mph: {
+-        name: {
+-            singular: 'Mile per hour',
+-            plural: 'Miles per hour',
+-        },
+-        to_anchor: 1,
+-    },
+-    knot: {
+-        name: {
+-            singular: 'Knot',
+-            plural: 'Knots',
+-        },
+-        to_anchor: 1.150779,
+-    },
+-    'ft/s': {
+-        name: {
+-            singular: 'Foot per second',
+-            plural: 'Feet per second',
+-        },
+-        to_anchor: 0.681818,
+-    },
+-    'ft/min': {
+-        name: {
+-            singular: 'Foot per minute',
+-            plural: 'Feet per minute',
+-        },
+-        to_anchor: 0.0113636,
+-    },
+-    'in/h': {
+-        name: {
+-            singular: 'Inch per hour',
+-            plural: 'Inches per hour',
+-        },
+-        to_anchor: 0.00001578,
+-    },
+-};
+-const measure = {
+-    systems: {
+-        metric,
+-        imperial,
+-    },
+-    anchors: {
+-        metric: {
+-            imperial: {
+-                ratio: 1 / 1.609344,
+-            },
+-        },
+-        imperial: {
+-            metric: {
+-                ratio: 1.609344,
+-            },
+-        },
+-    },
+-};
+-export default measure;
+diff --git a/lib/esm/definitions/speed.mjs b/lib/esm/definitions/speed.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..fd8b37fc9404bdd92722176ef0f6bb46bd7f07a8
+--- /dev/null
++++ b/lib/esm/definitions/speed.mjs
+@@ -0,0 +1,79 @@
++const metric = {
++    'm/s': {
++        name: {
++            singular: 'Metre per second',
++            plural: 'Metres per second',
++        },
++        to_anchor: 3.6,
++    },
++    'km/h': {
++        name: {
++            singular: 'Kilometre per hour',
++            plural: 'Kilometres per hour',
++        },
++        to_anchor: 1,
++    },
++    'mm/h': {
++        name: {
++            singular: 'Millimeter per hour',
++            plural: 'Millimeters per hour',
++        },
++        to_anchor: 0.000001,
++    },
++};
++const imperial = {
++    mph: {
++        name: {
++            singular: 'Mile per hour',
++            plural: 'Miles per hour',
++        },
++        to_anchor: 1,
++    },
++    knot: {
++        name: {
++            singular: 'Knot',
++            plural: 'Knots',
++        },
++        to_anchor: 1.150779,
++    },
++    'ft/s': {
++        name: {
++            singular: 'Foot per second',
++            plural: 'Feet per second',
++        },
++        to_anchor: 0.681818,
++    },
++    'ft/min': {
++        name: {
++            singular: 'Foot per minute',
++            plural: 'Feet per minute',
++        },
++        to_anchor: 0.0113636,
++    },
++    'in/h': {
++        name: {
++            singular: 'Inch per hour',
++            plural: 'Inches per hour',
++        },
++        to_anchor: 0.00001578,
++    },
++};
++const measure = {
++    systems: {
++        metric,
++        imperial,
++    },
++    anchors: {
++        metric: {
++            imperial: {
++                ratio: 1 / 1.609344,
++            },
++        },
++        imperial: {
++            metric: {
++                ratio: 1.609344,
++            },
++        },
++    },
++};
++export default measure;
+diff --git a/lib/esm/definitions/temperature.js b/lib/esm/definitions/temperature.js
+deleted file mode 100644
+index 2e0a075085b7c475cc9b763caaf199ee3e112f26..0000000000000000000000000000000000000000
+--- a/lib/esm/definitions/temperature.js
++++ /dev/null
+@@ -1,58 +0,0 @@
+-const metric = {
+-    C: {
+-        name: {
+-            singular: 'degree Celsius',
+-            plural: 'degrees Celsius',
+-        },
+-        to_anchor: 1,
+-        anchor_shift: 0,
+-    },
+-    K: {
+-        name: {
+-            singular: 'Kelvin',
+-            plural: 'Kelvins',
+-        },
+-        to_anchor: 1,
+-        anchor_shift: 273.15,
+-    },
+-};
+-const imperial = {
+-    F: {
+-        name: {
+-            singular: 'degree Fahrenheit',
+-            plural: 'degrees Fahrenheit',
+-        },
+-        to_anchor: 1,
+-    },
+-    R: {
+-        name: {
+-            singular: 'degree Rankine',
+-            plural: 'degrees Rankine',
+-        },
+-        to_anchor: 1,
+-        anchor_shift: 459.67,
+-    },
+-};
+-const measure = {
+-    systems: {
+-        metric,
+-        imperial,
+-    },
+-    anchors: {
+-        metric: {
+-            imperial: {
+-                transform: function (C) {
+-                    return C / (5 / 9) + 32;
+-                },
+-            },
+-        },
+-        imperial: {
+-            metric: {
+-                transform: function (F) {
+-                    return (F - 32) * (5 / 9);
+-                },
+-            },
+-        },
+-    },
+-};
+-export default measure;
+diff --git a/lib/esm/definitions/temperature.mjs b/lib/esm/definitions/temperature.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..2e0a075085b7c475cc9b763caaf199ee3e112f26
+--- /dev/null
++++ b/lib/esm/definitions/temperature.mjs
+@@ -0,0 +1,58 @@
++const metric = {
++    C: {
++        name: {
++            singular: 'degree Celsius',
++            plural: 'degrees Celsius',
++        },
++        to_anchor: 1,
++        anchor_shift: 0,
++    },
++    K: {
++        name: {
++            singular: 'Kelvin',
++            plural: 'Kelvins',
++        },
++        to_anchor: 1,
++        anchor_shift: 273.15,
++    },
++};
++const imperial = {
++    F: {
++        name: {
++            singular: 'degree Fahrenheit',
++            plural: 'degrees Fahrenheit',
++        },
++        to_anchor: 1,
++    },
++    R: {
++        name: {
++            singular: 'degree Rankine',
++            plural: 'degrees Rankine',
++        },
++        to_anchor: 1,
++        anchor_shift: 459.67,
++    },
++};
++const measure = {
++    systems: {
++        metric,
++        imperial,
++    },
++    anchors: {
++        metric: {
++            imperial: {
++                transform: function (C) {
++                    return C / (5 / 9) + 32;
++                },
++            },
++        },
++        imperial: {
++            metric: {
++                transform: function (F) {
++                    return (F - 32) * (5 / 9);
++                },
++            },
++        },
++    },
++};
++export default measure;
+diff --git a/lib/esm/definitions/time.js b/lib/esm/definitions/time.js
+deleted file mode 100644
+index ff0a77c016ee31654438f2eed43b210623b1a963..0000000000000000000000000000000000000000
+--- a/lib/esm/definitions/time.js
++++ /dev/null
+@@ -1,79 +0,0 @@
+-const daysInYear = 365.25;
+-const SI = {
+-    ns: {
+-        name: {
+-            singular: 'Nanosecond',
+-            plural: 'Nanoseconds',
+-        },
+-        to_anchor: 1 / 1000000000,
+-    },
+-    mu: {
+-        name: {
+-            singular: 'Microsecond',
+-            plural: 'Microseconds',
+-        },
+-        to_anchor: 1 / 1000000,
+-    },
+-    ms: {
+-        name: {
+-            singular: 'Millisecond',
+-            plural: 'Milliseconds',
+-        },
+-        to_anchor: 1 / 1000,
+-    },
+-    s: {
+-        name: {
+-            singular: 'Second',
+-            plural: 'Seconds',
+-        },
+-        to_anchor: 1,
+-    },
+-    min: {
+-        name: {
+-            singular: 'Minute',
+-            plural: 'Minutes',
+-        },
+-        to_anchor: 60,
+-    },
+-    h: {
+-        name: {
+-            singular: 'Hour',
+-            plural: 'Hours',
+-        },
+-        to_anchor: 60 * 60,
+-    },
+-    d: {
+-        name: {
+-            singular: 'Day',
+-            plural: 'Days',
+-        },
+-        to_anchor: 60 * 60 * 24,
+-    },
+-    week: {
+-        name: {
+-            singular: 'Week',
+-            plural: 'Weeks',
+-        },
+-        to_anchor: 60 * 60 * 24 * 7,
+-    },
+-    month: {
+-        name: {
+-            singular: 'Month',
+-            plural: 'Months',
+-        },
+-        to_anchor: (60 * 60 * 24 * daysInYear) / 12,
+-    },
+-    year: {
+-        name: {
+-            singular: 'Year',
+-            plural: 'Years',
+-        },
+-        to_anchor: 60 * 60 * 24 * daysInYear,
+-    },
+-};
+-const measure = {
+-    systems: {
+-        SI,
+-    },
+-};
+-export default measure;
+diff --git a/lib/esm/definitions/time.mjs b/lib/esm/definitions/time.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..ff0a77c016ee31654438f2eed43b210623b1a963
+--- /dev/null
++++ b/lib/esm/definitions/time.mjs
+@@ -0,0 +1,79 @@
++const daysInYear = 365.25;
++const SI = {
++    ns: {
++        name: {
++            singular: 'Nanosecond',
++            plural: 'Nanoseconds',
++        },
++        to_anchor: 1 / 1000000000,
++    },
++    mu: {
++        name: {
++            singular: 'Microsecond',
++            plural: 'Microseconds',
++        },
++        to_anchor: 1 / 1000000,
++    },
++    ms: {
++        name: {
++            singular: 'Millisecond',
++            plural: 'Milliseconds',
++        },
++        to_anchor: 1 / 1000,
++    },
++    s: {
++        name: {
++            singular: 'Second',
++            plural: 'Seconds',
++        },
++        to_anchor: 1,
++    },
++    min: {
++        name: {
++            singular: 'Minute',
++            plural: 'Minutes',
++        },
++        to_anchor: 60,
++    },
++    h: {
++        name: {
++            singular: 'Hour',
++            plural: 'Hours',
++        },
++        to_anchor: 60 * 60,
++    },
++    d: {
++        name: {
++            singular: 'Day',
++            plural: 'Days',
++        },
++        to_anchor: 60 * 60 * 24,
++    },
++    week: {
++        name: {
++            singular: 'Week',
++            plural: 'Weeks',
++        },
++        to_anchor: 60 * 60 * 24 * 7,
++    },
++    month: {
++        name: {
++            singular: 'Month',
++            plural: 'Months',
++        },
++        to_anchor: (60 * 60 * 24 * daysInYear) / 12,
++    },
++    year: {
++        name: {
++            singular: 'Year',
++            plural: 'Years',
++        },
++        to_anchor: 60 * 60 * 24 * daysInYear,
++    },
++};
++const measure = {
++    systems: {
++        SI,
++    },
++};
++export default measure;
+diff --git a/lib/esm/definitions/torque.js b/lib/esm/definitions/torque.js
+deleted file mode 100644
+index 5c89332efc187bc33e7a66d7b8918633964dd135..0000000000000000000000000000000000000000
+--- a/lib/esm/definitions/torque.js
++++ /dev/null
+@@ -1,37 +0,0 @@
+-const metric = {
+-    Nm: {
+-        name: {
+-            singular: 'Newton-meter',
+-            plural: 'Newton-meters',
+-        },
+-        to_anchor: 1,
+-    },
+-};
+-const imperial = {
+-    'lbf-ft': {
+-        name: {
+-            singular: 'Pound-foot',
+-            plural: 'Pound-feet',
+-        },
+-        to_anchor: 1,
+-    },
+-};
+-const measure = {
+-    systems: {
+-        metric,
+-        imperial,
+-    },
+-    anchors: {
+-        metric: {
+-            imperial: {
+-                ratio: 1 / 1.355818,
+-            },
+-        },
+-        imperial: {
+-            metric: {
+-                ratio: 1.355818,
+-            },
+-        },
+-    },
+-};
+-export default measure;
+diff --git a/lib/esm/definitions/torque.mjs b/lib/esm/definitions/torque.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..5c89332efc187bc33e7a66d7b8918633964dd135
+--- /dev/null
++++ b/lib/esm/definitions/torque.mjs
+@@ -0,0 +1,37 @@
++const metric = {
++    Nm: {
++        name: {
++            singular: 'Newton-meter',
++            plural: 'Newton-meters',
++        },
++        to_anchor: 1,
++    },
++};
++const imperial = {
++    'lbf-ft': {
++        name: {
++            singular: 'Pound-foot',
++            plural: 'Pound-feet',
++        },
++        to_anchor: 1,
++    },
++};
++const measure = {
++    systems: {
++        metric,
++        imperial,
++    },
++    anchors: {
++        metric: {
++            imperial: {
++                ratio: 1 / 1.355818,
++            },
++        },
++        imperial: {
++            metric: {
++                ratio: 1.355818,
++            },
++        },
++    },
++};
++export default measure;
+diff --git a/lib/esm/definitions/voltage.js b/lib/esm/definitions/voltage.js
+deleted file mode 100644
+index 7345525e18b3013d146d596389fc87c28786d90a..0000000000000000000000000000000000000000
+--- a/lib/esm/definitions/voltage.js
++++ /dev/null
+@@ -1,29 +0,0 @@
+-const SI = {
+-    V: {
+-        name: {
+-            singular: 'Volt',
+-            plural: 'Volts',
+-        },
+-        to_anchor: 1,
+-    },
+-    mV: {
+-        name: {
+-            singular: 'Millivolt',
+-            plural: 'Millivolts',
+-        },
+-        to_anchor: 0.001,
+-    },
+-    kV: {
+-        name: {
+-            singular: 'Kilovolt',
+-            plural: 'Kilovolts',
+-        },
+-        to_anchor: 1000,
+-    },
+-};
+-const measure = {
+-    systems: {
+-        SI,
+-    },
+-};
+-export default measure;
+diff --git a/lib/esm/definitions/voltage.mjs b/lib/esm/definitions/voltage.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..7345525e18b3013d146d596389fc87c28786d90a
+--- /dev/null
++++ b/lib/esm/definitions/voltage.mjs
+@@ -0,0 +1,29 @@
++const SI = {
++    V: {
++        name: {
++            singular: 'Volt',
++            plural: 'Volts',
++        },
++        to_anchor: 1,
++    },
++    mV: {
++        name: {
++            singular: 'Millivolt',
++            plural: 'Millivolts',
++        },
++        to_anchor: 0.001,
++    },
++    kV: {
++        name: {
++            singular: 'Kilovolt',
++            plural: 'Kilovolts',
++        },
++        to_anchor: 1000,
++    },
++};
++const measure = {
++    systems: {
++        SI,
++    },
++};
++export default measure;
+diff --git a/lib/esm/definitions/volume.js b/lib/esm/definitions/volume.js
+deleted file mode 100644
+index a1636590b548ec2f6701812c802c93df1b9078ed..0000000000000000000000000000000000000000
+--- a/lib/esm/definitions/volume.js
++++ /dev/null
+@@ -1,213 +0,0 @@
+-const metric = {
+-    mm3: {
+-        name: {
+-            singular: 'Cubic Millimeter',
+-            plural: 'Cubic Millimeters',
+-        },
+-        to_anchor: 1 / 1000000,
+-    },
+-    cm3: {
+-        name: {
+-            singular: 'Cubic Centimeter',
+-            plural: 'Cubic Centimeters',
+-        },
+-        to_anchor: 1 / 1000,
+-    },
+-    ml: {
+-        name: {
+-            singular: 'Millilitre',
+-            plural: 'Millilitres',
+-        },
+-        to_anchor: 1 / 1000,
+-    },
+-    cl: {
+-        name: {
+-            singular: 'Centilitre',
+-            plural: 'Centilitres',
+-        },
+-        to_anchor: 1 / 100,
+-    },
+-    dl: {
+-        name: {
+-            singular: 'Decilitre',
+-            plural: 'Decilitres',
+-        },
+-        to_anchor: 1 / 10,
+-    },
+-    l: {
+-        name: {
+-            singular: 'Litre',
+-            plural: 'Litres',
+-        },
+-        to_anchor: 1,
+-    },
+-    kl: {
+-        name: {
+-            singular: 'Kilolitre',
+-            plural: 'Kilolitres',
+-        },
+-        to_anchor: 1000,
+-    },
+-    Ml: {
+-        name: {
+-            singular: 'Megalitre',
+-            plural: 'Megalitres',
+-        },
+-        to_anchor: 1000000,
+-    },
+-    Gl: {
+-        name: {
+-            singular: 'Gigalitre',
+-            plural: 'Gigalitres',
+-        },
+-        to_anchor: 1000000000,
+-    },
+-    m3: {
+-        name: {
+-            singular: 'Cubic meter',
+-            plural: 'Cubic meters',
+-        },
+-        to_anchor: 1000,
+-    },
+-    km3: {
+-        name: {
+-            singular: 'Cubic kilometer',
+-            plural: 'Cubic kilometers',
+-        },
+-        to_anchor: 1000000000000,
+-    },
+-    // Swedish units
+-    krm: {
+-        name: {
+-            singular: 'Kryddmått',
+-            plural: 'Kryddmått',
+-        },
+-        to_anchor: 1 / 1000,
+-    },
+-    tsk: {
+-        name: {
+-            singular: 'Tesked',
+-            plural: 'Teskedar',
+-        },
+-        to_anchor: 5 / 1000,
+-    },
+-    msk: {
+-        name: {
+-            singular: 'Matsked',
+-            plural: 'Matskedar',
+-        },
+-        to_anchor: 15 / 1000,
+-    },
+-    kkp: {
+-        name: {
+-            singular: 'Kaffekopp',
+-            plural: 'Kaffekoppar',
+-        },
+-        to_anchor: 150 / 1000,
+-    },
+-    glas: {
+-        name: {
+-            singular: 'Glas',
+-            plural: 'Glas',
+-        },
+-        to_anchor: 200 / 1000,
+-    },
+-    kanna: {
+-        name: {
+-            singular: 'Kanna',
+-            plural: 'Kannor',
+-        },
+-        to_anchor: 2.617,
+-    },
+-};
+-const imperial = {
+-    tsp: {
+-        name: {
+-            singular: 'Teaspoon',
+-            plural: 'Teaspoons',
+-        },
+-        to_anchor: 1 / 6,
+-    },
+-    Tbs: {
+-        name: {
+-            singular: 'Tablespoon',
+-            plural: 'Tablespoons',
+-        },
+-        to_anchor: 1 / 2,
+-    },
+-    in3: {
+-        name: {
+-            singular: 'Cubic inch',
+-            plural: 'Cubic inches',
+-        },
+-        to_anchor: 0.55411,
+-    },
+-    'fl-oz': {
+-        name: {
+-            singular: 'Fluid Ounce',
+-            plural: 'Fluid Ounces',
+-        },
+-        to_anchor: 1,
+-    },
+-    cup: {
+-        name: {
+-            singular: 'Cup',
+-            plural: 'Cups',
+-        },
+-        to_anchor: 8,
+-    },
+-    pnt: {
+-        name: {
+-            singular: 'Pint',
+-            plural: 'Pints',
+-        },
+-        to_anchor: 16,
+-    },
+-    qt: {
+-        name: {
+-            singular: 'Quart',
+-            plural: 'Quarts',
+-        },
+-        to_anchor: 32,
+-    },
+-    gal: {
+-        name: {
+-            singular: 'Gallon',
+-            plural: 'Gallons',
+-        },
+-        to_anchor: 128,
+-    },
+-    ft3: {
+-        name: {
+-            singular: 'Cubic foot',
+-            plural: 'Cubic feet',
+-        },
+-        to_anchor: 957.506,
+-    },
+-    yd3: {
+-        name: {
+-            singular: 'Cubic yard',
+-            plural: 'Cubic yards',
+-        },
+-        to_anchor: 25852.7,
+-    },
+-};
+-const measure = {
+-    systems: {
+-        metric,
+-        imperial,
+-    },
+-    anchors: {
+-        metric: {
+-            imperial: {
+-                ratio: 33.8140226,
+-            },
+-        },
+-        imperial: {
+-            metric: {
+-                ratio: 1 / 33.8140226,
+-            },
+-        },
+-    },
+-};
+-export default measure;
+diff --git a/lib/esm/definitions/volume.mjs b/lib/esm/definitions/volume.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..a1636590b548ec2f6701812c802c93df1b9078ed
+--- /dev/null
++++ b/lib/esm/definitions/volume.mjs
+@@ -0,0 +1,213 @@
++const metric = {
++    mm3: {
++        name: {
++            singular: 'Cubic Millimeter',
++            plural: 'Cubic Millimeters',
++        },
++        to_anchor: 1 / 1000000,
++    },
++    cm3: {
++        name: {
++            singular: 'Cubic Centimeter',
++            plural: 'Cubic Centimeters',
++        },
++        to_anchor: 1 / 1000,
++    },
++    ml: {
++        name: {
++            singular: 'Millilitre',
++            plural: 'Millilitres',
++        },
++        to_anchor: 1 / 1000,
++    },
++    cl: {
++        name: {
++            singular: 'Centilitre',
++            plural: 'Centilitres',
++        },
++        to_anchor: 1 / 100,
++    },
++    dl: {
++        name: {
++            singular: 'Decilitre',
++            plural: 'Decilitres',
++        },
++        to_anchor: 1 / 10,
++    },
++    l: {
++        name: {
++            singular: 'Litre',
++            plural: 'Litres',
++        },
++        to_anchor: 1,
++    },
++    kl: {
++        name: {
++            singular: 'Kilolitre',
++            plural: 'Kilolitres',
++        },
++        to_anchor: 1000,
++    },
++    Ml: {
++        name: {
++            singular: 'Megalitre',
++            plural: 'Megalitres',
++        },
++        to_anchor: 1000000,
++    },
++    Gl: {
++        name: {
++            singular: 'Gigalitre',
++            plural: 'Gigalitres',
++        },
++        to_anchor: 1000000000,
++    },
++    m3: {
++        name: {
++            singular: 'Cubic meter',
++            plural: 'Cubic meters',
++        },
++        to_anchor: 1000,
++    },
++    km3: {
++        name: {
++            singular: 'Cubic kilometer',
++            plural: 'Cubic kilometers',
++        },
++        to_anchor: 1000000000000,
++    },
++    // Swedish units
++    krm: {
++        name: {
++            singular: 'Kryddmått',
++            plural: 'Kryddmått',
++        },
++        to_anchor: 1 / 1000,
++    },
++    tsk: {
++        name: {
++            singular: 'Tesked',
++            plural: 'Teskedar',
++        },
++        to_anchor: 5 / 1000,
++    },
++    msk: {
++        name: {
++            singular: 'Matsked',
++            plural: 'Matskedar',
++        },
++        to_anchor: 15 / 1000,
++    },
++    kkp: {
++        name: {
++            singular: 'Kaffekopp',
++            plural: 'Kaffekoppar',
++        },
++        to_anchor: 150 / 1000,
++    },
++    glas: {
++        name: {
++            singular: 'Glas',
++            plural: 'Glas',
++        },
++        to_anchor: 200 / 1000,
++    },
++    kanna: {
++        name: {
++            singular: 'Kanna',
++            plural: 'Kannor',
++        },
++        to_anchor: 2.617,
++    },
++};
++const imperial = {
++    tsp: {
++        name: {
++            singular: 'Teaspoon',
++            plural: 'Teaspoons',
++        },
++        to_anchor: 1 / 6,
++    },
++    Tbs: {
++        name: {
++            singular: 'Tablespoon',
++            plural: 'Tablespoons',
++        },
++        to_anchor: 1 / 2,
++    },
++    in3: {
++        name: {
++            singular: 'Cubic inch',
++            plural: 'Cubic inches',
++        },
++        to_anchor: 0.55411,
++    },
++    'fl-oz': {
++        name: {
++            singular: 'Fluid Ounce',
++            plural: 'Fluid Ounces',
++        },
++        to_anchor: 1,
++    },
++    cup: {
++        name: {
++            singular: 'Cup',
++            plural: 'Cups',
++        },
++        to_anchor: 8,
++    },
++    pnt: {
++        name: {
++            singular: 'Pint',
++            plural: 'Pints',
++        },
++        to_anchor: 16,
++    },
++    qt: {
++        name: {
++            singular: 'Quart',
++            plural: 'Quarts',
++        },
++        to_anchor: 32,
++    },
++    gal: {
++        name: {
++            singular: 'Gallon',
++            plural: 'Gallons',
++        },
++        to_anchor: 128,
++    },
++    ft3: {
++        name: {
++            singular: 'Cubic foot',
++            plural: 'Cubic feet',
++        },
++        to_anchor: 957.506,
++    },
++    yd3: {
++        name: {
++            singular: 'Cubic yard',
++            plural: 'Cubic yards',
++        },
++        to_anchor: 25852.7,
++    },
++};
++const measure = {
++    systems: {
++        metric,
++        imperial,
++    },
++    anchors: {
++        metric: {
++            imperial: {
++                ratio: 33.8140226,
++            },
++        },
++        imperial: {
++            metric: {
++                ratio: 1 / 33.8140226,
++            },
++        },
++    },
++};
++export default measure;
+diff --git a/lib/esm/definitions/volumeFlowRate.js b/lib/esm/definitions/volumeFlowRate.js
+deleted file mode 100644
+index 82405f0334376b28a9ce5032fc05e5f1aa48eab3..0000000000000000000000000000000000000000
+--- a/lib/esm/definitions/volumeFlowRate.js
++++ /dev/null
+@@ -1,282 +0,0 @@
+-const metric = {
+-    'mm3/s': {
+-        name: {
+-            singular: 'Cubic Millimeter per second',
+-            plural: 'Cubic Millimeters per second',
+-        },
+-        to_anchor: 1 / 1000000,
+-    },
+-    'cm3/s': {
+-        name: {
+-            singular: 'Cubic Centimeter per second',
+-            plural: 'Cubic Centimeters per second',
+-        },
+-        to_anchor: 1 / 1000,
+-    },
+-    'ml/s': {
+-        name: {
+-            singular: 'Millilitre per second',
+-            plural: 'Millilitres per second',
+-        },
+-        to_anchor: 1 / 1000,
+-    },
+-    'cl/s': {
+-        name: {
+-            singular: 'Centilitre per second',
+-            plural: 'Centilitres per second',
+-        },
+-        to_anchor: 1 / 100,
+-    },
+-    'dl/s': {
+-        name: {
+-            singular: 'Decilitre per second',
+-            plural: 'Decilitres per second',
+-        },
+-        to_anchor: 1 / 10,
+-    },
+-    'l/s': {
+-        name: {
+-            singular: 'Litre per second',
+-            plural: 'Litres per second',
+-        },
+-        to_anchor: 1,
+-    },
+-    'l/min': {
+-        name: {
+-            singular: 'Litre per minute',
+-            plural: 'Litres per minute',
+-        },
+-        to_anchor: 1 / 60,
+-    },
+-    'l/h': {
+-        name: {
+-            singular: 'Litre per hour',
+-            plural: 'Litres per hour',
+-        },
+-        to_anchor: 1 / 3600,
+-    },
+-    'kl/s': {
+-        name: {
+-            singular: 'Kilolitre per second',
+-            plural: 'Kilolitres per second',
+-        },
+-        to_anchor: 1000,
+-    },
+-    'kl/min': {
+-        name: {
+-            singular: 'Kilolitre per minute',
+-            plural: 'Kilolitres per minute',
+-        },
+-        to_anchor: 50 / 3,
+-    },
+-    'kl/h': {
+-        name: {
+-            singular: 'Kilolitre per hour',
+-            plural: 'Kilolitres per hour',
+-        },
+-        to_anchor: 5 / 18,
+-    },
+-    'm3/s': {
+-        name: {
+-            singular: 'Cubic meter per second',
+-            plural: 'Cubic meters per second',
+-        },
+-        to_anchor: 1000,
+-    },
+-    'm3/min': {
+-        name: {
+-            singular: 'Cubic meter per minute',
+-            plural: 'Cubic meters per minute',
+-        },
+-        to_anchor: 50 / 3,
+-    },
+-    'm3/h': {
+-        name: {
+-            singular: 'Cubic meter per hour',
+-            plural: 'Cubic meters per hour',
+-        },
+-        to_anchor: 5 / 18,
+-    },
+-    'km3/s': {
+-        name: {
+-            singular: 'Cubic kilometer per second',
+-            plural: 'Cubic kilometers per second',
+-        },
+-        to_anchor: 1000000000000,
+-    },
+-};
+-const imperial = {
+-    'tsp/s': {
+-        name: {
+-            singular: 'Teaspoon per second',
+-            plural: 'Teaspoons per second',
+-        },
+-        to_anchor: 1 / 6,
+-    },
+-    'Tbs/s': {
+-        name: {
+-            singular: 'Tablespoon per second',
+-            plural: 'Tablespoons per second',
+-        },
+-        to_anchor: 1 / 2,
+-    },
+-    'in3/s': {
+-        name: {
+-            singular: 'Cubic inch per second',
+-            plural: 'Cubic inches per second',
+-        },
+-        to_anchor: 0.55411,
+-    },
+-    'in3/min': {
+-        name: {
+-            singular: 'Cubic inch per minute',
+-            plural: 'Cubic inches per minute',
+-        },
+-        to_anchor: 0.55411 / 60,
+-    },
+-    'in3/h': {
+-        name: {
+-            singular: 'Cubic inch per hour',
+-            plural: 'Cubic inches per hour',
+-        },
+-        to_anchor: 0.55411 / 3600,
+-    },
+-    'fl-oz/s': {
+-        name: {
+-            singular: 'Fluid Ounce per second',
+-            plural: 'Fluid Ounces per second',
+-        },
+-        to_anchor: 1,
+-    },
+-    'fl-oz/min': {
+-        name: {
+-            singular: 'Fluid Ounce per minute',
+-            plural: 'Fluid Ounces per minute',
+-        },
+-        to_anchor: 1 / 60,
+-    },
+-    'fl-oz/h': {
+-        name: {
+-            singular: 'Fluid Ounce per hour',
+-            plural: 'Fluid Ounces per hour',
+-        },
+-        to_anchor: 1 / 3600,
+-    },
+-    'cup/s': {
+-        name: {
+-            singular: 'Cup per second',
+-            plural: 'Cups per second',
+-        },
+-        to_anchor: 8,
+-    },
+-    'pnt/s': {
+-        name: {
+-            singular: 'Pint per second',
+-            plural: 'Pints per second',
+-        },
+-        to_anchor: 16,
+-    },
+-    'pnt/min': {
+-        name: {
+-            singular: 'Pint per minute',
+-            plural: 'Pints per minute',
+-        },
+-        to_anchor: 4 / 15,
+-    },
+-    'pnt/h': {
+-        name: {
+-            singular: 'Pint per hour',
+-            plural: 'Pints per hour',
+-        },
+-        to_anchor: 1 / 225,
+-    },
+-    'qt/s': {
+-        name: {
+-            singular: 'Quart per second',
+-            plural: 'Quarts per second',
+-        },
+-        to_anchor: 32,
+-    },
+-    'gal/s': {
+-        name: {
+-            singular: 'Gallon per second',
+-            plural: 'Gallons per second',
+-        },
+-        to_anchor: 128,
+-    },
+-    'gal/min': {
+-        name: {
+-            singular: 'Gallon per minute',
+-            plural: 'Gallons per minute',
+-        },
+-        to_anchor: 32 / 15,
+-    },
+-    'gal/h': {
+-        name: {
+-            singular: 'Gallon per hour',
+-            plural: 'Gallons per hour',
+-        },
+-        to_anchor: 8 / 225,
+-    },
+-    'ft3/s': {
+-        name: {
+-            singular: 'Cubic foot per second',
+-            plural: 'Cubic feet per second',
+-        },
+-        to_anchor: 957.506,
+-    },
+-    'ft3/min': {
+-        name: {
+-            singular: 'Cubic foot per minute',
+-            plural: 'Cubic feet per minute',
+-        },
+-        to_anchor: 957.506 / 60,
+-    },
+-    'ft3/h': {
+-        name: {
+-            singular: 'Cubic foot per hour',
+-            plural: 'Cubic feet per hour',
+-        },
+-        to_anchor: 957.506 / 3600,
+-    },
+-    'yd3/s': {
+-        name: {
+-            singular: 'Cubic yard per second',
+-            plural: 'Cubic yards per second',
+-        },
+-        to_anchor: 25852.7,
+-    },
+-    'yd3/min': {
+-        name: {
+-            singular: 'Cubic yard per minute',
+-            plural: 'Cubic yards per minute',
+-        },
+-        to_anchor: 25852.7 / 60,
+-    },
+-    'yd3/h': {
+-        name: {
+-            singular: 'Cubic yard per hour',
+-            plural: 'Cubic yards per hour',
+-        },
+-        to_anchor: 25852.7 / 3600,
+-    },
+-};
+-const measure = {
+-    systems: {
+-        metric,
+-        imperial,
+-    },
+-    anchors: {
+-        metric: {
+-            imperial: {
+-                ratio: 33.8140227,
+-            },
+-        },
+-        imperial: {
+-            metric: {
+-                ratio: 1 / 33.8140227,
+-            },
+-        },
+-    },
+-};
+-export default measure;
+diff --git a/lib/esm/definitions/volumeFlowRate.mjs b/lib/esm/definitions/volumeFlowRate.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..82405f0334376b28a9ce5032fc05e5f1aa48eab3
+--- /dev/null
++++ b/lib/esm/definitions/volumeFlowRate.mjs
+@@ -0,0 +1,282 @@
++const metric = {
++    'mm3/s': {
++        name: {
++            singular: 'Cubic Millimeter per second',
++            plural: 'Cubic Millimeters per second',
++        },
++        to_anchor: 1 / 1000000,
++    },
++    'cm3/s': {
++        name: {
++            singular: 'Cubic Centimeter per second',
++            plural: 'Cubic Centimeters per second',
++        },
++        to_anchor: 1 / 1000,
++    },
++    'ml/s': {
++        name: {
++            singular: 'Millilitre per second',
++            plural: 'Millilitres per second',
++        },
++        to_anchor: 1 / 1000,
++    },
++    'cl/s': {
++        name: {
++            singular: 'Centilitre per second',
++            plural: 'Centilitres per second',
++        },
++        to_anchor: 1 / 100,
++    },
++    'dl/s': {
++        name: {
++            singular: 'Decilitre per second',
++            plural: 'Decilitres per second',
++        },
++        to_anchor: 1 / 10,
++    },
++    'l/s': {
++        name: {
++            singular: 'Litre per second',
++            plural: 'Litres per second',
++        },
++        to_anchor: 1,
++    },
++    'l/min': {
++        name: {
++            singular: 'Litre per minute',
++            plural: 'Litres per minute',
++        },
++        to_anchor: 1 / 60,
++    },
++    'l/h': {
++        name: {
++            singular: 'Litre per hour',
++            plural: 'Litres per hour',
++        },
++        to_anchor: 1 / 3600,
++    },
++    'kl/s': {
++        name: {
++            singular: 'Kilolitre per second',
++            plural: 'Kilolitres per second',
++        },
++        to_anchor: 1000,
++    },
++    'kl/min': {
++        name: {
++            singular: 'Kilolitre per minute',
++            plural: 'Kilolitres per minute',
++        },
++        to_anchor: 50 / 3,
++    },
++    'kl/h': {
++        name: {
++            singular: 'Kilolitre per hour',
++            plural: 'Kilolitres per hour',
++        },
++        to_anchor: 5 / 18,
++    },
++    'm3/s': {
++        name: {
++            singular: 'Cubic meter per second',
++            plural: 'Cubic meters per second',
++        },
++        to_anchor: 1000,
++    },
++    'm3/min': {
++        name: {
++            singular: 'Cubic meter per minute',
++            plural: 'Cubic meters per minute',
++        },
++        to_anchor: 50 / 3,
++    },
++    'm3/h': {
++        name: {
++            singular: 'Cubic meter per hour',
++            plural: 'Cubic meters per hour',
++        },
++        to_anchor: 5 / 18,
++    },
++    'km3/s': {
++        name: {
++            singular: 'Cubic kilometer per second',
++            plural: 'Cubic kilometers per second',
++        },
++        to_anchor: 1000000000000,
++    },
++};
++const imperial = {
++    'tsp/s': {
++        name: {
++            singular: 'Teaspoon per second',
++            plural: 'Teaspoons per second',
++        },
++        to_anchor: 1 / 6,
++    },
++    'Tbs/s': {
++        name: {
++            singular: 'Tablespoon per second',
++            plural: 'Tablespoons per second',
++        },
++        to_anchor: 1 / 2,
++    },
++    'in3/s': {
++        name: {
++            singular: 'Cubic inch per second',
++            plural: 'Cubic inches per second',
++        },
++        to_anchor: 0.55411,
++    },
++    'in3/min': {
++        name: {
++            singular: 'Cubic inch per minute',
++            plural: 'Cubic inches per minute',
++        },
++        to_anchor: 0.55411 / 60,
++    },
++    'in3/h': {
++        name: {
++            singular: 'Cubic inch per hour',
++            plural: 'Cubic inches per hour',
++        },
++        to_anchor: 0.55411 / 3600,
++    },
++    'fl-oz/s': {
++        name: {
++            singular: 'Fluid Ounce per second',
++            plural: 'Fluid Ounces per second',
++        },
++        to_anchor: 1,
++    },
++    'fl-oz/min': {
++        name: {
++            singular: 'Fluid Ounce per minute',
++            plural: 'Fluid Ounces per minute',
++        },
++        to_anchor: 1 / 60,
++    },
++    'fl-oz/h': {
++        name: {
++            singular: 'Fluid Ounce per hour',
++            plural: 'Fluid Ounces per hour',
++        },
++        to_anchor: 1 / 3600,
++    },
++    'cup/s': {
++        name: {
++            singular: 'Cup per second',
++            plural: 'Cups per second',
++        },
++        to_anchor: 8,
++    },
++    'pnt/s': {
++        name: {
++            singular: 'Pint per second',
++            plural: 'Pints per second',
++        },
++        to_anchor: 16,
++    },
++    'pnt/min': {
++        name: {
++            singular: 'Pint per minute',
++            plural: 'Pints per minute',
++        },
++        to_anchor: 4 / 15,
++    },
++    'pnt/h': {
++        name: {
++            singular: 'Pint per hour',
++            plural: 'Pints per hour',
++        },
++        to_anchor: 1 / 225,
++    },
++    'qt/s': {
++        name: {
++            singular: 'Quart per second',
++            plural: 'Quarts per second',
++        },
++        to_anchor: 32,
++    },
++    'gal/s': {
++        name: {
++            singular: 'Gallon per second',
++            plural: 'Gallons per second',
++        },
++        to_anchor: 128,
++    },
++    'gal/min': {
++        name: {
++            singular: 'Gallon per minute',
++            plural: 'Gallons per minute',
++        },
++        to_anchor: 32 / 15,
++    },
++    'gal/h': {
++        name: {
++            singular: 'Gallon per hour',
++            plural: 'Gallons per hour',
++        },
++        to_anchor: 8 / 225,
++    },
++    'ft3/s': {
++        name: {
++            singular: 'Cubic foot per second',
++            plural: 'Cubic feet per second',
++        },
++        to_anchor: 957.506,
++    },
++    'ft3/min': {
++        name: {
++            singular: 'Cubic foot per minute',
++            plural: 'Cubic feet per minute',
++        },
++        to_anchor: 957.506 / 60,
++    },
++    'ft3/h': {
++        name: {
++            singular: 'Cubic foot per hour',
++            plural: 'Cubic feet per hour',
++        },
++        to_anchor: 957.506 / 3600,
++    },
++    'yd3/s': {
++        name: {
++            singular: 'Cubic yard per second',
++            plural: 'Cubic yards per second',
++        },
++        to_anchor: 25852.7,
++    },
++    'yd3/min': {
++        name: {
++            singular: 'Cubic yard per minute',
++            plural: 'Cubic yards per minute',
++        },
++        to_anchor: 25852.7 / 60,
++    },
++    'yd3/h': {
++        name: {
++            singular: 'Cubic yard per hour',
++            plural: 'Cubic yards per hour',
++        },
++        to_anchor: 25852.7 / 3600,
++    },
++};
++const measure = {
++    systems: {
++        metric,
++        imperial,
++    },
++    anchors: {
++        metric: {
++            imperial: {
++                ratio: 33.8140227,
++            },
++        },
++        imperial: {
++            metric: {
++                ratio: 1 / 33.8140227,
++            },
++        },
++    },
++};
++export default measure;
+diff --git a/lib/esm/index.js b/lib/esm/index.js
+index 8f93a17b0c5fb7c6cfbe3adfc89790f1cf153251..b6b1fe53e447c02c1704d9b2a8b44661ffb4d4e8 100644
+--- a/lib/esm/index.js
++++ b/lib/esm/index.js
+@@ -1,3 +1,3 @@
+-import configMeasurements, { Converter } from './convert.js';
++import configMeasurements, { Converter } from './convert.mjs';
+ export default configMeasurements;
+ export { Converter };
+diff --git a/lib/esm/index.mjs b/lib/esm/index.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..b6b1fe53e447c02c1704d9b2a8b44661ffb4d4e8
+--- /dev/null
++++ b/lib/esm/index.mjs
+@@ -0,0 +1,3 @@
++import configMeasurements, { Converter } from './convert.mjs';
++export default configMeasurements;
++export { Converter };
+diff --git a/package.json b/package.json
+index d4ee0385aa63762f1b94b906d97ff1788b850ffa..a7a578a439cd6e7f7fa4d99156ca073b3fb845ff 100644
+--- a/package.json
++++ b/package.json
+@@ -16,12 +16,12 @@
+   "exports": {
+     ".": {
+       "require": "./lib/cjs/index.js",
+-      "import": "./lib/esm/index.js",
++      "import": "./lib/esm/index.mjs",
+       "types": "./lib/types/index.d.ts"
+     },
+     "./definitions/*": {
+       "require": "./lib/cjs/definitions/*.js",
+-      "import": "./lib/esm/definitions/*.js",
++      "import": "./lib/esm/definitions/*.mjs",
+       "types": "./lib/types/definitions/*.d.ts"
+     },
+     "./package.json": "./package.json"

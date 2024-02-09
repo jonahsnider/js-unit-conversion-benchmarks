@@ -1,6 +1,5 @@
 import {Suite} from '@jonahsnider/benchmark';
 import convert from 'convert';
-import convertUnits from 'convert-units';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration.js';
 import jsQuantities from 'js-quantities';
@@ -11,8 +10,11 @@ import {BenchmarkTitles, suiteRunOptions} from '../config.js';
 import simpleUnits from 'simple-units';
 import * as Uom from 'uom';
 import * as UomUnits from 'uom-units';
+import configureMeasurements from 'convert-units';
+import allMeasures from 'convert-units/definitions/all';
 
 dayjs.extend(duration);
+const convertUnits = configureMeasurements(allMeasures);
 
 const suite = new Suite(BenchmarkTitles.HoursToMinutes, {...suiteRunOptions, filepath: import.meta.url});
 

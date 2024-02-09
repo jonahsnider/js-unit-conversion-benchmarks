@@ -24,7 +24,7 @@
 		"@lukeed/ms": "2.0.2",
 		"byte-size": "8.1.1",
 		"convert": "4.14.1",
-		"convert-units": "2.3.4",
+		"convert-units": "3.0.0-beta.6",
 		"dayjs": "1.11.10",
 		"js-quantities": "1.8.0",
 		"luxon": "3.4.4",
@@ -40,7 +40,6 @@
 		"@jonahsnider/prettier-config": "1.1.2",
 		"@tsconfig/node16": "16.1.1",
 		"@types/byte-size": "8.1.2",
-		"@types/convert-units": "2.3.9",
 		"@types/js-quantities": "1.6.6",
 		"@types/luxon": "3.4.2",
 		"@types/ms": "0.7.34",
@@ -48,5 +47,8 @@
 		"tslib": "2.6.2",
 		"typescript": "5.3.3"
 	},
-	"packageManager": "yarn@3.8.0"
+	"packageManager": "yarn@3.8.0",
+	"resolutions": {
+		"convert-units@3.0.0-beta.6": "patch:convert-units@npm%3A3.0.0-beta.6#./.yarn/patches/convert-units-npm-3.0.0-beta.6-7f997e5771.patch"
+	}
 }

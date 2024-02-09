@@ -1,12 +1,15 @@
 import {Suite} from '@jonahsnider/benchmark';
 import convert from 'convert';
-import convertUnits from 'convert-units';
+import configureMeasurements from 'convert-units';
+import allMeasures from 'convert-units/definitions/all';
 import jsQuantities from 'js-quantities';
 import * as SafeUnits from 'safe-units';
 import simpleUnits from 'simple-units';
 import * as Uom from 'uom';
 import * as UomUnits from 'uom-units';
 import {BenchmarkTitles, suiteRunOptions} from '../config.js';
+
+const convertUnits = configureMeasurements(allMeasures);
 
 const suite = new Suite(BenchmarkTitles.LitersToCubicInches, {...suiteRunOptions, filepath: import.meta.url});
 
