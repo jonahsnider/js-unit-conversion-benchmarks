@@ -8,8 +8,6 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    if: ${{ github.ref == 'refs/heads/main' }}
-
     steps:
       - name: Checkout Git repository
         uses: actions/checkout@v4
@@ -27,6 +25,7 @@ jobs:
         env:
           NODE_ENV: production
       - name: Update benchmark results in readme
+        if: ${{ github.ref == 'refs/heads/main' }}
         run: |
           git config --global user.email "js.unit.conversion.benchmarks@jonah.pw"
           git config --global user.name "js-unit-conversion-benchmarks"
