@@ -5,13 +5,13 @@ __metadata:
   version: 6
   cacheKey: 8
 
-"@jonahsnider/benchmark@npm:5.0.2":
-  version: 5.0.2
-  resolution: "@jonahsnider/benchmark@npm:5.0.2"
+"@jonahsnider/benchmark@npm:5.0.3":
+  version: 5.0.3
+  resolution: "@jonahsnider/benchmark@npm:5.0.3"
   dependencies:
     "@jonahsnider/util": 10.3.0
     tslib: 2.6.2
-  checksum: 55dc0a0bd44a14f960f310ef0a483224c05471cd0504e1b9521d249b74b37656b29c5caa7b23ba8310dbbe32ed952484a873ec1d88724014a3194ae7ba7b60e4
+  checksum: 7ce3018b483203e1bec378dc69c2f984dc53a2c2f9b6254e172081b1c15f052bc024b7ab60fbadad8fd29043a1287f9552ac980fc0fdcfe1bf8a0df1e8dc5894
   languageName: node
   linkType: hard
 
@@ -19,7 +19,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@jonahsnider/js-unit-conversion-benchmarks@workspace:."
   dependencies:
-    "@jonahsnider/benchmark": 5.0.2
+    "@jonahsnider/benchmark": 5.0.3
     "@jonahsnider/prettier-config": 1.1.2
     "@jonahsnider/util": 10.3.0
     "@lukeed/ms": 2.0.2
