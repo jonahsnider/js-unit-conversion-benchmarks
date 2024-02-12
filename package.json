@@ -13,7 +13,7 @@
 	"main": "dist/index.js",
 	"scripts": {
 		"build": "tsc",
-		"start": "node .",
+		"start": "NODE_ENV=production node .",
 		"style": "prettier --check .",
 		"test": "node dist/test"
 	},
