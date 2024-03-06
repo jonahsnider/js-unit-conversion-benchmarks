@@ -45,7 +45,7 @@
 		"@types/ms": "0.7.34",
 		"@types/node": "20.11.25",
 		"tslib": "2.6.2",
-		"typescript": "5.3.3"
+		"typescript": "5.4.2"
 	},
 	"packageManager": "yarn@3.8.1",
 	"resolutions": {
