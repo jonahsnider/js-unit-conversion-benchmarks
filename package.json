@@ -34,7 +34,7 @@
 		"safe-units": "1.1.0",
 		"simple-units": "1.0.6",
 		"uom": "6.0.0",
-		"uom-units": "2.5.0"
+		"uom-units": "2.5.1"
 	},
 	"devDependencies": {
 		"@jonahsnider/prettier-config": "1.1.2",
