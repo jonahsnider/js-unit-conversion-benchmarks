@@ -47,7 +47,7 @@
 		"tslib": "2.6.3",
 		"typescript": "5.5.4"
 	},
-	"packageManager": "yarn@3.8.3",
+	"packageManager": "yarn@3.8.4",
 	"resolutions": {
 		"convert-units@3.0.0-beta.6": "patch:convert-units@npm%3A3.0.0-beta.6#./.yarn/patches/convert-units-npm-3.0.0-beta.6-7f997e5771.patch"
 	}
