@@ -2,16 +2,16 @@
 # Manual changes might be lost - proceed with caution!
 
 __metadata:
-  version: 6
-  cacheKey: 8
+  version: 8
+  cacheKey: 10
 
 "@jonahsnider/benchmark@npm:5.0.3":
   version: 5.0.3
   resolution: "@jonahsnider/benchmark@npm:5.0.3"
   dependencies:
-    "@jonahsnider/util": 10.3.0
-    tslib: 2.6.2
-  checksum: 7ce3018b483203e1bec378dc69c2f984dc53a2c2f9b6254e172081b1c15f052bc024b7ab60fbadad8fd29043a1287f9552ac980fc0fdcfe1bf8a0df1e8dc5894
+    "@jonahsnider/util": "npm:10.3.0"
+    tslib: "npm:2.6.2"
+  checksum: 10/7ee6a5ce3f1f6f9fede745635770a28a78eedf6158d60324034eb4ec5d13380d0e2135181768b3914e955730ef797402d28b71026fbbddbc7df77cf76b70ad01
   languageName: node
   linkType: hard
 
@@ -19,31 +19,31 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@jonahsnider/js-unit-conversion-benchmarks@workspace:."
   dependencies:
-    "@jonahsnider/benchmark": 5.0.3
-    "@jonahsnider/prettier-config": 1.1.2
-    "@jonahsnider/util": 11.0.0
-    "@lukeed/ms": 2.0.2
-    "@tsconfig/node16": 16.1.3
-    "@types/byte-size": 8.1.2
-    "@types/js-quantities": 1.6.6
-    "@types/luxon": 3.4.2
-    "@types/ms": 0.7.34
-    "@types/node": 20.14.15
-    byte-size: 9.0.0
-    convert: 5.3.0
-    convert-units: 3.0.0-beta.6
-    dayjs: 1.11.12
-    js-quantities: 1.8.0
-    luxon: 3.5.0
-    moment: 2.30.1
-    ms: 2.1.3
-    prettier: 3.3.3
-    safe-units: 2.0.1
-    simple-units: 1.0.6
-    tslib: 2.6.3
-    typescript: 5.5.4
-    uom: 6.0.0
-    uom-units: 2.5.1
+    "@jonahsnider/benchmark": "npm:5.0.3"
+    "@jonahsnider/prettier-config": "npm:1.1.2"
+    "@jonahsnider/util": "npm:11.0.0"
+    "@lukeed/ms": "npm:2.0.2"
+    "@tsconfig/node16": "npm:16.1.3"
+    "@types/byte-size": "npm:8.1.2"
+    "@types/js-quantities": "npm:1.6.6"
+    "@types/luxon": "npm:3.4.2"
+    "@types/ms": "npm:0.7.34"
+    "@types/node": "npm:20.14.15"
+    byte-size: "npm:9.0.0"
+    convert: "npm:5.3.0"
+    convert-units: "npm:3.0.0-beta.6"
+    dayjs: "npm:1.11.12"
+    js-quantities: "npm:1.8.0"
+    luxon: "npm:3.5.0"
+    moment: "npm:2.30.1"
+    ms: "npm:2.1.3"
+    prettier: "npm:3.3.3"
+    safe-units: "npm:2.0.1"
+    simple-units: "npm:1.0.6"
+    tslib: "npm:2.6.3"
+    typescript: "npm:5.5.4"
+    uom: "npm:6.0.0"
+    uom-units: "npm:2.5.1"
   languageName: unknown
   linkType: soft
 
@@ -51,65 +51,65 @@ __metadata:
   version: 1.1.2
   resolution: "@jonahsnider/prettier-config@npm:1.1.2"
   dependencies:
-    "@types/prettier": ^2.6.3
-    prettier-config-xo: 2.0.0
-  checksum: df2c7d49fbf99a731d877648d09bf2ead56d4e3366fcf99ff8a7c4f2017c73a9311d11d4b96c7bde0ede223177601693e821783cb7767cc71b32c92dc5b968d7
+    "@types/prettier": "npm:^2.6.3"
+    prettier-config-xo: "npm:2.0.0"
+  checksum: 10/7e066edb8615a13a2bbd931a66f3616e947da5b1740a77305458ec4896019c582730140dc5036985e1f56e6f697fa43b013ff69b68f63afe5010428ed601d86f
   languageName: node
   linkType: hard
 
 "@jonahsnider/util@npm:10.3.0":
   version: 10.3.0
   resolution: "@jonahsnider/util@npm:10.3.0"
-  checksum: 8bf54ae0b4006c5834f861b4dd7e1f650dec97422b42640379c7d55198cf1d2486314b173c305e746b3ee19a5629593b43fa5c3d8d2a4a11f09a0e4acec4061d
+  checksum: 10/d2add59a1a4499fdf6037da93709ebf7eb11d28ee3e3395e04d99e65eee48d387917350b58b0619b8e7c5d738cdad5a076377a4355f61add1845bfdf59eee56c
   languageName: node
   linkType: hard
 
 "@jonahsnider/util@npm:11.0.0":
   version: 11.0.0
   resolution: "@jonahsnider/util@npm:11.0.0"
-  checksum: a7c2c070f293788dd96d3e19e55f37212a9421534e3a52c340400b08486d0b6d987bc04a6a0171b2a5688d4de3184693b6b49c6c474da85afc2b513a3cc64ca6
+  checksum: 10/b595d9c0a842a316c86dbe433965f6af898170d45fb8e69284ef028ebaf8a12163c9b5b79d36811ce53b7e15fb6ac8f0ed5eb69ab95d15c1f81861dab7cb99bf
   languageName: node
   linkType: hard
 
 "@lukeed/ms@npm:2.0.2":
   version: 2.0.2
   resolution: "@lukeed/ms@npm:2.0.2"
-  checksum: 6ae47ed3ebc857ffc0283cfe46129947209c770d0974eb86626138b6c194a760d08863ec593ec75a645aec133b3237b37af500739b030293e4d9a81130f4e2ae
+  checksum: 10/6ae47ed3ebc857ffc0283cfe46129947209c770d0974eb86626138b6c194a760d08863ec593ec75a645aec133b3237b37af500739b030293e4d9a81130f4e2ae
   languageName: node
   linkType: hard
 
 "@tsconfig/node16@npm:16.1.3":
   version: 16.1.3
   resolution: "@tsconfig/node16@npm:16.1.3"
-  checksum: 097f33cb7fe9577cc3c4b7a8d26c7e8b6c45c868d3bda1e2cd120111693b98f88a5138e643e7a6f79d53d94717c3624dc33398804647bf6e0e8782604bbfad53
+  checksum: 10/097f33cb7fe9577cc3c4b7a8d26c7e8b6c45c868d3bda1e2cd120111693b98f88a5138e643e7a6f79d53d94717c3624dc33398804647bf6e0e8782604bbfad53
   languageName: node
   linkType: hard
 
 "@types/byte-size@npm:8.1.2":
   version: 8.1.2
   resolution: "@types/byte-size@npm:8.1.2"
-  checksum: a7136d5ba41924491ab3d2df6f61f523f8241a9764b02e35b4fa2710eb17af18f7ffe494e5cad3071133a6c8a1c38bedaed28d26d348987d1ab9263a6730c9ce
+  checksum: 10/a7136d5ba41924491ab3d2df6f61f523f8241a9764b02e35b4fa2710eb17af18f7ffe494e5cad3071133a6c8a1c38bedaed28d26d348987d1ab9263a6730c9ce
   languageName: node
   linkType: hard
 
 "@types/js-quantities@npm:1.6.6":
   version: 1.6.6
   resolution: "@types/js-quantities@npm:1.6.6"
-  checksum: 69773ed89193c08ac8efcd9a05ac0b25f2e96eb55969a6bf0485bbf8bfb757db43df9bd9bec8f5b4d91fa1068c292c80efdd0ee049bb95c0f697789cd8dda9e1
+  checksum: 10/1a00e2b6805d3867c28fd74d9682e1ffd284ba5d5bc0b0b927256ee36b53dc584b3e9f7eb09025c67a337eea94cac923adff524762f6a77a63248d9533b96ee3
   languageName: node
   linkType: hard
 
 "@types/luxon@npm:3.4.2":
   version: 3.4.2
   resolution: "@types/luxon@npm:3.4.2"
-  checksum: 6f92d5bd02e89f310395753506bcd9cef3a56f5940f7a50db2a2b9822bce753553ac767d143cb5b4f9ed5ddd4a84e64f89ff538082ceb4d18739af7781b56925
+  checksum: 10/fd89566e3026559f2bc4ddcc1e70a2c16161905ed50be9473ec0cfbbbe919165041408c4f6e06c4bcf095445535052e2c099087c76b1b38e368127e618fc968d
   languageName: node
   linkType: hard
 
 "@types/ms@npm:0.7.34":
   version: 0.7.34
   resolution: "@types/ms@npm:0.7.34"
-  checksum: f38d36e7b6edecd9badc9cf50474159e9da5fa6965a75186cceaf883278611b9df6669dc3a3cc122b7938d317b68a9e3d573d316fcb35d1be47ec9e468c6bd8a
+  checksum: 10/f38d36e7b6edecd9badc9cf50474159e9da5fa6965a75186cceaf883278611b9df6669dc3a3cc122b7938d317b68a9e3d573d316fcb35d1be47ec9e468c6bd8a
   languageName: node
   linkType: hard
 
@@ -117,22 +117,22 @@ __metadata:
   version: 20.14.15
   resolution: "@types/node@npm:20.14.15"
   dependencies:
-    undici-types: ~5.26.4
-  checksum: 0407600c1a426efd3e97c94ef1c13edce453142a06ea4be7102bf7be3e907ea578872c7795988a72e981b8ffe942f8cfaafd98552ba82915cd6f963dd1fa9adc
+    undici-types: "npm:~5.26.4"
+  checksum: 10/87a4a4313e886c1db1c8042004956095477e040f67df993fd16a2d50488c750bda81e85bf702c2e629e964605034e8dfe0cb91b65ce22b6b8eec37ece61c6b6c
   languageName: node
   linkType: hard
 
 "@types/prettier@npm:^2.6.3":
   version: 2.6.3
   resolution: "@types/prettier@npm:2.6.3"
-  checksum: e1836699ca189fff6d2a73dc22e028b6a6f693ed1180d5998ac29fa197caf8f85aa92cb38db642e4a370e616b451cb5722ad2395dab11c78e025a1455f37d1f0
+  checksum: 10/fbaba4bfe1b4543bed6e62db0f9ae734b4536ff3dc83a1b8bb79835928fb0f653de626edae530703a20c5023546fdf2ba7e307c60f8544c9e65d0f8e196a9b72
   languageName: node
   linkType: hard
 
 "byte-size@npm:9.0.0":
   version: 9.0.0
   resolution: "byte-size@npm:9.0.0"
-  checksum: 3c0c988dcb8eaee6364f42837b395fbff949b611d6b23a078a60b5b03d9e1a04841a1a2f471177a91971712f407e753d6ca9d46bb60f80c482b84e37b5a05193
+  checksum: 10/10a2ce3433e83526d6151055aa82e414e7b15e20a9714314a17a11313b9029a4f7b0acda441d3ad8f61f1592b4ffc1649ae30a0faeb3f5561ee9995ba7de0c8e
   languageName: node
   linkType: hard
 
@@ -140,78 +140,78 @@ __metadata:
   version: 1.1.1
   resolution: "cartesian-product-generator@npm:1.1.1"
   dependencies:
-    ind2sub: ^2.0.0
-  checksum: bdb0cd2959c217175a60b11f8bab77022f4ad418b96a3841b1a60e143ff4f7a41ad63016c3b8cf644c9cc17a8ce3da3b506c503d3147464c70600b7dc2e9c19e
+    ind2sub: "npm:^2.0.0"
+  checksum: 10/7a6db769f7207c9aa97206f5d8b04e7f0eff22cf513722f2d3d2913184810d546e7da7f05bc6a135f0b2db6ca6108c3cf2b978f5be1ee6297676383590e49a80
   languageName: node
   linkType: hard
 
 "convert-units@npm:3.0.0-beta.6":
   version: 3.0.0-beta.6
   resolution: "convert-units@npm:3.0.0-beta.6"
-  checksum: 840ede891df4705a4180fa79cfecf4ba2c37dbdf307deafcd7129bea0efeb59f3d05d6d5c795269ac229e3b7b681af1b9e4dd70019309a03faf8e7d5c1be97fd
+  checksum: 10/b1a62d2893780cf0bb913038685f7f2c29acbac892aeddfb9998bb8950c2f752210c343e9b3a7237a6b07e47f38011310dcf09d87e1cdff9323651609a791640
   languageName: node
   linkType: hard
 
 "convert-units@patch:convert-units@npm%3A3.0.0-beta.6#./.yarn/patches/convert-units-npm-3.0.0-beta.6-7f997e5771.patch::locator=%40jonahsnider%2Fjs-unit-conversion-benchmarks%40workspace%3A.":
   version: 3.0.0-beta.6
   resolution: "convert-units@patch:convert-units@npm%3A3.0.0-beta.6#./.yarn/patches/convert-units-npm-3.0.0-beta.6-7f997e5771.patch::version=3.0.0-beta.6&hash=cf4343&locator=%40jonahsnider%2Fjs-unit-conversion-benchmarks%40workspace%3A."
-  checksum: 1d69c7146dd2604fb2ae284e17b4fd2919a7e97e105ba631e51a6b1fd7daea8400a81e0c77e2f91c9e1cd17984519585813b2cbc49e7395de5ae65aa0fa01009
+  checksum: 10/e4d6d89e587e5ddf8a43ff52c7f3303143b3447e51be270a62542b08671db17fecd3e12bc89a07267a2803ef76dd075e0ba303cc8575ffb89d708e0522074550
   languageName: node
   linkType: hard
 
 "convert@npm:5.3.0":
   version: 5.3.0
   resolution: "convert@npm:5.3.0"
-  checksum: e3ac909505645cf98bf685df2c52a26a85b095de67a4c98f12426a6d510276eea67859ac1e891dc395ba604170cce7c9f77855a4509e35e800116dd78d945eaa
+  checksum: 10/2a0860d3e4c766bb5c44a9f957ea68f1f2b982c48ab6becd58ddfcc174c6825e863df51e0739fd9b1f6723e3d5c61559f5710d7c6c403c5df7ee06e03d7c4d84
   languageName: node
   linkType: hard
 
 "dayjs@npm:1.11.12":
   version: 1.11.12
   resolution: "dayjs@npm:1.11.12"
-  checksum: 40a4f67c2df3af125ae0ddec68d3a6d806d3009a7414bf45479aaf82f1dd82f3e139e6642e72391abccc37488897830c56afcabb4c819014130d283644df8128
+  checksum: 10/8ee7c1e14961fd08d40b788d0c0e930dc6288b3d32911bb911b2fb31bb703c262788164fbe678ee9e50e2a35268d667b8c8ba43fd1806771c1f404c300a2b428
   languageName: node
   linkType: hard
 
 "ind2sub@npm:^2.0.0":
   version: 2.0.0
   resolution: "ind2sub@npm:2.0.0"
-  checksum: 04c828e588f5f98e4d03f82d915e783ed3bfa9729fa6e53d1ade2aa06ba76d88d25f8414b5a6bceb02fd543abc1e2f0ff6a94752dabe5f62ccd7313d13f8a998
+  checksum: 10/207958b3edac86bbb69e3fc48458c5d4df7dc287cb41ae60c4d870b01eca235a2bc29de58928d2f4c14c4104d440e98b4425c45501f7ac7d243521f8f560ce3a
   languageName: node
   linkType: hard
 
 "js-quantities@npm:1.8.0":
   version: 1.8.0
   resolution: "js-quantities@npm:1.8.0"
-  checksum: 555f5648b7b76b427fbe63e050c7fac99d2dbb597791d794d83508a46b2bfe0a2bdf85ebd88c85617408960d9d9e06a763400fc1071a89ef12c8c2d53e3e7687
+  checksum: 10/08844672c85339fd7231278aa39a410c0791fb681c4855158873b447177aefed2bbc73f56c50e55ff853a53bf84a9f59a8633adc6ae37e6bfab44d6df907bf3f
   languageName: node
   linkType: hard
 
 "luxon@npm:3.5.0":
   version: 3.5.0
   resolution: "luxon@npm:3.5.0"
-  checksum: f290fe5788c8e51e748744f05092160d4be12150dca70f9fadc0d233e53d60ce86acd82e7d909a114730a136a77e56f0d3ebac6141bbb82fd310969a4704825b
+  checksum: 10/48f86e6c1c96815139f8559456a3354a276ba79bcef0ae0d4f2172f7652f3ba2be2237b0e103b8ea0b79b47715354ac9fac04eb1db3485dcc72d5110491dd47f
   languageName: node
   linkType: hard
 
 "moment@npm:2.30.1":
   version: 2.30.1
   resolution: "moment@npm:2.30.1"
-  checksum: 859236bab1e88c3e5802afcf797fc801acdbd0ee509d34ea3df6eea21eb6bcc2abd4ae4e4e64aa7c986aa6cba563c6e62806218e6412a765010712e5fa121ba6
+  checksum: 10/ae42d876d4ec831ef66110bdc302c0657c664991e45cf2afffc4b0f6cd6d251dde11375c982a5c0564ccc0fa593fc564576ddceb8c8845e87c15f58aa6baca69
   languageName: node
   linkType: hard
 
 "ms@npm:2.1.3":
   version: 2.1.3
   resolution: "ms@npm:2.1.3"
-  checksum: aa92de608021b242401676e35cfa5aa42dd70cbdc082b916da7fb925c542173e36bce97ea3e804923fe92c0ad991434e4a38327e15a1b5b5f945d66df615ae6d
+  checksum: 10/aa92de608021b242401676e35cfa5aa42dd70cbdc082b916da7fb925c542173e36bce97ea3e804923fe92c0ad991434e4a38327e15a1b5b5f945d66df615ae6d
   languageName: node
   linkType: hard
 
 "prettier-config-xo@npm:2.0.0":
   version: 2.0.0
   resolution: "prettier-config-xo@npm:2.0.0"
-  checksum: f5dc2760ee7991b98177789ac080aa720a38f49fcedd01f02acb281f02ecaf2dc9bc604d13ba804f750127df5913d396b8deae661cc8f7e2d422dded6a9b950f
+  checksum: 10/066ec0eb29f671d6c2f17570230c4348542af9eacd37c3e060b9e64cb55cddd00137cf66319210488358585bfbb6577f4adfac5dddb65ed7f43cea5668329841
   languageName: node
   linkType: hard
 
@@ -220,14 +220,14 @@ __metadata:
   resolution: "prettier@npm:3.3.3"
   bin:
     prettier: bin/prettier.cjs
-  checksum: bc8604354805acfdde6106852d14b045bb20827ad76a5ffc2455b71a8257f94de93f17f14e463fe844808d2ccc87248364a5691488a3304f1031326e62d9276e
+  checksum: 10/5beac1f30b5b40162532b8e2f7c3a4eb650910a2695e9c8512a62ffdc09dae93190c29db9107fa7f26d1b6c71aad3628ecb9b5de1ecb0911191099be109434d7
   languageName: node
   linkType: hard
 
 "safe-units@npm:2.0.1":
   version: 2.0.1
   resolution: "safe-units@npm:2.0.1"
-  checksum: cc310ce8c3d43ecc646ad2d1a73020b97b15eeeee0b39f6262076a475d96715ecf39958d101071dae460d2df1a1eaa690ce70b8b3f9e0c24c106d2a599fd3df8
+  checksum: 10/b3ff4dc4f15757ae5d9e1094410b6c7e50ec12457efd559802436c6bd34b42da7971c192eca937759643b7a1ee2a5403cbd1a9092b640901eb873c190cb7e44b
   languageName: node
   linkType: hard
 
@@ -235,30 +235,30 @@ __metadata:
   version: 1.0.6
   resolution: "simple-units@npm:1.0.6"
   dependencies:
-    cartesian-product-generator: ^1.1.1
-    sprintf-js: ^1.1.2
-  checksum: ce9f5ba39bd0010aad901747a168fe19e7fe2adeceb934ec25eba6b313236fb1729cede48a2365a409b6649d1df21b8bd0d397b9bd8cd4ce56f9249908e74ed6
+    cartesian-product-generator: "npm:^1.1.1"
+    sprintf-js: "npm:^1.1.2"
+  checksum: 10/e2a4c433273e9a79a5447bb3d5399c94a95c2e6eade14c2d3e10e8b43825ce890d1eea8b8b2bf3c5efd3858210bc9d76d7f043b808f9d8dc8d12618d80269e38
   languageName: node
   linkType: hard
 
 "sprintf-js@npm:^1.1.2":
   version: 1.1.2
   resolution: "sprintf-js@npm:1.1.2"
-  checksum: d4bb46464632b335e5faed381bd331157e0af64915a98ede833452663bc672823db49d7531c32d58798e85236581fb7342fd0270531ffc8f914e186187bf1c90
+  checksum: 10/0044322a252b36bffc3d8a462a4882de57830e18d37d1cc000104ff4744b512d6a9b1ca6240e7ad141a987a1eaad071668fe12d11c496c11d3641c4797a6cf3f
   languageName: node
   linkType: hard
 
 "tslib@npm:2.6.2":
   version: 2.6.2
   resolution: "tslib@npm:2.6.2"
-  checksum: 329ea56123005922f39642318e3d1f0f8265d1e7fcb92c633e0809521da75eeaca28d2cf96d7248229deb40e5c19adf408259f4b9640afd20d13aecc1430f3ad
+  checksum: 10/bd26c22d36736513980091a1e356378e8b662ded04204453d353a7f34a4c21ed0afc59b5f90719d4ba756e581a162ecbf93118dc9c6be5acf70aa309188166ca
   languageName: node
   linkType: hard
 
 "tslib@npm:2.6.3":
   version: 2.6.3
   resolution: "tslib@npm:2.6.3"
-  checksum: 74fce0e100f1ebd95b8995fbbd0e6c91bdd8f4c35c00d4da62e285a3363aaa534de40a80db30ecfd388ed7c313c42d930ee0eaf108e8114214b180eec3dbe6f5
+  checksum: 10/52109bb681f8133a2e58142f11a50e05476de4f075ca906d13b596ae5f7f12d30c482feb0bff167ae01cfc84c5803e575a307d47938999246f5a49d174fc558c
   languageName: node
   linkType: hard
 
@@ -268,24 +268,24 @@ __metadata:
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: b309040f3a1cd91c68a5a58af6b9fdd4e849b8c42d837b2c2e73f9a4f96a98c4f1ed398a9aab576ee0a4748f5690cf594e6b99dbe61de7839da748c41e6d6ca8
+  checksum: 10/1689ccafef894825481fc3d856b4834ba3cc185a9c2878f3c76a9a1ef81af04194849840f3c69e7961e2312771471bb3b460ca92561e1d87599b26c37d0ffb6f
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@5.5.4#~builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A5.5.4#optional!builtin<compat/typescript>":
   version: 5.5.4
-  resolution: "typescript@patch:typescript@npm%3A5.5.4#~builtin<compat/typescript>::version=5.5.4&hash=379a07"
+  resolution: "typescript@patch:typescript@npm%3A5.5.4#optional!builtin<compat/typescript>::version=5.5.4&hash=379a07"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: e14c87e8bd51f9ac741051a2c3bde75b2a3ab17dee2c50239f7e1a0868673f3b7d4d87684df41a59a8f57c6ddc5d06d65d120764d992441af5de07b98cf9c67b
+  checksum: 10/746fdd0865c5ce4f15e494c57ede03a9e12ede59cfdb40da3a281807853fe63b00ef1c912d7222143499aa82f18b8b472baa1830df8804746d09b55f6cf5b1cc
   languageName: node
   linkType: hard
 
 "undici-types@npm:~5.26.4":
   version: 5.26.5
   resolution: "undici-types@npm:5.26.5"
-  checksum: 3192ef6f3fd5df652f2dc1cd782b49d6ff14dc98e5dced492aa8a8c65425227da5da6aafe22523c67f035a272c599bb89cfe803c1db6311e44bed3042fc25487
+  checksum: 10/0097779d94bc0fd26f0418b3a05472410408877279141ded2bd449167be1aed7ea5b76f756562cb3586a07f251b90799bab22d9019ceba49c037c76445f7cddd
   languageName: node
   linkType: hard
 
@@ -293,14 +293,14 @@ __metadata:
   version: 2.5.1
   resolution: "uom-units@npm:2.5.1"
   dependencies:
-    uom: ^6.0.0
-  checksum: c3b26fb42d4786c7ba0e22f398a5e5058f2c9bc4974eaf59ed9007333266873c4e171436deb53cb733ecc284b7e7334139dd6af9086857521afcee91e55c63bf
+    uom: "npm:^6.0.0"
+  checksum: 10/7d8a60d724b40a89c4c1a76ec71c9c491b8f782f7aef6ab0132299d9b3585ccb2a47a7d311d8dcfd4cefdabd913265d0a7e762d15aa87b682a86e428fd3bd6cb
   languageName: node
   linkType: hard
 
 "uom@npm:6.0.0, uom@npm:^6.0.0":
   version: 6.0.0
   resolution: "uom@npm:6.0.0"
-  checksum: 949ae7b873883f0ad00f5546c2a2e7c8955ef7dabd663aaf30ddb0631ebc8a7d961bba12424a131d18df0a65c10a280f6d20729bbde69bba0c1821dc47fb68fc
+  checksum: 10/90291104fc419128da81e41e79e0396c14af463f7f48ae68f3fad0886840ae1a4e06771b5d75158f19af124d8bfd2155d48cef8a2c5505d31f22c97c4397e4f0
   languageName: node
   linkType: hard
