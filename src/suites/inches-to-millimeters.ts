@@ -21,5 +21,5 @@ suite
 	.addTest('js-quantities', () => jsQuantities(4, 'in/mm').baseScalar)
 	.addTest('math', () => 4 * 25.4)
 	.addTest('safe-units', () => SafeUnits.Measure.of(4, SafeUnits.inches).per(SafeUnits.milli(SafeUnits.meters)).value)
-	.addTest('simple-units', () => (simpleUnits as unknown as {default: typeof simpleUnits}).default.from(4, 'inch').to('millimeters'))
+	.addTest('simple-units', () => simpleUnits.from(4, 'inch').to('millimeters'))
 	.addTest('uom', () => Uom.Unit.convert(4, UomUnits.Units.Inch, UomUnits.Units.Millimeter));

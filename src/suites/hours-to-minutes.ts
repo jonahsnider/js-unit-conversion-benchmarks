@@ -29,5 +29,5 @@ suite
 	.addTest('luxon', () => luxon.Duration.fromObject({hours: 24}).as('minutes'))
 	.addTest('moment', () => moment.duration(24, 'hours').asMinutes())
 	.addTest('safe-units', () => SafeUnits.Measure.of(24, SafeUnits.hours).per(SafeUnits.minutes).value)
-	.addTest('simple-units', () => (simpleUnits as unknown as {default: typeof simpleUnits}).default.from(24, 'hours').to('minutes'))
+	.addTest('simple-units', () => simpleUnits.from(24, 'hours').to('minutes'))
 	.addTest('uom', () => Uom.Unit.convert(24, UomUnits.Units.Hour, UomUnits.Units.Minute));
