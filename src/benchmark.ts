@@ -14,7 +14,7 @@ function sortResults<T>(results: Map<BenchmarkTitles, T>): Map<BenchmarkTitles, 
 }
 
 export async function runBenchmark() {
-	const rawResults = await benchmark.runSuites();
+	const rawResults = await benchmark.runSuites(undefined, {sequential: true});
 
 	const results = new Map<BenchmarkTitles, Map<Library, {median: number; percentile75: number}>>();
 
