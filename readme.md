@@ -6,7 +6,7 @@ Some benchmarks of community-made JavaScript/TypeScript libraries for converting
 
 <!-- beginblock(results) -->
 
-Generated automatically at Tue, 08 Oct 2024 00:15:49 GMT with Node.js v20.17.0 (V8 v11.3.244.8-node.23) on fv-az1498-702 (Linux-x64 AMD EPYC 7763 64-Core Processor)
+Generated automatically at Wed, 09 Oct 2024 00:21:08 GMT with Node.js v20.17.0 (V8 v11.3.244.8-node.23) on fv-az665-96 (Linux-x64 AMD EPYC 7763 64-Core Processor)
 
 Each test was called 10,000 times to allow the runtime to warmup.
 Afterward 100,000 trials were performed for each library.
@@ -21,48 +21,48 @@ If you want a different library to be added to the benchmark, make an issue or c
 
 | Library                                                            | Median execution time | 75th percentile execution time | Executions per second |
 | ------------------------------------------------------------------ | --------------------- | ------------------------------ | --------------------- |
-| math (baseline)                                                    | `50`ns (100%)         | `60`ns (120%)                  | `20,000,000`/sec      |
-| [simple-units](https://npmjs.com/package/simple-units) (fast)      | `111`ns (222%)        | `120`ns (240%)                 | `9,009,009`/sec       |
-| [convert](https://npmjs.com/package/convert) (fast)                | `140`ns (280%)        | `150`ns (300%)                 | `7,142,857`/sec       |
-| [uom](https://npmjs.com/package/uom) (fast)                        | `231`ns (462%)        | `251`ns (502%)                 | `4,329,004`/sec       |
-| [moment](https://npmjs.com/package/moment) (popular)               | `460`ns (920%)        | `471`ns (942%)                 | `2,173,913`/sec       |
-| [safe-units](https://npmjs.com/package/safe-units) (fast)          | `491`ns (982%)        | `501`ns (1,002%)               | `2,036,660`/sec       |
-| [dayjs](https://npmjs.com/package/dayjs) (popular)                 | `612`ns (1,224%)      | `641`ns (1,282%)               | `1,633,987`/sec       |
+| math (baseline)                                                    | `50`ns (100%)         | `50`ns (100%)                  | `20,000,000`/sec      |
+| [simple-units](https://npmjs.com/package/simple-units) (fast)      | `130`ns (260%)        | `141`ns (282%)                 | `7,692,308`/sec       |
+| [convert](https://npmjs.com/package/convert) (fast)                | `150`ns (300%)        | `151`ns (302%)                 | `6,666,667`/sec       |
+| [uom](https://npmjs.com/package/uom) (fast)                        | `251`ns (502%)        | `270`ns (540%)                 | `3,984,064`/sec       |
+| [moment](https://npmjs.com/package/moment) (popular)               | `441`ns (882%)        | `461`ns (922%)                 | `2,267,574`/sec       |
+| [safe-units](https://npmjs.com/package/safe-units) (fast)          | `501`ns (1,002%)      | `511`ns (1,022%)               | `1,996,008`/sec       |
+| [dayjs](https://npmjs.com/package/dayjs) (popular)                 | `591`ns (1,182%)      | `612`ns (1,224%)               | `1,692,047`/sec       |
 | [luxon](https://npmjs.com/package/luxon) (popular)                 | `1,132`ns (2,264%)    | `1,182`ns (2,364%)             | `883,392`/sec         |
-| [js-quantities](https://npmjs.com/package/js-quantities) (popular) | `2,175`ns (4,350%)    | `2,215`ns (4,430%)             | `459,770`/sec         |
-| [convert-units](https://npmjs.com/package/convert-units) (popular) | `41,631`ns (83,262%)  | `41,919`ns (83,838%)           | `24,021`/sec          |
+| [js-quantities](https://npmjs.com/package/js-quantities) (popular) | `2,145`ns (4,290%)    | `2,175`ns (4,350%)             | `466,200`/sec         |
+| [convert-units](https://npmjs.com/package/convert-units) (popular) | `41,535`ns (83,070%)  | `41,759`ns (83,518%)           | `24,076`/sec          |
 
 ### Convert 8192 bytes to the best applicable unit
 
 | Library                                                            | Median execution time | 75th percentile execution time | Executions per second |
 | ------------------------------------------------------------------ | --------------------- | ------------------------------ | --------------------- |
-| [convert](https://npmjs.com/package/convert) (fast)                | `742`ns (100%)        | `832`ns (112%)                 | `1,347,709`/sec       |
-| [byte-size](https://npmjs.com/package/byte-size) (popular)         | `28,959`ns (3,903%)   | `31,183`ns (4,203%)            | `34,532`/sec          |
-| [convert-units](https://npmjs.com/package/convert-units) (popular) | `90,687`ns (12,222%)  | `91,327`ns (12,308%)           | `11,027`/sec          |
+| [convert](https://npmjs.com/package/convert) (fast)                | `781`ns (100%)        | `872`ns (112%)                 | `1,280,410`/sec       |
+| [byte-size](https://npmjs.com/package/byte-size) (popular)         | `29,167`ns (3,735%)   | `31,471`ns (4,030%)            | `34,285`/sec          |
+| [convert-units](https://npmjs.com/package/convert-units) (popular) | `90,751`ns (11,620%)  | `91,391`ns (11,702%)           | `11,019`/sec          |
 
 ### Convert 4 inches to millimeters
 
 | Library                                                            | Median execution time | 75th percentile execution time | Executions per second |
 | ------------------------------------------------------------------ | --------------------- | ------------------------------ | --------------------- |
-| math (baseline)                                                    | `70`ns (100%)         | `70`ns (100%)                  | `14,285,714`/sec      |
-| [convert](https://npmjs.com/package/convert) (fast)                | `120`ns (171%)        | `121`ns (173%)                 | `8,333,333`/sec       |
-| [simple-units](https://npmjs.com/package/simple-units) (fast)      | `160`ns (229%)        | `170`ns (243%)                 | `6,250,000`/sec       |
-| [uom](https://npmjs.com/package/uom) (fast)                        | `231`ns (330%)        | `241`ns (344%)                 | `4,329,004`/sec       |
-| [safe-units](https://npmjs.com/package/safe-units) (fast)          | `501`ns (716%)        | `501`ns (716%)                 | `1,996,008`/sec       |
-| [js-quantities](https://npmjs.com/package/js-quantities) (popular) | `2,165`ns (3,093%)    | `2,185`ns (3,121%)             | `461,894`/sec         |
-| [convert-units](https://npmjs.com/package/convert-units) (popular) | `21,343`ns (30,490%)  | `21,423`ns (30,604%)           | `46,854`/sec          |
+| math (baseline)                                                    | `60`ns (100%)         | `60`ns (100%)                  | `16,666,667`/sec      |
+| [convert](https://npmjs.com/package/convert) (fast)                | `111`ns (185%)        | `121`ns (202%)                 | `9,009,009`/sec       |
+| [simple-units](https://npmjs.com/package/simple-units) (fast)      | `140`ns (233%)        | `141`ns (235%)                 | `7,142,857`/sec       |
+| [uom](https://npmjs.com/package/uom) (fast)                        | `211`ns (352%)        | `221`ns (368%)                 | `4,739,336`/sec       |
+| [safe-units](https://npmjs.com/package/safe-units) (fast)          | `471`ns (785%)        | `471`ns (785%)                 | `2,123,142`/sec       |
+| [js-quantities](https://npmjs.com/package/js-quantities) (popular) | `2,205`ns (3,675%)    | `2,225`ns (3,708%)             | `453,515`/sec         |
+| [convert-units](https://npmjs.com/package/convert-units) (popular) | `21,503`ns (35,838%)  | `21,583`ns (35,972%)           | `46,505`/sec          |
 
 ### Convert 2.5 liters to cubic inches
 
 | Library                                                            | Median execution time | 75th percentile execution time | Executions per second |
 | ------------------------------------------------------------------ | --------------------- | ------------------------------ | --------------------- |
 | math (baseline)                                                    | `50`ns (100%)         | `50`ns (100%)                  | `20,000,000`/sec      |
-| [simple-units](https://npmjs.com/package/simple-units) (fast)      | `101`ns (202%)        | `110`ns (220%)                 | `9,900,990`/sec       |
-| [convert](https://npmjs.com/package/convert) (fast)                | `140`ns (280%)        | `151`ns (302%)                 | `7,142,857`/sec       |
-| [uom](https://npmjs.com/package/uom) (fast)                        | `511`ns (1,022%)      | `532`ns (1,064%)               | `1,956,947`/sec       |
-| [safe-units](https://npmjs.com/package/safe-units) (fast)          | `1,253`ns (2,506%)    | `1,282`ns (2,564%)             | `798,085`/sec         |
-| [js-quantities](https://npmjs.com/package/js-quantities) (popular) | `3,015`ns (6,030%)    | `3,045`ns (6,090%)             | `331,675`/sec         |
-| [convert-units](https://npmjs.com/package/convert-units) (popular) | `45,695`ns (91,390%)  | `45,951`ns (91,902%)           | `21,884`/sec          |
+| [convert](https://npmjs.com/package/convert) (fast)                | `130`ns (260%)        | `140`ns (280%)                 | `7,692,308`/sec       |
+| [simple-units](https://npmjs.com/package/simple-units) (fast)      | `131`ns (262%)        | `140`ns (280%)                 | `7,633,588`/sec       |
+| [uom](https://npmjs.com/package/uom) (fast)                        | `541`ns (1,082%)      | `561`ns (1,122%)               | `1,848,429`/sec       |
+| [safe-units](https://npmjs.com/package/safe-units) (fast)          | `1,223`ns (2,446%)    | `1,243`ns (2,486%)             | `817,661`/sec         |
+| [js-quantities](https://npmjs.com/package/js-quantities) (popular) | `3,107`ns (6,214%)    | `3,137`ns (6,274%)             | `321,854`/sec         |
+| [convert-units](https://npmjs.com/package/convert-units) (popular) | `45,695`ns (91,390%)  | `45,983`ns (91,966%)           | `21,884`/sec          |
 
 ### Parse "10h" and convert it to milliseconds
 
@@ -77,6 +77,6 @@ If you want a different library to be added to the benchmark, make an issue or c
 | Library                                             | Median execution time | 75th percentile execution time | Executions per second |
 | --------------------------------------------------- | --------------------- | ------------------------------ | --------------------- |
 | math (baseline)                                     | `50`ns (100%)         | `50`ns (100%)                  | `20,000,000`/sec      |
-| [convert](https://npmjs.com/package/convert) (fast) | `100`ns (200%)        | `100`ns (200%)                 | `10,000,000`/sec      |
+| [convert](https://npmjs.com/package/convert) (fast) | `100`ns (200%)        | `110`ns (220%)                 | `10,000,000`/sec      |
 
 <!-- endblock(results) -->
