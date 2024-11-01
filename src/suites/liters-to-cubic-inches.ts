@@ -9,7 +9,6 @@ import * as Uom from 'uom';
 import * as UomUnits from 'uom-units';
 import {BenchmarkTitles, suiteRunOptions} from '../config.js';
 
-// @ts-expect-error The types are wrong for convert-units
 const convertUnits = configureMeasurements(allMeasures);
 
 const suite = new Suite(BenchmarkTitles.LitersToCubicInches, {...suiteRunOptions, filepath: import.meta.url});

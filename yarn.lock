@@ -32,7 +32,7 @@ __metadata:
     "@types/node": "npm:20.17.5"
     byte-size: "npm:9.0.0"
     convert: "npm:5.5.1"
-    convert-units: "npm:3.0.0-beta.6"
+    convert-units: "npm:3.0.0-beta.7"
     dayjs: "npm:1.11.13"
     js-quantities: "npm:1.8.0"
     luxon: "npm:3.5.0"
@@ -146,17 +146,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"convert-units@npm:3.0.0-beta.6":
-  version: 3.0.0-beta.6
-  resolution: "convert-units@npm:3.0.0-beta.6"
-  checksum: 10c0/1f1fe3bcbc9f373f72a42065c8a0533c1517a1952da08c6d578d5aac68044e5a639ff3533471f0a85379a8e57ee7a92e0c1eca633c6b37393e2b0a2d09f1fb6c
-  languageName: node
-  linkType: hard
-
-"convert-units@patch:convert-units@npm%3A3.0.0-beta.6#./.yarn/patches/convert-units-npm-3.0.0-beta.6-7f997e5771.patch::locator=%40jonahsnider%2Fjs-unit-conversion-benchmarks%40workspace%3A.":
-  version: 3.0.0-beta.6
-  resolution: "convert-units@patch:convert-units@npm%3A3.0.0-beta.6#./.yarn/patches/convert-units-npm-3.0.0-beta.6-7f997e5771.patch::version=3.0.0-beta.6&hash=cf4343&locator=%40jonahsnider%2Fjs-unit-conversion-benchmarks%40workspace%3A."
-  checksum: 10c0/8f6fb3d96be5693888a2a1761f5ef0dab26bc3d39a858325b63e552d269fbe85b173bfcfc3f326e6e6895328ab96ddd9eba9db8498cf686c67fd3fdcd9e29afd
+"convert-units@npm:3.0.0-beta.7":
+  version: 3.0.0-beta.7
+  resolution: "convert-units@npm:3.0.0-beta.7"
+  checksum: 10c0/6b8f451032ae0404152a4b8a11b413b0620abc81208d4798b3a58334542b7467baf9a784c413812c3173c81e4885f32ddc86b76c6012a656a25bcbbd8a17f9ee
   languageName: node
   linkType: hard
 
