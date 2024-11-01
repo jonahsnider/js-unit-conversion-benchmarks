@@ -84,11 +84,6 @@ jobs:
         run: yarn install --immutable
       - name: Build package
         run: yarn run build
-      - name: Upload compiled package
-        uses: actions/upload-artifact@v4
-        with:
-          name: dist
-          path: dist
   style:
     name: Check style
 
