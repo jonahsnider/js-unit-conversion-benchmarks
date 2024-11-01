@@ -5,7 +5,6 @@ import configureMeasurements from 'convert-units';
 import allMeasures from 'convert-units/definitions/all';
 import {BenchmarkTitles, suiteRunOptions} from '../config.js';
 
-// @ts-expect-error The types are wrong for convert-units
 const convertUnits = configureMeasurements(allMeasures);
 
 const suite = new Suite(BenchmarkTitles.BytesToBest, {...suiteRunOptions, filepath: import.meta.url});

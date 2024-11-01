@@ -14,7 +14,6 @@ import configureMeasurements from 'convert-units';
 import allMeasures from 'convert-units/definitions/all';
 
 dayjs.extend(duration);
-// @ts-expect-error The types are wrong for convert-units
 const convertUnits = configureMeasurements(allMeasures);
 
 const suite = new Suite(BenchmarkTitles.HoursToMinutes, {...suiteRunOptions, filepath: import.meta.url});
