@@ -74,7 +74,7 @@ for (const [suiteName, suite] of results) {
 	markdownLines.push('');
 }
 
-if (process.env.CI) {
+if (process.env['CI']) {
 	const markdown = markdownLines.join('\n');
 
 	const readMePath = path.join(baseDir, '..', 'readme.md');

@@ -10,7 +10,7 @@ async function testLibraries() {
 	for (const suite of Object.values(suites)) {
 		for (const [testName, test] of suite.tests.entries()) {
 			results[suite.name] ??= {};
-			results[suite.name][testName] = await (test as Test<Output>).run();
+			results[suite.name]![testName] = await (test as Test<Output>).run();
 		}
 	}
 

@@ -15,7 +15,7 @@ export const runtimeStats = [
 	`(V8 v${process.versions.v8})`,
 	`on ${os.hostname()}`,
 	`(${os.type()}-${process.arch}`,
-	`${os.cpus()[0].model})`,
+	`${os.cpus()[0]?.model ?? 'unknown CPU'})`,
 ].join(' ');
 
 /**

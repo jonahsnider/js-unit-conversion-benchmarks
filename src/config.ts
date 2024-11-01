@@ -56,8 +56,8 @@ export const libraryCategories: Readonly<Record<Library, LibraryCategory>> = {
 	uom: LibraryCategory.Fast,
 };
 
-if (process.env.NODE_ENV !== 'production') {
-	console.warn('[!] NODE_ENV is not production, got', process.env.NODE_ENV);
+if (process.env['NODE_ENV'] !== 'production') {
+	console.warn('[!] NODE_ENV is not production, got', process.env['NODE_ENV']);
 }
 
 export const suiteRunOptions = {
