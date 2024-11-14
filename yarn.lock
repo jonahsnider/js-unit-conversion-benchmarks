@@ -44,7 +44,7 @@ __metadata:
     tslib: "npm:2.8.1"
     typescript: "npm:5.6.3"
     uom: "npm:6.0.0"
-    uom-units: "npm:2.5.1"
+    uom-units: "npm:2.6.0"
   languageName: unknown
   linkType: soft
 
@@ -283,12 +283,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uom-units@npm:2.5.1":
-  version: 2.5.1
-  resolution: "uom-units@npm:2.5.1"
+"uom-units@npm:2.6.0":
+  version: 2.6.0
+  resolution: "uom-units@npm:2.6.0"
   dependencies:
     uom: "npm:^6.0.0"
-  checksum: 10c0/a159112d933fb966ca389236be697dcdcb2dea0d2e62641563667e60a69fddafbef48819af22f25f507151a64b4143f174dcb502856dc5364fac33cb61ff141f
+  checksum: 10c0/29effd4399aa141fdf666fcef9b4639f6c9e6c686ca38a276e9f51731fbb17e36ff390e6504d8fbabd4fc5e5637cebfc4ab32617a7e803d187df5936df806c4a
   languageName: node
   linkType: hard
 
