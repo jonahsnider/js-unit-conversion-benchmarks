@@ -54,7 +54,7 @@ __metadata:
     "@types/ms": "npm:2.1.0"
     "@types/node": "npm:22.15.17"
     byte-size: "npm:9.0.1"
-    convert: "npm:5.11.0"
+    convert: "npm:5.12.0"
     convert-units: "npm:3.0.0-beta.7"
     dayjs: "npm:1.11.13"
     js-quantities: "npm:1.8.0"
@@ -401,12 +401,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"convert@npm:5.11.0":
-  version: 5.11.0
-  resolution: "convert@npm:5.11.0"
+"convert@npm:5.12.0":
+  version: 5.12.0
+  resolution: "convert@npm:5.12.0"
   dependencies:
     wireit: "npm:0.14.12"
-  checksum: 10c0/fa607e27695b69d5be3b126f03050a7fec8191865c400bfc0326d15757468fdbd759e5de62651fb7d6a4a669bd994b74b889a6aed0c2a87b4ed7379ef57765b3
+  checksum: 10c0/14ea6e1fc716c3126548ad7b0bd1036ea29be6e6f72b1b9bc31275883b8aeab70210bdad1c01e3fb44e220ac9ba449cac49536ffc4b5347a9395d8e1e89e6b44
   languageName: node
   linkType: hard
 
