@@ -24,7 +24,7 @@ __metadata:
     "@jonahsnider/util": "npm:12.0.0"
     "@lukeed/ms": "npm:2.0.2"
     "@tsconfig/node20": "npm:20.1.6"
-    "@tsconfig/strictest": "npm:2.0.6"
+    "@tsconfig/strictest": "npm:2.0.7"
     "@types/byte-size": "npm:8.1.2"
     "@types/js-quantities": "npm:1.6.6"
     "@types/luxon": "npm:3.7.1"
@@ -86,10 +86,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tsconfig/strictest@npm:2.0.6":
-  version: 2.0.6
-  resolution: "@tsconfig/strictest@npm:2.0.6"
-  checksum: 10c0/b8a0c89a8936e65d4b4ad1420a17abe51f9576eff68cea1755f003deb2f5436600708fe0f1e0d26f56aeec0584e91753007ff9a634c67e39cf915eef1b25fc7f
+"@tsconfig/strictest@npm:2.0.7":
+  version: 2.0.7
+  resolution: "@tsconfig/strictest@npm:2.0.7"
+  checksum: 10c0/5122ced742f7271fbc423182d40ade0264c7ef5acd517eb892a4aa2ea74bc0e4fa874931c4a8f271275913b2d289ae20bcc8cd9e355b38dfacd03d475a2c19f3
   languageName: node
   linkType: hard
 
