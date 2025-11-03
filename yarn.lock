@@ -29,7 +29,7 @@ __metadata:
     "@types/js-quantities": "npm:1.6.6"
     "@types/luxon": "npm:3.7.1"
     "@types/ms": "npm:2.1.0"
-    "@types/node": "npm:24.9.2"
+    "@types/node": "npm:24.10.0"
     byte-size: "npm:9.0.1"
     convert: "npm:5.13.1"
     convert-units: "npm:3.0.0-beta.8"
@@ -121,12 +121,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:24.9.2":
-  version: 24.9.2
-  resolution: "@types/node@npm:24.9.2"
+"@types/node@npm:24.10.0":
+  version: 24.10.0
+  resolution: "@types/node@npm:24.10.0"
   dependencies:
     undici-types: "npm:~7.16.0"
-  checksum: 10c0/7905d43f65cee72ef475fe76316e10bbf6ac5d08a7f0f6c38f2b6285d7ca3009e8fcafc8f8a1d2bf3f55889c9c278dbb203a9081fd0cf2d6d62161703924c6fa
+  checksum: 10c0/f82ed7194e16f5590ef7afdc20c6d09068c76d50278b485ede8f0c5749683536e3064ffa8def8db76915196afb3724b854aa5723c64d6571b890b14492943b46
   languageName: node
   linkType: hard
 
