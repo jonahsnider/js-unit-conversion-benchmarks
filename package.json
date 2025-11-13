@@ -41,7 +41,7 @@
 	},
 	"devDependencies": {
 		"@jonahsnider/prettier-config": "1.1.2",
-		"@tsconfig/node20": "20.1.6",
+		"@tsconfig/node20": "20.1.7",
 		"@tsconfig/strictest": "2.0.7",
 		"@types/byte-size": "8.1.2",
 		"@types/js-quantities": "1.6.6",
