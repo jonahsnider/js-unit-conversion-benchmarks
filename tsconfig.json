@@ -4,6 +4,6 @@
 		"outDir": "dist"
 	},
 	"exclude": ["node_modules", "dist"],
-	"extends": ["@tsconfig/strictest", "@tsconfig/node20"],
+	"extends": ["@tsconfig/strictest", "@tsconfig/node24"],
 	"include": ["src", "types"]
 }
