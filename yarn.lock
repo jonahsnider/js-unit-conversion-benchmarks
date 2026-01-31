@@ -5,13 +5,13 @@ __metadata:
   version: 8
   cacheKey: 10c0
 
-"@jonahsnider/benchmark@npm:5.1.1":
-  version: 5.1.1
-  resolution: "@jonahsnider/benchmark@npm:5.1.1"
+"@jonahsnider/benchmark@npm:6.0.1":
+  version: 6.0.1
+  resolution: "@jonahsnider/benchmark@npm:6.0.1"
   dependencies:
-    "@jonahsnider/util": "npm:11.0.0"
-    tslib: "npm:2.6.3"
-  checksum: 10c0/2b19e98a0e4e22b222308ad8b9dd78f9b0f6c579ad70117411d141262d8fbf1165dfbb57aaffe158be73f31780350c288cd117e3d32e3e2d4824eaf6e5ae93b9
+    "@jonahsnider/util": "npm:13.0.0"
+    tslib: "npm:2.8.1"
+  checksum: 10c0/07bbc417afdddd24ccd84333b1c34d176605d0e486f813c8dd72e2423612e01a53f94c55accdae5fd17ceaff663ab9666844c74a61951c09ac46403cccbf6398
   languageName: node
   linkType: hard
 
@@ -19,7 +19,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@jonahsnider/js-unit-conversion-benchmarks@workspace:."
   dependencies:
-    "@jonahsnider/benchmark": "npm:5.1.1"
+    "@jonahsnider/benchmark": "npm:6.0.1"
     "@jonahsnider/prettier-config": "npm:1.1.2"
     "@jonahsnider/util": "npm:13.0.0"
     "@lukeed/ms": "npm:2.0.2"
@@ -55,13 +55,6 @@ __metadata:
     "@types/prettier": "npm:^2.6.3"
     prettier-config-xo: "npm:2.0.0"
   checksum: 10c0/e93b2a5a99dada10ff032221672b00abcf70443c2844c33267025df9cd13963d3cdfcc46c84984a51aa96a329f261dd31f8398a3f64498464eb3a1fe46cfaabf
-  languageName: node
-  linkType: hard
-
-"@jonahsnider/util@npm:11.0.0":
-  version: 11.0.0
-  resolution: "@jonahsnider/util@npm:11.0.0"
-  checksum: 10c0/f701a4425bde23a34899fae159411841ce19504c43e4cf14181225e231253c96ffb09a1ddb9d4f00266023b2694652c8467c8850c1a937b17aba37be74afca90
   languageName: node
   linkType: hard
 
@@ -251,13 +244,6 @@ __metadata:
   version: 1.1.2
   resolution: "sprintf-js@npm:1.1.2"
   checksum: 10c0/6cc8382f746348bd64b31bc5c99d8ebda7efff716025c41bf501e0e8be4f6744a9fa507e18513554753553d0bcb57fd5fc8dc8c42f94f8008127a52a2c544d21
-  languageName: node
-  linkType: hard
-
-"tslib@npm:2.6.3":
-  version: 2.6.3
-  resolution: "tslib@npm:2.6.3"
-  checksum: 10c0/2598aef53d9dbe711af75522464b2104724d6467b26a60f2bdac8297d2b5f1f6b86a71f61717384aa8fd897240467aaa7bcc36a0700a0faf751293d1331db39a
   languageName: node
   linkType: hard
 

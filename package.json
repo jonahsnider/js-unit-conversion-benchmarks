@@ -22,7 +22,7 @@
 		"node": ">=20"
 	},
 	"dependencies": {
-		"@jonahsnider/benchmark": "5.1.1",
+		"@jonahsnider/benchmark": "6.0.1",
 		"@jonahsnider/util": "13.0.0",
 		"@lukeed/ms": "2.0.2",
 		"byte-size": "9.0.1",
