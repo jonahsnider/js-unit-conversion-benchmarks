@@ -44,7 +44,7 @@ __metadata:
     tslib: "npm:2.8.1"
     typescript: "npm:5.9.3"
     uom: "npm:6.1.0"
-    uom-units: "npm:4.0.2"
+    uom-units: "npm:4.3.0"
   languageName: unknown
   linkType: soft
 
@@ -281,25 +281,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uom-units@npm:4.0.2":
-  version: 4.0.2
-  resolution: "uom-units@npm:4.0.2"
+"uom-units@npm:4.3.0":
+  version: 4.3.0
+  resolution: "uom-units@npm:4.3.0"
   dependencies:
-    uom: "npm:^6.0.0"
-  checksum: 10c0/a3b07732d8643e3254614fd7050a5e4c51737687cb57e430786fd2c6dc65b959c1fa0929c46c6bb5766dc4db48d7ed0cc036bb8ad4b8d7411127f2a35bc4e614
+    uom: "npm:^6.1.0"
+  checksum: 10c0/620661926c0f7f48cd5e0db723f1b14b01a42d01ee97bd3fca4944fb640b44cb9f827ae6294ab2f8a52a5cfb1697ca1b9ed8d3f73920021a8a86651a7a8634c1
   languageName: node
   linkType: hard
 
-"uom@npm:6.1.0":
+"uom@npm:6.1.0, uom@npm:^6.1.0":
   version: 6.1.0
   resolution: "uom@npm:6.1.0"
   checksum: 10c0/63e44fe429f17f7b87478f9c513bb65616c8e1f77f05dddd90fa154c07616e3ef4cfbcd30d0278529103dcbb994344847a7d4950b67c515bbbdaf76e3410adef
-  languageName: node
-  linkType: hard
-
-"uom@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "uom@npm:6.0.0"
-  checksum: 10c0/2bf640f93b6587b7990c2ff4928d2edcfd9d04afd9e4465b4a431ae97e056f609a211c73e560e845e9466eae82a71f13187f5e8ff6a498dd0ac7f75b3d4ce206
   languageName: node
   linkType: hard
