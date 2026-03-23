@@ -3,7 +3,7 @@ import byteSize from 'byte-size';
 import {convert} from 'convert';
 import configureMeasurements from 'convert-units';
 import allMeasures from 'convert-units/definitions/all';
-import {BenchmarkTitles, suiteRunOptions} from '../config.js';
+import {BenchmarkTitles, suiteRunOptions} from '../config.ts';
 
 const convertUnits = configureMeasurements(allMeasures);
 

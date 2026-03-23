@@ -1,6 +1,6 @@
 import {Suite} from '@jonahsnider/benchmark';
 import {convert} from 'convert';
-import {BenchmarkTitles, suiteRunOptions} from '../config.js';
+import {BenchmarkTitles, suiteRunOptions} from '../config.ts';
 
 const suite = new Suite(BenchmarkTitles.BigIntConversion, {...suiteRunOptions, filepath: import.meta.url});
 

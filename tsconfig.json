@@ -1,11 +1,11 @@
 {
 	"compilerOptions": {
-		"importHelpers": true,
+		"erasableSyntaxOnly": false,
+		"noEmit": true,
 		"rootDir": ".",
-		"types": ["node"],
-		"outDir": "dist"
+		"types": ["node"]
 	},
-	"exclude": ["node_modules", "dist"],
-	"extends": ["@tsconfig/strictest", "@tsconfig/node24"],
+	"exclude": ["node_modules"],
+	"extends": ["@tsconfig/strictest", "@tsconfig/node24", "@tsconfig/node-ts"],
 	"include": ["src", "types"]
 }

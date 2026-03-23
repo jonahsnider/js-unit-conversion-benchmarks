@@ -4,9 +4,9 @@ import {convert} from 'convert';
 import {readFile, writeFile} from 'fs/promises';
 import path from 'path';
 import prettier from 'prettier';
-import {runBenchmark} from './benchmark.js';
-import {suiteRunOptions} from './config.js';
-import {markdownPackageName, replaceHtmlBlock, runtimeStats} from './util.js';
+import {runBenchmark} from './benchmark.ts';
+import {suiteRunOptions} from './config.ts';
+import {markdownPackageName, replaceHtmlBlock, runtimeStats} from './util.ts';
 
 console.log('performing', suiteRunOptions.run.trials, 'trials with a warmup of', suiteRunOptions.warmup.trials, 'trials');
 

@@ -1,6 +1,6 @@
 import {Test} from '@jonahsnider/benchmark';
 import {mean, stddev} from '@jonahsnider/util';
-import * as suites from './suites/index.js';
+import * as suites from './suites/index.ts';
 
 async function testLibraries() {
 	type Output = string | number | bigint;

@@ -6,7 +6,7 @@ import jsQuantities from 'js-quantities';
 import * as luxon from 'luxon';
 import moment from 'moment';
 import * as SafeUnits from 'safe-units';
-import {BenchmarkTitles, suiteRunOptions} from '../config.js';
+import {BenchmarkTitles, suiteRunOptions} from '../config.ts';
 import simpleUnits from 'simple-units';
 import * as Uom from 'uom';
 import * as UomUnits from 'uom-units';

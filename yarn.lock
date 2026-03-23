@@ -23,7 +23,8 @@ __metadata:
     "@jonahsnider/prettier-config": "npm:1.1.2"
     "@jonahsnider/util": "npm:13.0.0"
     "@lukeed/ms": "npm:2.0.2"
-    "@tsconfig/node24": "npm:24.0.4"
+    "@tsconfig/node-ts": "npm:^23.6.4"
+    "@tsconfig/node24": "npm:^24.0.4"
     "@tsconfig/strictest": "npm:2.0.8"
     "@types/byte-size": "npm:8.1.2"
     "@types/js-quantities": "npm:1.6.6"
@@ -41,7 +42,6 @@ __metadata:
     prettier: "npm:3.8.1"
     safe-units: "npm:2.0.1"
     simple-units: "npm:1.1.5"
-    tslib: "npm:2.8.1"
     typescript: "npm:6.0.2"
     uom: "npm:6.1.0"
     uom-units: "npm:4.4.0"
@@ -72,7 +72,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tsconfig/node24@npm:24.0.4":
+"@tsconfig/node-ts@npm:^23.6.4":
+  version: 23.6.4
+  resolution: "@tsconfig/node-ts@npm:23.6.4"
+  checksum: 10c0/25827b0398263ee9f07c30ede977d2d9ad2c0de1c0e13430c33e5ad15bcb95f23e50bc3938c90e4681feaf2d6ae61deb01d33dd80b2a806609f4fcdc52316832
+  languageName: node
+  linkType: hard
+
+"@tsconfig/node24@npm:^24.0.4":
   version: 24.0.4
   resolution: "@tsconfig/node24@npm:24.0.4"
   checksum: 10c0/9c5d4173204c6935c45d3ff0584fd423bd7d8bc3f6b246e646320ae584e4226b34ea1c66ec67cd16769c73e7e80f4cc562287b0acaa4ec81aa482463972ff83f

@@ -1,7 +1,8 @@
 import {Benchmark} from '@jonahsnider/benchmark';
 import {Sort} from '@jonahsnider/util';
-import {benchmarkTitleOrder, BenchmarkTitles, Library} from './config.js';
-import * as suites from './suites/index.js';
+import {benchmarkTitleOrder, BenchmarkTitles} from './config.ts';
+import type {Library} from './config.ts';
+import * as suites from './suites/index.ts';
 
 export const benchmark = new Benchmark();
 

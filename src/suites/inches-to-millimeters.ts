@@ -7,7 +7,7 @@ import * as SafeUnits from 'safe-units';
 import simpleUnits from 'simple-units';
 import * as Uom from 'uom';
 import * as UomUnits from 'uom-units';
-import {BenchmarkTitles, suiteRunOptions} from '../config.js';
+import {BenchmarkTitles, suiteRunOptions} from '../config.ts';
 
 const convertUnits = configureMeasurements(allMeasures);
 

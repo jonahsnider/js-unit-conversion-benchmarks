@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import os from 'os';
-import {Library, libraryCategories, LibraryCategory} from './config.js';
+import {libraryCategories, LibraryCategory} from './config.ts';
+import type {Library} from './config.ts';
 
 /**
  * Node.js and system information.
