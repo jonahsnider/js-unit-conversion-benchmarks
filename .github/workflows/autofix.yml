@@ -18,8 +18,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: "lts/*"
-          cache: "yarn"
+          node-version: 'lts/*'
+          cache: 'yarn'
       - name: Install dependencies
         run: yarn install --immutable
       - name: Format with Prettier
@@ -27,4 +27,4 @@ jobs:
       - name: Run autofix.ci
         uses: autofix-ci/action@v1
         with:
-          commit-message: "refactor: apply automatic fixes"
+          commit-message: 'refactor: apply automatic fixes'

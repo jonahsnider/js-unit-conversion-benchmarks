@@ -1,8 +1,8 @@
 {
 	"compilerOptions": {
 		"importHelpers": true,
-    "rootDir": ".",
-    "types": ["node"],
+		"rootDir": ".",
+		"types": ["node"],
 		"outDir": "dist"
 	},
 	"exclude": ["node_modules", "dist"],
