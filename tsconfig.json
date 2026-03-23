@@ -1,6 +1,7 @@
 {
 	"compilerOptions": {
 		"importHelpers": true,
+    "rootDir": ".",
 		"outDir": "dist"
 	},
 	"exclude": ["node_modules", "dist"],
