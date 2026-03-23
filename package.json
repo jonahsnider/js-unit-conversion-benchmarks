@@ -10,12 +10,12 @@
 		"url": "https://jonahsnider.com"
 	},
 	"type": "module",
-	"main": "dist/index.js",
+	"main": "dist/src/index.js",
 	"scripts": {
 		"build": "tsc",
 		"start": "NODE_ENV=production node .",
 		"style": "prettier --check .",
-		"test": "node dist/test"
+		"test": "node dist/src/test"
 	},
 	"prettier": "@jonahsnider/prettier-config",
 	"engines": {
