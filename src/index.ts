@@ -6,7 +6,7 @@ import path from 'path';
 import prettier from 'prettier';
 import {runBenchmark} from './benchmark.js';
 import {suiteRunOptions} from './config.js';
-import {baseDir, markdownPackageName, replaceHtmlBlock, runtimeStats} from './util.js';
+import {markdownPackageName, replaceHtmlBlock, runtimeStats} from './util.js';
 
 console.log('performing', suiteRunOptions.run.trials, 'trials with a warmup of', suiteRunOptions.warmup.trials, 'trials');
 
@@ -77,7 +77,7 @@ for (const [suiteName, suite] of results) {
 if (process.env['CI']) {
 	const markdown = markdownLines.join('\n');
 
-	const readMePath = path.join(baseDir, '..', 'readme.md');
+	const readMePath = path.join(import.meta.dirname, '..', 'readme.md');
 	const readMe = await readFile(readMePath, 'utf-8');
 
 	const updatedReadme = await prettier.format(replaceHtmlBlock(readMe, 'results', markdown), {filepath: readMePath, ...prettierConfig});

@@ -1,10 +1,6 @@
 import assert from 'node:assert/strict';
 import os from 'os';
-import {dirname} from 'path';
-import {fileURLToPath} from 'url';
 import {Library, libraryCategories, LibraryCategory} from './config.js';
-
-export const baseDir = dirname(fileURLToPath(import.meta.url));
 
 /**
  * Node.js and system information.
