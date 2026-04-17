@@ -44,7 +44,7 @@ __metadata:
     simple-units: "npm:1.1.5"
     typescript: "npm:6.0.3"
     uom: "npm:6.1.0"
-    uom-units: "npm:4.4.0"
+    uom-units: "npm:4.5.0"
   languageName: unknown
   linkType: soft
 
@@ -288,12 +288,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uom-units@npm:4.4.0":
-  version: 4.4.0
-  resolution: "uom-units@npm:4.4.0"
+"uom-units@npm:4.5.0":
+  version: 4.5.0
+  resolution: "uom-units@npm:4.5.0"
   dependencies:
     uom: "npm:^6.1.0"
-  checksum: 10c0/4e79110b72ab3a7d78fc19c0027c7845d5f2ea0c5febd9bd8f634afbcc429e79ac89e026fbabe2f6dd564e0b947df457d63a97622ec6ade581738b32a849972f
+  checksum: 10c0/1c635972770e865e5fb2be0c90868f1caf0aa6a68869eb3f6a44dce83c27cdabb08f01249902a940109d62ebd46c270e53a4bc837018b004b34abe30df13e86e
   languageName: node
   linkType: hard
 
