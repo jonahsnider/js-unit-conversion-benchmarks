@@ -1,14 +1,16 @@
 /**
  * Human readable titles for different types of benchmarks performed on each library.
  */
-export enum BenchmarkTitles {
-	HoursToMinutes = 'Convert 24 hours to minutes',
-	BytesToBest = 'Convert 8192 bytes to the best applicable unit',
-	InchesToMillimeters = 'Convert 4 inches to millimeters',
-	LitersToCubicInches = 'Convert 2.5 liters to cubic inches',
-	ParseDurationToMilliseconds = 'Parse "10h" and convert it to milliseconds',
-	BigIntConversion = 'Convert 24 hours to minutes, but with `bigint`s',
-}
+export const BenchmarkTitles = {
+	HoursToMinutes: 'Convert 24 hours to minutes',
+	BytesToBest: 'Convert 8192 bytes to the best applicable unit',
+	InchesToMillimeters: 'Convert 4 inches to millimeters',
+	LitersToCubicInches: 'Convert 2.5 liters to cubic inches',
+	ParseDurationToMilliseconds: 'Parse "10h" and convert it to milliseconds',
+	BigIntConversion: 'Convert 24 hours to minutes, but with `bigint`s',
+} as const;
+
+export type BenchmarkTitles = (typeof BenchmarkTitles)[keyof typeof BenchmarkTitles];
 
 export const benchmarkTitleOrder: Readonly<Record<BenchmarkTitles, number>> = {
 	[BenchmarkTitles.HoursToMinutes]: 0,
@@ -19,11 +21,13 @@ export const benchmarkTitleOrder: Readonly<Record<BenchmarkTitles, number>> = {
 	[BenchmarkTitles.BigIntConversion]: 5,
 };
 
-export enum LibraryCategory {
-	Baseline = 'baseline',
-	Fast = 'fast',
-	Popular = 'popular',
-}
+export const LibraryCategory = {
+	Baseline: 'baseline',
+	Fast: 'fast',
+	Popular: 'popular',
+} as const;
+
+export type LibraryCategory = (typeof LibraryCategory)[keyof typeof LibraryCategory];
 
 export type Library =
 	| 'math'
