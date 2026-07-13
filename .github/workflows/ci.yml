@@ -2,6 +2,9 @@ name: CI
 
 on: [push, pull_request]
 
+permissions:
+  contents: read
+
 jobs:
   run-benchmarks:
     name: Run benchmarks
@@ -11,6 +14,8 @@ jobs:
     steps:
       - name: Checkout Git repository
         uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: Enable Corepack
         # Required due to a limitation in setup-node https://github.com/actions/setup-node/issues/480#issuecomment-1820622085
         run: corepack enable
@@ -25,17 +30,37 @@ jobs:
         run: yarn start
         env:
           NODE_ENV: production
-      - name: Update benchmark results in readme
+      - name: Generate GitHub App token
         if: ${{ github.ref == 'refs/heads/main' }}
+        id: app-token
+        uses: actions/create-github-app-token@v3.2.0
+        with:
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          permission-contents: write
+      - name: Configure Git user
+        if: ${{ github.ref == 'refs/heads/main' }}
+        uses: Homebrew/actions/git-user-config@main
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          username: ${{ steps.app-token.outputs.app-slug }}[bot]
+      - name: Commit benchmark results
+        if: ${{ github.ref == 'refs/heads/main' }}
+        id: commit-benchmark-results
         run: |
-          git config --global user.email "js.unit.conversion.benchmarks@jonah.pw"
-          git config --global user.name "js-unit-conversion-benchmarks"
-          git remote add github "https://$GITHUB_ACTOR@github.com/$GITHUB_REPOSITORY.git"
-          git fetch github
           git add readme.md
-          # Exit succesfully if no changes
-          git commit -m "docs: update benchmark results" || exit 0
-          git push -u github main
+          if git diff --cached --quiet; then
+            echo "created=false" >> "$GITHUB_OUTPUT"
+          else
+            git commit -m "docs: update benchmark results [skip ci]"
+            echo "created=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Push benchmark results
+        if: ${{ steps.commit-benchmark-results.outputs.created == 'true' }}
+        uses: Homebrew/actions/git-try-push@main
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          branch: main
 
   test:
     name: Run library tests
