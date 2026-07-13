@@ -13,7 +13,7 @@
 	"scripts": {
 		"start": "NODE_ENV=production node src/index.ts",
 		"style": "prettier --check .",
-		"test": "node src/test.ts",
+		"test": "node --test",
 		"build": "tsc"
 	},
 	"prettier": "@jonahsnider/prettier-config",
