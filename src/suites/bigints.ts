@@ -1,10 +1,13 @@
-import {Suite} from '@jonahsnider/benchmark';
 import {convert} from 'convert';
-import {BenchmarkTitles, suiteRunOptions} from '../config.ts';
+import {BenchmarkTitles} from '../config.ts';
+import type {BenchmarkSuite} from '../config.ts';
 
-const suite = new Suite(BenchmarkTitles.BigIntConversion, {...suiteRunOptions, filepath: import.meta.url});
+const suite = {
+	name: BenchmarkTitles.BigIntConversion,
+	tests: [
+		['math', () => 24n * 60n],
+		['convert', () => convert(24n, 'hours').to('minutes')],
+	],
+} satisfies BenchmarkSuite;
 
 export default suite;
-
-suite.addTest('math', () => 24n * 60n);
-suite.addTest('convert', () => convert(24n, 'hours').to('minutes'));

@@ -1,18 +1,16 @@
-import type {Test} from '@jonahsnider/benchmark';
 import {mean, stddev} from '@jonahsnider/util';
 import assert from 'node:assert/strict';
 import {test} from 'node:test';
 import {inspect} from 'node:util';
-import * as suites from './suites/index.ts';
+import type {BenchmarkOutput} from './config.ts';
+import {suites} from './suites/index.ts';
 
-type Output = string | number | bigint;
-
-for (const suite of Object.values(suites)) {
+for (const suite of suites) {
 	test(suite.name, async t => {
-		const outputValues: Output[] = [];
+		const outputValues: BenchmarkOutput[] = [];
 
-		for (const benchmarkTest of suite.tests.values()) {
-			outputValues.push(await (benchmarkTest as Test<Output>).run());
+		for (const [, run] of suite.tests) {
+			outputValues.push(await run());
 		}
 
 		const firstOutput = outputValues[0];

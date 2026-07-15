@@ -11,9 +11,10 @@
 	},
 	"type": "module",
 	"scripts": {
-		"start": "NODE_ENV=production node src/index.ts",
+		"benchmark": "NODE_ENV=production vitest bench --run",
+		"start": "yarn benchmark",
 		"style": "prettier --check .",
-		"test": "node --test",
+		"test": "node --test src/test.ts",
 		"build": "tsc"
 	},
 	"prettier": "@jonahsnider/prettier-config",
@@ -21,7 +22,6 @@
 		"node": ">=26"
 	},
 	"dependencies": {
-		"@jonahsnider/benchmark": "6.0.1",
 		"@jonahsnider/util": "13.0.0",
 		"@lukeed/ms": "2.0.2",
 		"byte-size": "9.0.1",
@@ -39,6 +39,7 @@
 		"uom-units": "4.5.0"
 	},
 	"devDependencies": {
+		"@codspeed/vitest-plugin": "5.7.1",
 		"@jonahsnider/prettier-config": "1.1.2",
 		"@tsconfig/node-ts": "^23.6.4",
 		"@tsconfig/node26": "^26.0.0",
@@ -48,7 +49,10 @@
 		"@types/luxon": "3.7.2",
 		"@types/ms": "2.1.0",
 		"@types/node": "26.1.1",
-		"typescript": "7.0.2"
+		"tinybench": "2.9.0",
+		"typescript": "7.0.2",
+		"vite": "7.3.6",
+		"vitest": "4.1.10"
 	},
 	"packageManager": "yarn@4.17.1"
 }

@@ -1,0 +1,39 @@
+name: CodSpeed
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  benchmarks:
+    name: Run benchmarks
+
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - name: Checkout Git repository
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Enable Corepack
+        # Required due to a limitation in setup-node https://github.com/actions/setup-node/issues/480#issuecomment-1820622085
+        run: corepack enable
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          # @codspeed/core 5.7.1 cannot load its native addon on Node.js 26.
+          node-version: 24
+          cache: yarn
+      - name: Install dependencies with Yarn
+        run: yarn install --immutable
+      - name: Run benchmarks
+        uses: CodSpeedHQ/action@v4
+        with:
+          mode: simulation
+          run: yarn benchmark
