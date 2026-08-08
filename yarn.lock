@@ -28,7 +28,7 @@ __metadata:
     "@tsconfig/strictest": "npm:2.0.8"
     "@types/byte-size": "npm:8.1.2"
     "@types/js-quantities": "npm:1.6.6"
-    "@types/luxon": "npm:3.7.3"
+    "@types/luxon": "npm:3.7.4"
     "@types/ms": "npm:2.1.0"
     "@types/node": "npm:26.1.2"
     byte-size: "npm:9.0.1"
@@ -107,10 +107,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/luxon@npm:3.7.3":
-  version: 3.7.3
-  resolution: "@types/luxon@npm:3.7.3"
-  checksum: 10c0/eae897fcadc5ff925a590c1d4dde3becf4a2520e26c066a7552905bc8a537b7b779aa081e3d403031fd8dd705810bc41b6f353bdc4c11e19e26ecc481e1d3ec3
+"@types/luxon@npm:3.7.4":
+  version: 3.7.4
+  resolution: "@types/luxon@npm:3.7.4"
+  checksum: 10c0/f3cf9c0eccb81e8f0a3cf840927f2dac82fca31edc0888a99965ecd6ba4ba995ccdff34d6dd8e13aed9f57765defee5b3e41739f81a5c939ace6764156dff79a
   languageName: node
   linkType: hard
 
