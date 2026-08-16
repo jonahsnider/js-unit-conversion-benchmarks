@@ -80,9 +80,9 @@ __metadata:
   linkType: hard
 
 "@tsconfig/node26@npm:^26.0.0":
-  version: 26.0.0
-  resolution: "@tsconfig/node26@npm:26.0.0"
-  checksum: 10c0/ac63ed4711b2b809957e45a97524bff2960a9662292caad253ec5577eb1ea35d3793a8b85ba6d308c5d6b21c117c7ab81c65cdf409ca0f6891129b73f3d10a66
+  version: 26.0.1
+  resolution: "@tsconfig/node26@npm:26.0.1"
+  checksum: 10c0/f2cfc7bde1f4649f0bde8bc9d1358e17e5f51ccbdf02d79b6d40c3a552fe482d3393bcbfca4e46825195a4eeb052cdd9b89ddc2b57673f94f8ef1aa620230b1e
   languageName: node
   linkType: hard
 
