@@ -2,7 +2,6 @@
 lockfileVersion: '9.0'
 
 importers:
-
   .:
     configDependencies: {}
     packageManagerDependencies:
@@ -11,7 +10,6 @@ importers:
         version: 12.1.0
 
 packages:
-
   '@pnpm/exe.darwin-arm64@12.1.0':
     resolution: {integrity: sha512-9K+uSnTsJe9zD/YCMPiQDiwU8IiQRp+ZEE9IyVSr0Ppzfg5/xC0pwet2R320ifDIMroT3WYLkCEolV6XxtSS/g==}
     cpu: [arm64]
@@ -62,7 +60,6 @@ packages:
     hasBin: true
 
 snapshots:
-
   '@pnpm/exe.darwin-arm64@12.1.0':
     optional: true
 
@@ -106,7 +103,6 @@ settings:
   excludeLinksFromLockfile: false
 
 importers:
-
   .:
     dependencies:
       '@jonahsnider/benchmark':
@@ -193,7 +189,6 @@ importers:
         version: 7.0.2
 
 packages:
-
   '@jonahsnider/benchmark@6.0.1':
     resolution: {integrity: sha512-wthF+hHNxG6vP4iD9ZaZ7RGJrop+ozh/Gupcff89RTTcyp4gyiR2KwVHGToVQceLIs6rNt4dd4hJz+N1SsN7Gg==}
     engines: {node: '>=22.0.0'}
@@ -561,7 +556,6 @@ packages:
     resolution: {integrity: sha512-FC5jVBAbfGN1ladjgbx2L1NFHcaMU5YVbTKV9T718vyxu6ykEUKWT74nqoNaiMNueC2FeSnUSLZQVOwF1JpV9w==}
 
 snapshots:
-
   '@jonahsnider/benchmark@6.0.1':
     dependencies:
       '@jonahsnider/util': 13.0.0
