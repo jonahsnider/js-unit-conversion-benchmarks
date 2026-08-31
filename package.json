@@ -36,7 +36,7 @@
 		"uom-units": "4.5.0"
 	},
 	"devDependencies": {
-		"@jonahsnider/prettier-config": "1.1.2",
+		"@jonahsnider/prettier-config": "2.0.1",
 		"@tsconfig/node-ts": "^23.6.4",
 		"@tsconfig/node26": "^26.0.0",
 		"@tsconfig/strictest": "2.0.8",
