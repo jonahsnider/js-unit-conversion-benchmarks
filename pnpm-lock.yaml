@@ -103,6 +103,7 @@ settings:
   excludeLinksFromLockfile: false
 
 importers:
+
   .:
     dependencies:
       '@jonahsnider/benchmark':
@@ -155,8 +156,8 @@ importers:
         version: 4.5.0
     devDependencies:
       '@jonahsnider/prettier-config':
-        specifier: 1.1.2
-        version: 1.1.2
+        specifier: 2.0.1
+        version: 2.0.1
       '@tsconfig/node-ts':
         specifier: ^23.6.4
         version: 23.6.4
@@ -189,12 +190,13 @@ importers:
         version: 7.0.2
 
 packages:
+
   '@jonahsnider/benchmark@6.0.1':
     resolution: {integrity: sha512-wthF+hHNxG6vP4iD9ZaZ7RGJrop+ozh/Gupcff89RTTcyp4gyiR2KwVHGToVQceLIs6rNt4dd4hJz+N1SsN7Gg==}
     engines: {node: '>=22.0.0'}
 
-  '@jonahsnider/prettier-config@1.1.2':
-    resolution: {integrity: sha512-h36m/4784WPsWDVBzuYKjWGdI+jybNuNq6Yh7n4fLq/BKLTmDo2IBbhJ6DelCCGDy0MRvkFsj4QvXdJWmkpICQ==}
+  '@jonahsnider/prettier-config@2.0.1':
+    resolution: {integrity: sha512-Xdj/mWE/Edxhs+TfIyiAhNxI+thaCmqtqFRz9BB6ULoSO0R9B1gAvSimJyXVjEZof6ju4wFnxaoOE9AwqaMUqw==}
 
   '@jonahsnider/util@13.0.0':
     resolution: {integrity: sha512-YqwYSSmrVvUPJfg4CeqJ1wO2guc8aHKKNEAUMwu1OR8w2MUKqZi70jyjD98WN/6Vu1JEQDBoAPpkbkpCCmuV4Q==}
@@ -228,8 +230,9 @@ packages:
   '@types/node@26.4.0':
     resolution: {integrity: sha512-faiGnoIrLH/V8cibOMEAZ8pMw6oXqSukl29ra4mN8GdaB2ZewzeaLj+INpV5N+Z1eKWzY+IzaIZH2EIR6YZRNQ==}
 
-  '@types/prettier@2.7.3':
-    resolution: {integrity: sha512-+68kP9yzs4LMp7VNh8gdzMSPZFL44MLGqiHWvttYJe+6qnuVr4Ek9wSBQoveqY/r+LwjCcU29kNVkidwim+kYA==}
+  '@types/prettier@3.0.0':
+    resolution: {integrity: sha512-mFMBfMOz8QxhYVbuINtswBp9VL2b4Y0QqYHwqLz3YbgtfAcat2Dl6Y1o4e22S/OVE6Ebl9m7wWiMT2lSbAs1wA==}
+    deprecated: This is a stub types definition. prettier provides its own type definitions, so you do not need this installed.
 
   '@typescript/typescript-aix-ppc64@7.0.2':
     resolution: {integrity: sha512-MTKKkWB7p/0E9xi1d1tHtZ5PiLkGEMIq88pK2CubZjOsLtYTLqhgIgi6zepFa+9GHZ6h05NMCkQxGKiPXMxXtQ==}
@@ -520,8 +523,8 @@ packages:
     version: 26.8.1
     hasBin: true
 
-  prettier-config-xo@2.0.0:
-    resolution: {integrity: sha512-eVy/64JWpXYEXPMAgpEcpct3TZQurmwxPipx78GqRG6gQtLT6hCYyMUgMzoVz5W3IkxLN371xGVKHNU1MY6FTA==}
+  prettier-config-xo@3.0.0:
+    resolution: {integrity: sha512-OH/DkWRnF3PSjBecODDqKsi7j5/WrMwovfPTfs3Tq5tvONxJCsWQ8qIJzX7H+kf3HL/2BQ7i9Y/e702s0ZfMTg==}
     engines: {node: '>=10.13.0'}
 
   prettier@3.9.6:
@@ -556,15 +559,16 @@ packages:
     resolution: {integrity: sha512-FC5jVBAbfGN1ladjgbx2L1NFHcaMU5YVbTKV9T718vyxu6ykEUKWT74nqoNaiMNueC2FeSnUSLZQVOwF1JpV9w==}
 
 snapshots:
+
   '@jonahsnider/benchmark@6.0.1':
     dependencies:
       '@jonahsnider/util': 13.0.0
       tslib: 2.8.1
 
-  '@jonahsnider/prettier-config@1.1.2':
+  '@jonahsnider/prettier-config@2.0.1':
     dependencies:
-      '@types/prettier': 2.7.3
-      prettier-config-xo: 2.0.0
+      '@types/prettier': 3.0.0
+      prettier-config-xo: 3.0.0
 
   '@jonahsnider/util@13.0.0': {}
 
@@ -588,7 +592,9 @@ snapshots:
     dependencies:
       undici-types: 8.3.0
 
-  '@types/prettier@2.7.3': {}
+  '@types/prettier@3.0.0':
+    dependencies:
+      prettier: 3.9.6
 
   '@typescript/typescript-aix-ppc64@7.0.2':
     optional: true
@@ -674,7 +680,7 @@ snapshots:
 
   node@runtime:26.8.1: {}
 
-  prettier-config-xo@2.0.0: {}
+  prettier-config-xo@3.0.0: {}
 
   prettier@3.9.6: {}
 
