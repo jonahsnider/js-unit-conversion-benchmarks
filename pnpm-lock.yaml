@@ -179,8 +179,8 @@ importers:
         specifier: 9.0.1
         version: 9.0.1
       convert:
-        specifier: 8.0.1
-        version: 8.0.1
+        specifier: 8.0.2
+        version: 8.0.2
       convert-units:
         specifier: 3.0.0-beta.8
         version: 3.0.0-beta.8
@@ -427,8 +427,8 @@ packages:
   convert-units@3.0.0-beta.8:
     resolution: {integrity: sha512-P6QkFbVXIb798vkX4nhjYiz5DUfHpI8EngjTHzINYfMKn5O+EM9wkIrfuxjyJbK3g/Ei8m4vJNGQLWRz71lgIQ==}
 
-  convert@8.0.1:
-    resolution: {integrity: sha512-lwoEMYZxln/NOBAxEM8RIUqNvaakcm2EBWjilaSyOD+ENh25LlwU5cZfz7rAq/Tf40Jy8FNfl+KV72Dhu7Hu/A==}
+  convert@8.0.2:
+    resolution: {integrity: sha512-Fc/9LZbtnjdrcwnV4M6TJaUnpIWIRp6sR8Qhvn0x+22pVjNhLdqRJMih4Nue3g0W7PH2zy3wdp/+iysZYYg0IQ==}
 
   dayjs@1.11.23:
     resolution: {integrity: sha512-QDTCU0M0MxR3hQfnlDJfwekQiaanm1ubOD231u73WBckQ/fsamwRLiE2GBz6D3a/xF1NgfiDLJjXBa1hYOYTtQ==}
@@ -718,7 +718,7 @@ snapshots:
 
   convert-units@3.0.0-beta.8: {}
 
-  convert@8.0.1: {}
+  convert@8.0.2: {}
 
   dayjs@1.11.23: {}
 
