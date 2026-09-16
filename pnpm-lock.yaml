@@ -240,11 +240,11 @@ importers:
         specifier: 2.1.0
         version: 2.1.0
       '@types/node':
-        specifier: 26.6.0
-        version: 26.6.0
+        specifier: 26.6.1
+        version: 26.6.1
       node:
         specifier: runtime:26.x
-        version: runtime:26.8.2
+        version: runtime:26.9.0
       typescript:
         specifier: 7.0.2
         version: 7.0.2
@@ -289,8 +289,8 @@ packages:
   '@types/ms@2.1.0':
     resolution: {integrity: sha512-GsCCIZDE/p3i96vtEqx+7dBUGXrc7zeSK3wwPHIaRThS+9OhWIXRqzs4d6k1SVU8g91DrNRWxWUGhp5KXQb2VA==}
 
-  '@types/node@26.6.0':
-    resolution: {integrity: sha512-FWWQhDlKSnEJVe+CTJCQL8Fol7s1MKo3Ud0fjryxoOoH+hwMIPxol0MguYrLi2I0VvIFwOU2DwdWET2+px15qg==}
+  '@types/node@26.6.1':
+    resolution: {integrity: sha512-VqGJBMCtdhqkBUCcBLvywI0NJ+KLuVzgNnlBUNFOQjqVxzo2lxLUNg1DSey8+u2u6ktswSAxg+s68QLzWHNOuA==}
 
   '@typescript/typescript-aix-ppc64@7.0.2':
     resolution: {integrity: sha512-MTKKkWB7p/0E9xi1d1tHtZ5PiLkGEMIq88pK2CubZjOsLtYTLqhgIgi6zepFa+9GHZ6h05NMCkQxGKiPXMxXtQ==}
@@ -449,7 +449,7 @@ packages:
   ms@2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
 
-  node@runtime:26.8.2:
+  node@runtime:26.9.0:
     resolution:
       type: variations
       variants:
@@ -457,9 +457,9 @@ packages:
             archive: tarball
             bin:
               node: bin/node
-            integrity: sha256-iXqaQYiTLhmwQqxiRUGPgHuauXFVncxCiN1XcZHVNr0=
+            integrity: sha256-CfBOC34bExUGVxGJbiFLQ1jcn0xCUEtiKwWeJgjU1z0=
             type: binary
-            url: https://nodejs.org/download/release/v26.8.2/node-v26.8.2-aix-ppc64.tar.gz
+            url: https://nodejs.org/download/release/v26.9.0/node-v26.9.0-aix-ppc64.tar.gz
           targets:
             - cpu: ppc64
               os: aix
@@ -467,9 +467,9 @@ packages:
             archive: tarball
             bin:
               node: bin/node
-            integrity: sha256-l0ttX7L8fDP/I1TbCQK06Rwt4B7IrMbeSOVDyX4YyeE=
+            integrity: sha256-bz3n7YU+4oO0vyS25CZhjx01dAHOWBXbGGbrhetLBdk=
             type: binary
-            url: https://nodejs.org/download/release/v26.8.2/node-v26.8.2-darwin-arm64.tar.gz
+            url: https://nodejs.org/download/release/v26.9.0/node-v26.9.0-darwin-arm64.tar.gz
           targets:
             - cpu: arm64
               os: darwin
@@ -477,9 +477,9 @@ packages:
             archive: tarball
             bin:
               node: bin/node
-            integrity: sha256-rbj+stSYffPXLS7Eb0/EtYA5yFm4w/DjzC08bLr4Ypw=
+            integrity: sha256-BrLnQu2QJdyErcgwJDs/cxlW6snDIbzNDt44QgmvAqg=
             type: binary
-            url: https://nodejs.org/download/release/v26.8.2/node-v26.8.2-darwin-x64.tar.gz
+            url: https://nodejs.org/download/release/v26.9.0/node-v26.9.0-darwin-x64.tar.gz
           targets:
             - cpu: x64
               os: darwin
@@ -487,9 +487,9 @@ packages:
             archive: tarball
             bin:
               node: bin/node
-            integrity: sha256-dGzb8hVltOoG93ZCuw6FRm3ou3IiQr4sXgBvJyw2HGM=
+            integrity: sha256-1Qd1kao4tI2Qv5s6wQ2o0vQNziibIClJE8WMGfFT6xI=
             type: binary
-            url: https://nodejs.org/download/release/v26.8.2/node-v26.8.2-linux-arm64.tar.gz
+            url: https://nodejs.org/download/release/v26.9.0/node-v26.9.0-linux-arm64.tar.gz
           targets:
             - cpu: arm64
               os: linux
@@ -497,9 +497,9 @@ packages:
             archive: tarball
             bin:
               node: bin/node
-            integrity: sha256-1ghXhcX4cZJ1P8coJWU7P6A/hGj4AJEcz9wnAcrN4K8=
+            integrity: sha256-ORTOE6zySIDM6zSmlnIG3i+Mqg/vk/FCoN2xTDYyjzU=
             type: binary
-            url: https://nodejs.org/download/release/v26.8.2/node-v26.8.2-linux-ppc64le.tar.gz
+            url: https://nodejs.org/download/release/v26.9.0/node-v26.9.0-linux-ppc64le.tar.gz
           targets:
             - cpu: ppc64le
               os: linux
@@ -507,9 +507,9 @@ packages:
             archive: tarball
             bin:
               node: bin/node
-            integrity: sha256-rT5/0BNAFuub2jZT1u832fNgnsbiWg0SLmwz/bsrsNc=
+            integrity: sha256-xThv+JaOrfZt15IJNVs4wB7nEsbP0yuSu8ycxNxN4P0=
             type: binary
-            url: https://nodejs.org/download/release/v26.8.2/node-v26.8.2-linux-s390x.tar.gz
+            url: https://nodejs.org/download/release/v26.9.0/node-v26.9.0-linux-s390x.tar.gz
           targets:
             - cpu: s390x
               os: linux
@@ -517,9 +517,9 @@ packages:
             archive: tarball
             bin:
               node: bin/node
-            integrity: sha256-aIVMZpAfiL/oVFDDsuQCmW7yfvccdVFQGSL4aXAaiD8=
+            integrity: sha256-FTGQoRcLObEVfjKp/fcL1HIRY9LjYBEdEnr0tzZWoyM=
             type: binary
-            url: https://nodejs.org/download/release/v26.8.2/node-v26.8.2-linux-x64-musl.tar.gz
+            url: https://nodejs.org/download/release/v26.9.0/node-v26.9.0-linux-x64-musl.tar.gz
           targets:
             - cpu: x64
               os: linux
@@ -528,9 +528,9 @@ packages:
             archive: tarball
             bin:
               node: bin/node
-            integrity: sha256-uts/5qYbheE1LKZWTcVri3vV7NXEdMUqzCHdDN1YbzU=
+            integrity: sha256-A9kQT8TxllLnRID+0RwCPXWYFGS3KS8hpgHD+Vzn2Q0=
             type: binary
-            url: https://nodejs.org/download/release/v26.8.2/node-v26.8.2-linux-x64.tar.gz
+            url: https://nodejs.org/download/release/v26.9.0/node-v26.9.0-linux-x64.tar.gz
           targets:
             - cpu: x64
               os: linux
@@ -538,10 +538,10 @@ packages:
             archive: zip
             bin:
               node: node.exe
-            integrity: sha256-pOg2LiaPH88XNfBG4K2wiLKO60APscM/5cyU0aPUJXA=
-            prefix: node-v26.8.2-win-arm64
+            integrity: sha256-tw5FV9Gzgp5FwK/Bmsk3bMvUqGYSNTd//OkLOfxyJ7o=
+            prefix: node-v26.9.0-win-arm64
             type: binary
-            url: https://nodejs.org/download/release/v26.8.2/node-v26.8.2-win-arm64.zip
+            url: https://nodejs.org/download/release/v26.9.0/node-v26.9.0-win-arm64.zip
           targets:
             - cpu: arm64
               os: win32
@@ -549,10 +549,10 @@ packages:
             archive: zip
             bin:
               node: node.exe
-            integrity: sha256-zwL10MBseUuE8ncXfVzzdD0JJMpJ9mQc1DXdfLbukIU=
-            prefix: node-v26.8.2-win-x64
+            integrity: sha256-yK+HC1s+l4mmy9swJw58IS4S12p6+n/H8htrIcwipxs=
+            prefix: node-v26.9.0-win-x64
             type: binary
-            url: https://nodejs.org/download/release/v26.8.2/node-v26.8.2-win-x64.zip
+            url: https://nodejs.org/download/release/v26.9.0/node-v26.9.0-win-x64.zip
           targets:
             - cpu: x64
               os: win32
@@ -560,25 +560,14 @@ packages:
             archive: tarball
             bin:
               node: bin/node
-            integrity: sha256-ElQ3oLWdaVkrj0u4E6RyRTN6+sjJc9Fat3IPDsVdGC0=
+            integrity: sha256-Zp3WfsN09zFdusnhGWQdDk83FRngDEtpLx+B56BLdHw=
             type: binary
-            url: https://unofficial-builds.nodejs.org/download/release/v26.8.2/node-v26.8.2-linux-arm64-musl.tar.gz
-          targets:
-            - cpu: arm64
-              os: linux
-              libc: musl
-        - resolution:
-            archive: tarball
-            bin:
-              node: bin/node
-            integrity: sha256-aW6wGAJIoGyYk/Pwe8xOJoCJHIMRjHOq8d4zDv0FORA=
-            type: binary
-            url: https://unofficial-builds.nodejs.org/download/release/v26.8.2/node-v26.8.2-linux-x64-musl.tar.gz
+            url: https://unofficial-builds.nodejs.org/download/release/v26.9.0/node-v26.9.0-linux-x64-musl.tar.gz
           targets:
             - cpu: x64
               os: linux
               libc: musl
-    version: 26.8.2
+    version: 26.9.0
     hasBin: true
 
   prettier-config-xo@3.0.0:
@@ -646,7 +635,7 @@ snapshots:
 
   '@types/ms@2.1.0': {}
 
-  '@types/node@26.6.0':
+  '@types/node@26.6.1':
     dependencies:
       undici-types: 8.9.0
 
@@ -732,7 +721,7 @@ snapshots:
 
   ms@2.1.3: {}
 
-  node@runtime:26.8.2: {}
+  node@runtime:26.9.0: {}
 
   prettier-config-xo@3.0.0: {}
 
