@@ -200,8 +200,8 @@ importers:
         specifier: 2.1.3
         version: 2.1.3
       prettier:
-        specifier: 3.9.7
-        version: 3.9.7
+        specifier: 3.9.8
+        version: 3.9.8
       safe-units:
         specifier: 2.0.1
         version: 2.0.1
@@ -217,7 +217,7 @@ importers:
     devDependencies:
       '@jonahsnider/prettier-config':
         specifier: 2.0.2
-        version: 2.0.2(prettier@3.9.7)
+        version: 2.0.2(prettier@3.9.8)
       '@tsconfig/node-ts':
         specifier: ^23.6.4
         version: 23.6.4
@@ -585,8 +585,8 @@ packages:
     resolution: {integrity: sha512-OH/DkWRnF3PSjBecODDqKsi7j5/WrMwovfPTfs3Tq5tvONxJCsWQ8qIJzX7H+kf3HL/2BQ7i9Y/e702s0ZfMTg==}
     engines: {node: '>=10.13.0'}
 
-  prettier@3.9.7:
-    resolution: {integrity: sha512-T3mF5P7HFzZVLDQuCUNtJj6WK1pcpLMweMNUVwGb01bLNkH9AkKxtZvmInw8K6bnn2O3d6/5RHl6zSHiBAD0Og==}
+  prettier@3.9.8:
+    resolution: {integrity: sha512-WRFq3Wn3WId7LLROfMLdH7xaFr2jR62wU8nLO6rQUOLOxNZUviyJQs1M0iIhLexSFy+L+w0ch66wtoO2jRjG0A==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -623,9 +623,9 @@ snapshots:
       '@jonahsnider/util': 13.0.0
       tslib: 2.8.1
 
-  '@jonahsnider/prettier-config@2.0.2(prettier@3.9.7)':
+  '@jonahsnider/prettier-config@2.0.2(prettier@3.9.8)':
     dependencies:
-      prettier: 3.9.7
+      prettier: 3.9.8
       prettier-config-xo: 3.0.0
 
   '@jonahsnider/util@13.0.0': {}
@@ -736,7 +736,7 @@ snapshots:
 
   prettier-config-xo@3.0.0: {}
 
-  prettier@3.9.7: {}
+  prettier@3.9.8: {}
 
   safe-units@2.0.1: {}
 
