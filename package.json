@@ -55,7 +55,7 @@
 		"runtime": {
 			"name": "node",
 			"version": "26.x",
-			"onFail": "download"
+			"onFail": "warn"
 		}
 	}
 }
