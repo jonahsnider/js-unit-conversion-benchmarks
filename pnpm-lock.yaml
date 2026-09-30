@@ -234,8 +234,8 @@ importers:
         specifier: 1.6.6
         version: 1.6.6
       '@types/luxon':
-        specifier: 3.7.5
-        version: 3.7.5
+        specifier: 3.7.6
+        version: 3.7.6
       '@types/ms':
         specifier: 2.1.0
         version: 2.1.0
@@ -280,8 +280,8 @@ packages:
   '@types/js-quantities@1.6.6':
     resolution: {integrity: sha512-k2Q8/Avj4Oz50flfTnfVGnUCkt7OYQ3U+lfQVELE/x5mdbwChZ7fM0wpUpVWzbuSL8kIYt9ZsFQ0RFNBv8T3Qw==}
 
-  '@types/luxon@3.7.5':
-    resolution: {integrity: sha512-jJ41Q4z6ZVO260MNDdHfW7+7a5iMiX8Mr6ZJHcmgrvhZha6dz5704o/lF2kKl6URjH6ivEL97w9xS/MgpJEphg==}
+  '@types/luxon@3.7.6':
+    resolution: {integrity: sha512-6KSjliQAXK8ZLgFQO4B7iE4Rpf/B3rItzCFuXezBY/XIAGxOdLd7vRNK9/StRPwiS/yJsVbB7HKpW46B8tcEuQ==}
 
   '@types/ms@2.1.0':
     resolution: {integrity: sha512-GsCCIZDE/p3i96vtEqx+7dBUGXrc7zeSK3wwPHIaRThS+9OhWIXRqzs4d6k1SVU8g91DrNRWxWUGhp5KXQb2VA==}
@@ -507,7 +507,7 @@ snapshots:
 
   '@types/js-quantities@1.6.6': {}
 
-  '@types/luxon@3.7.5': {}
+  '@types/luxon@3.7.6': {}
 
   '@types/ms@2.1.0': {}
 
