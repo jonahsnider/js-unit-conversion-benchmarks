@@ -56,8 +56,8 @@ jobs:
           token: ${{ steps.app-token.outputs.token }}
           branch: main
 
-  test:
-    name: Run library tests
+  check:
+    name: Check
 
     runs-on: ubuntu-latest
 
@@ -68,36 +68,12 @@ jobs:
         uses: pnpm/setup@v3
         with:
           cache: true
-      - name: Run tests
-        run: pnpm test
-        env:
-          NODE_ENV: production
-
-  typecheck:
-    name: Typecheck
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout Git repository
-        uses: actions/checkout@v7
-      - name: Setup pnpm
-        uses: pnpm/setup@v3
-        with:
-          cache: true
-      - name: Typecheck
-        run: pnpm run build
-  style:
-    name: Check style
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout Git repository
-        uses: actions/checkout@v7
-      - name: Setup pnpm
-        uses: pnpm/setup@v3
-        with:
-          cache: true
-      - name: Check style with Prettier
-        run: pnpm run style
+      - parallel:
+          - name: Run tests
+            run: pnpm test
+            env:
+              NODE_ENV: production
+          - name: Typecheck
+            run: pnpm run build
+          - name: Check style with Prettier
+            run: pnpm run style
