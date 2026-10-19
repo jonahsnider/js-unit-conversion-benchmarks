@@ -1,4 +1,5 @@
 import {Suite} from '@jonahsnider/benchmark';
+import {ValidatedTest} from '../validation.ts';
 import {convert} from 'convert';
 import configureMeasurements from 'convert-units';
 import allMeasures from 'convert-units/definitions/all';
@@ -16,10 +17,10 @@ const suite = new Suite(BenchmarkTitles.InchesToMillimeters, {...suiteRunOptions
 export default suite;
 
 suite
-	.addTest('convert-units', () => convertUnits(4).from('in').to('mm'))
-	.addTest('convert', () => convert(4, 'in').to('mm'))
-	.addTest('js-quantities', () => jsQuantities(4, 'in/mm').baseScalar)
-	.addTest('math', () => 4 * 25.4)
-	.addTest('safe-units', () => SafeUnits.Measure.of(4, SafeUnits.inches).per(SafeUnits.milli(SafeUnits.meters)).value)
-	.addTest('simple-units', () => simpleUnits.from(4, 'inch').to('millimeters'))
-	.addTest('uom', () => Uom.Unit.convert(4, UomUnits.Units.Inch, UomUnits.Units.Millimeter));
+	.addTest('convert-units', new ValidatedTest(() => convertUnits(4).from('in').to('mm'), 101.6))
+	.addTest('convert', new ValidatedTest(() => convert(4, 'in').to('mm'), 101.6))
+	.addTest('js-quantities', new ValidatedTest(() => jsQuantities(4, 'in/mm').baseScalar, 101.6))
+	.addTest('math', new ValidatedTest(() => 4 * 25.4, 101.6))
+	.addTest('safe-units', new ValidatedTest(() => SafeUnits.Measure.of(4, SafeUnits.inches).per(SafeUnits.milli(SafeUnits.meters)).value, 101.6))
+	.addTest('simple-units', new ValidatedTest(() => simpleUnits.from(4, 'inch').to('millimeters'), 101.6))
+	.addTest('uom', new ValidatedTest(() => Uom.Unit.convert(4, UomUnits.Units.Inch, UomUnits.Units.Millimeter), 101.6));

@@ -1,4 +1,5 @@
 import {Suite} from '@jonahsnider/benchmark';
+import {ValidatedTest} from '../validation.ts';
 import {convert} from 'convert';
 import configureMeasurements from 'convert-units';
 import allMeasures from 'convert-units/definitions/all';
@@ -16,10 +17,10 @@ const suite = new Suite(BenchmarkTitles.LitersToCubicInches, {...suiteRunOptions
 export default suite;
 
 suite
-	.addTest('math', () => 2.5 * 61.0237440947323)
-	.addTest('convert', () => convert(2.5, 'l').to('in3'))
-	.addTest('convert-units', () => convertUnits(2.5).from('l').to('in3'))
-	.addTest('js-quantities', () => jsQuantities(2.5, 'l/in3').baseScalar)
-	.addTest('safe-units', () => SafeUnits.Measure.of(2.5, SafeUnits.liters).per(SafeUnits.inches.cubed()).value)
-	.addTest('simple-units', () => simpleUnits.from(2.5, 'l').to('in3'))
-	.addTest('uom', () => Uom.Unit.convert(2.5, UomUnits.Units.Liter, UomUnits.Units.CubicInch));
+	.addTest('math', new ValidatedTest(() => 2.5 * 61.0237440947323, 152.5593602368307))
+	.addTest('convert', new ValidatedTest(() => convert(2.5, 'l').to('in3'), 152.5593602368307))
+	.addTest('convert-units', new ValidatedTest(() => convertUnits(2.5).from('l').to('in3'), 152.5593602368307))
+	.addTest('js-quantities', new ValidatedTest(() => jsQuantities(2.5, 'l/in3').baseScalar, 152.5593602368307))
+	.addTest('safe-units', new ValidatedTest(() => SafeUnits.Measure.of(2.5, SafeUnits.liters).per(SafeUnits.inches.cubed()).value, 152.5593602368307))
+	.addTest('simple-units', new ValidatedTest(() => simpleUnits.from(2.5, 'l').to('in3'), 152.5593602368307))
+	.addTest('uom', new ValidatedTest(() => Uom.Unit.convert(2.5, UomUnits.Units.Liter, UomUnits.Units.CubicInch), 152.5593602368307));
