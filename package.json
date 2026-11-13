@@ -39,7 +39,7 @@
 		"@jonahsnider/prettier-config": "2.0.2",
 		"@tsconfig/node-ts": "^23.6.4",
 		"@tsconfig/node26": "^26.0.0",
-		"@tsconfig/strictest": "2.0.8",
+		"@tsconfig/strictest": "2.0.9",
 		"@types/byte-size": "8.1.2",
 		"@types/js-quantities": "1.6.6",
 		"@types/luxon": "3.7.6",
